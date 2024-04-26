@@ -38,13 +38,18 @@ public class GameManager : MonoBehaviour
 
     public int[] Scores => scores;
 
+    [SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
+    private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
+
     public void AddScore(int plNum)
     {
         scores[plNum]++;
+        gameSystems[plNum].Score = scores[plNum];
     }
 
     public void SubScore(int plNum)
     {
         scores[plNum]--;
+        gameSystems[plNum].Score = scores[plNum];
     }
 }
