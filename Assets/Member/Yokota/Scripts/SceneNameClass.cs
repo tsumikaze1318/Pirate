@@ -11,7 +11,7 @@ public class SceneNameClass
         Result
     }
 
-    public Dictionary<SceneName, string> SceneNameToString
+    public static Dictionary<SceneName, string> SceneNameToString
         = new Dictionary<SceneName, string>
         {
             {SceneName.Title, "Title"},
