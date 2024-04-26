@@ -34,5 +34,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SceneFadeManager fadeManager;
 
-    private int[] scores = {0, 0, 0, 0};
+    private int[] scores = { 0, 0, 0, 0 };
+
+    public int[] Scores => scores;
+
+    public void AddScore(int plNum)
+    {
+        scores[plNum]++;
+    }
+
+    public void SubScore(int plNum)
+    {
+        scores[plNum]--;
+    }
 }
