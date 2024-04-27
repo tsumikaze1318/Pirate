@@ -7,4 +7,11 @@ public class CommonParam
         Player3,
         Player4
     }
+
+    public enum UnitState
+    {
+        Normal,
+        Stun,
+        Immovable
+    }
 }
