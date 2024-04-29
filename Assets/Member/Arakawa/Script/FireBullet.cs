@@ -1,6 +1,7 @@
-
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class FireBullet : MonoBehaviour
 {
@@ -16,26 +17,27 @@ public class FireBullet : MonoBehaviour
     //’e‚Ì‘¬‚³
     private float speed = 30f;
 
-    private float _repeatSpan;
-    private float _timeElapsed;
+    //private float _repeatSpan;
+    //private float _timeElapsed;
+    public int maxInstance = 1;
+    private int currentInstance = 0;
 
-    private void Start()
+    void Start()
     {
-        _repeatSpan = 3;
-        _timeElapsed = 0;
+        //_repeatSpan = 3;
+        //_timeElapsed = 0;
     }
 
-
-    // Update is called once per frame
     private void Update()
     {
+        //_timeElapsed += Time.deltaTime;
 
-        _timeElapsed += Time.deltaTime;
-
-        if(_timeElapsed >= _repeatSpan)
+        if(currentInstance < maxInstance)
         {
-            //’e‚ð”­ŽË‚·‚éêŠ
             Vector3 bulletPosition = firingPoint.transform.position;
+            currentInstance++;
+            //’e‚ð”­ŽË‚·‚éêŠ
+            //Vector3 bulletPosition = firingPoint.transform.position;
             //ã‚ÅŽæ“¾‚µ‚½êŠ‚É"bullet"‚Ìprefab‚ðoŒ»‚³‚¹‚éABullet‚ÌŒü‚«
             GameObject newBullet = Instantiate(bullet, bulletPosition, this.gameObject.transform.rotation);
             //oŒ»‚³‚¹‚½’e‚Ìup(y)‚ðŽæ“¾
@@ -47,7 +49,7 @@ public class FireBullet : MonoBehaviour
             //oŒ»‚³‚¹‚½’e‚ð5•bŒã‚ÉÁ‚·
             Destroy(newBullet, 5f);
 
-            _timeElapsed = 0;
+            //_timeElapsed = 0;
         }
         
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class TimeCount : MonoBehaviour
 {
     public float Timer = 99;
     //private Text timerText;
