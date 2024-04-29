@@ -60,12 +60,6 @@ public class Player : MonoBehaviour
             UnitMove();
             UnitJump();
         }
-        //Debug.Log(_state);
-        //Debug.Log(_inputParam.Attack);
-        //Debug.Log(_inputParam.Jump);
-        //Debug.Log(_inputParam.Lift);
-        //Debug.Log(_inputParam.RightGrab);
-        //Debug.Log(_inputParam.LeftGrab);
     }
 
     //マウスカーソルをゲーム中消し、escキーを押す事でロックを解除
