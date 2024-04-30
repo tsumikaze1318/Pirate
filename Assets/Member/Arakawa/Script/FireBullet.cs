@@ -16,7 +16,7 @@ public class FireBullet : MonoBehaviour
     [SerializeField]
     //’e‚Ì‘¬‚³
     private float speed = 30f;
-
+    
     //private float _repeatSpan;
     //private float _timeElapsed;
     public int maxInstance = 1;
@@ -28,7 +28,8 @@ public class FireBullet : MonoBehaviour
         //_timeElapsed = 0;
     }
 
-    private void Update()
+    //private void Update()
+    void Updeate()
     {
         //_timeElapsed += Time.deltaTime;
 
@@ -53,5 +54,6 @@ public class FireBullet : MonoBehaviour
         }
         
     }
-    
+
+    //IEnumerator BallSpawn()
 }
