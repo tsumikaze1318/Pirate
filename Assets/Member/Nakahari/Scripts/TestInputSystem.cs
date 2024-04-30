@@ -33,6 +33,9 @@ public class TestInputSystem : MonoBehaviour
 
     Rigidbody _rb;
 
+    [SerializeField]
+    float _upForce;
+
     #endregion
 
     private void OnMove(InputValue value)
@@ -52,55 +55,54 @@ public class TestInputSystem : MonoBehaviour
 
     private void OnFire(InputValue value)
     {
-
+        var button = value.isPressed;
+        Debug.Log("çUåÇ");
     }
 
     private void OnJump(InputValue value)
     {
-        var button = value.Get<bool>();
+        var button = value.isPressed;
 
-        Vector3 force = new Vector3(0, 5, 0);
         if (_jump && button)
         {
-            _rb.AddForce(force);
+            _rb.AddForce(new Vector3(0, _upForce, 0));
+            _jump = false;
         }
     }
 
     private void OnLift(InputValue value)
     {
-
+        var button = value.isPressed;
+        Debug.Log("éùÇøè„Ç∞ÇÈ");
     }
 
     private void OnLeftGrab(InputValue value)
     {
-
+        var button = value.isPressed;
+        Debug.Log("âEéËÇ≈éùÇ¬");
     }
 
     private void OnRightGrab(InputValue value)
     {
+        var button = value.isPressed;
+        Debug.Log("ç∂éËÇ≈éùÇ¬");
+    }
 
+    private void OnCursorNone(InputValue value)
+    {
+        var button = value.isPressed;
+        if (button)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     private void OnCursorLook(InputValue value)
     {
-        var button = value.Get<bool>();
-        if (button == false)
-        {
-            cursorLock = false;
-        }
-        else if (buttonÅ@== true)
-        {
-            cursorLock = true;
-
-        }
-        if (cursorLock)
+        var button = value.isPressed;
+        if (button)
         {
             Cursor.lockState = CursorLockMode.Locked;
-
-        }
-        else if (!cursorLock)
-        {
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 
@@ -117,8 +119,6 @@ public class TestInputSystem : MonoBehaviour
         _targetObject = this.gameObject;
         if(_camera == null) _camera = GetComponentInChildren<Camera>();
         if (_rb == null) _rb = GetComponent<Rigidbody>();
-
-
     }
 
     // Update is called once per frame
@@ -128,7 +128,5 @@ public class TestInputSystem : MonoBehaviour
         transform.localPosition += _move;
         _camera.transform.RotateAround(_targetObject.transform.position, new Vector3(_look.y, _look.x, 0), _lookSpeed);
         //_camera.transform.localEulerAngles += _look;
-
-        
     }
 }

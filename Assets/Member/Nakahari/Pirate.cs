@@ -98,6 +98,15 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CursorNone"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc323387-a0d3-428d-a2cc-799c90a8ee72"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -368,7 +377,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b9de3089-dcac-48b1-a9af-2384aae845c1"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -417,6 +426,17 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""RightGrab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""816f073f-a334-46f1-8dc9-353b639b0ff6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CursorNone"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1012,6 +1032,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         m_Player_LeftGrab = m_Player.FindAction("LeftGrab", throwIfNotFound: true);
         m_Player_RightGrab = m_Player.FindAction("RightGrab", throwIfNotFound: true);
         m_Player_CursorLook = m_Player.FindAction("CursorLook", throwIfNotFound: true);
+        m_Player_CursorNone = m_Player.FindAction("CursorNone", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1093,6 +1114,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LeftGrab;
     private readonly InputAction m_Player_RightGrab;
     private readonly InputAction m_Player_CursorLook;
+    private readonly InputAction m_Player_CursorNone;
     public struct PlayerActions
     {
         private @Pirate m_Wrapper;
@@ -1105,6 +1127,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         public InputAction @LeftGrab => m_Wrapper.m_Player_LeftGrab;
         public InputAction @RightGrab => m_Wrapper.m_Player_RightGrab;
         public InputAction @CursorLook => m_Wrapper.m_Player_CursorLook;
+        public InputAction @CursorNone => m_Wrapper.m_Player_CursorNone;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1138,6 +1161,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @CursorLook.started += instance.OnCursorLook;
             @CursorLook.performed += instance.OnCursorLook;
             @CursorLook.canceled += instance.OnCursorLook;
+            @CursorNone.started += instance.OnCursorNone;
+            @CursorNone.performed += instance.OnCursorNone;
+            @CursorNone.canceled += instance.OnCursorNone;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1166,6 +1192,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @CursorLook.started -= instance.OnCursorLook;
             @CursorLook.performed -= instance.OnCursorLook;
             @CursorLook.canceled -= instance.OnCursorLook;
+            @CursorNone.started -= instance.OnCursorNone;
+            @CursorNone.performed -= instance.OnCursorNone;
+            @CursorNone.canceled -= instance.OnCursorNone;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1356,6 +1385,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         void OnLeftGrab(InputAction.CallbackContext context);
         void OnRightGrab(InputAction.CallbackContext context);
         void OnCursorLook(InputAction.CallbackContext context);
+        void OnCursorNone(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

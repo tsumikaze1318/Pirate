@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CursorNone",
+                    "type": "Button",
+                    "id": "bc323387-a0d3-428d-a2cc-799c90a8ee72",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -346,7 +355,7 @@
                 {
                     "name": "",
                     "id": "b9de3089-dcac-48b1-a9af-2384aae845c1",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -395,6 +404,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "RightGrab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "816f073f-a334-46f1-8dc9-353b639b0ff6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorNone",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
