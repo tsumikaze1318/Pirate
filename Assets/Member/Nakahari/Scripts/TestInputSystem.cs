@@ -126,7 +126,7 @@ public class TestInputSystem : MonoBehaviour
     {
         // à⁄ìÆç¿ïWÇâ¡éZÇ∑ÇÈ
         transform.localPosition += _move;
-        _camera.transform.RotateAround(_targetObject.transform.position, new Vector3(_look.y, _look.x, 0), _lookSpeed);
+        //_camera.transform.RotateAround(_targetObject.transform.position, new Vector3(_look.y, _look.x, 0), _lookSpeed);
         //_camera.transform.localEulerAngles += _look;
     }
 }
