@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 
 public class FireBullet : MonoBehaviour
 {
@@ -17,26 +17,28 @@ public class FireBullet : MonoBehaviour
     //’e‚Ì‘¬‚³
     private float speed = 30f;
     
-    //private float _repeatSpan;
-    //private float _timeElapsed;
-    public int maxInstance = 1;
-    private int currentInstance = 0;
+    public float _repeatSpan;
+    private float _timeElapsed;
+    //public int maxInstance = 1;
+    //private int currentInstance = 0;
 
     void Start()
     {
-        //_repeatSpan = 3;
-        //_timeElapsed = 0;
+        _repeatSpan = 1;
+        _timeElapsed = 0;
+        //StartCoroutine("BallSpawn");
     }
 
     //private void Update()
-    void Updeate()
+    void Update()
     {
-        //_timeElapsed += Time.deltaTime;
+        _timeElapsed += Time.deltaTime;
 
-        if(currentInstance < maxInstance)
+        //if(currentInstance < maxInstance)
+        if(_timeElapsed >= _repeatSpan)
         {
             Vector3 bulletPosition = firingPoint.transform.position;
-            currentInstance++;
+            //currentInstance++;
             //’e‚ğ”­Ë‚·‚éêŠ
             //Vector3 bulletPosition = firingPoint.transform.position;
             //ã‚Åæ“¾‚µ‚½êŠ‚É"bullet"‚Ìprefab‚ğoŒ»‚³‚¹‚éABullet‚ÌŒü‚«
@@ -48,12 +50,10 @@ public class FireBullet : MonoBehaviour
             //oŒ»‚³‚¹‚½’e‚Ì‚È‚Ü‚ğ"bullet"‚É•ÏX
             newBullet.name = bullet.name;
             //oŒ»‚³‚¹‚½’e‚ğ5•bŒã‚ÉÁ‚·
-            Destroy(newBullet, 5f);
+            //Destroy(newBullet, 20f);
 
-            //_timeElapsed = 0;
+            _timeElapsed = 0;
         }
-        
-    }
 
-    //IEnumerator BallSpawn()
+    }
 }

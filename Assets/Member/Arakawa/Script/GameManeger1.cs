@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class GameManeger1 : MonoBehaviour
 {
-    public GameObject prefab;
-    private int count;
+    //[SerializeField] GameObject ball;
 
     void Start()
     {
-        count = 0;
+        //StartCoroutine("BallPrefab");
     }
 
-    void Update()
+    /*IEnumerator BallPrefab()
     {
-        if(count < 5)
+        for (int count = 0; count < 5; count++)
         {
-            GameObject ball = GameObject.Instantiate(prefab) as GameObject;
-            //ball.GetComponent<Rigidbody>().AddForce(dir * 
-
+            yield return new WaitForSeconds(0.5f);
+            Instantiate(ball, new Vector3(-5, 0, 0), Quaternion.identity);
         }
     }
+    */
 }
