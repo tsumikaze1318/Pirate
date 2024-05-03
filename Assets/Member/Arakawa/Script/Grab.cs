@@ -21,12 +21,14 @@ public class Grab : MonoBehaviour
             if(grabObj == null)
             {
                 if (Physics.Raycast(rayPoint.position, transform.right, out hit, rayDistance))
-                if (hit.collider != null && hit.collider.tag == "Ball")
                 {
-                    grabObj = hit.collider.gameObject;
-                    grabObj.GetComponent<Rigidbody>().isKinematic = true;
-                    grabObj.transform.position = grabPoint.position;
-                    grabObj.transform.SetParent(transform);
+                    if (hit.collider != null && hit.collider.tag == "Ball")
+                    {
+                        grabObj = hit.collider.gameObject;
+                        grabObj.GetComponent<Rigidbody>().isKinematic = true;
+                        grabObj.transform.position = grabPoint.position;
+                        grabObj.transform.SetParent(transform);
+                    }
                 }
             }
             else
