@@ -1,124 +1,137 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
+    #region 宣言
+
+    //[SerializeField]
+    //private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
 
     [SerializeField]
-    InputManager _inputManager;
+    public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
-    public GameObject Cam;
+    private Vector3 _move;
+    
 
-    bool cursorLock = true;
-
-    private InputManager.InputParam _inputParam;
-
-    private Animation _animation;
-
-    float Speed;
+    private Camera _camera;
+    [SerializeField]
+    private float _moveSpeed;
 
     bool _jump;
 
     Rigidbody _rb;
 
     [SerializeField]
-    public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
+    float _upForce;
 
-    HitCount _hitCount;
+    private Vector3 _prevPosition;
+    private Transform _transform;
 
-    // Start is called before the first frame update
-    void Start()
+    #endregion
+
+    private void OnMove(InputValue value)
     {
-        if (_inputManager == null)
-        {
-            _inputManager = GetComponent<InputManager>();
-        }
-        if(_rb == null)
-        {
-            _rb = GetComponent<Rigidbody>();
-        }
-        _inputParam = _inputManager.UnitInputParams[_unitType];
+        // MoveAction の入力値の取得
+        var axis = value.Get<Vector2>();
+        // 移動速度の保持
+        _move = new Vector3(axis.x, 0, axis.y) * _moveSpeed;
+    }
 
-        if(_hitCount == null)
+    private void OnFire(InputValue value)
+    {
+        var button = value.isPressed;
+        Debug.Log("攻撃");
+    }
+
+    private void OnJump(InputValue value)
+    {
+        var button = value.isPressed;
+
+        if (_jump && button)
         {
-            _hitCount = GetComponent<HitCount>();
+            _rb.AddForce(new Vector3(0, _upForce, 0));
+            _jump = false;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnLift(InputValue value)
     {
-        UpdateCursorLock();
-
-        if (_state == CommonParam.UnitState.Normal)
-        {
-            UnitMove();
-            UnitJump();
-        }
+        var button = value.isPressed;
+        Debug.Log("持ち上げる");
     }
 
-    //マウスカーソルをゲーム中消し、escキーを押す事でロックを解除
-    public void UpdateCursorLock()
+    private void OnLeftGrab(InputValue value)
     {
-        if (_inputParam.CursorLock)
-        {
-            cursorLock = false;
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            cursorLock = true;
+        var button = value.isPressed;
+        Debug.Log("右手で持つ");
+    }
 
-        }
-        if (cursorLock)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
+    private void OnRightGrab(InputValue value)
+    {
+        var button = value.isPressed;
+        Debug.Log("左手で持つ");
+    }
 
-        }
-        else if (!cursorLock)
+    private void OnCursorNone(InputValue value)
+    {
+        var button = value.isPressed;
+        if (button)
         {
             Cursor.lockState = CursorLockMode.None;
         }
     }
 
-    public void UnitMove()
+    private void OnCursorLook(InputValue value)
     {
-        Speed = 0.01f;
-
-        Vector3 camForward = Cam.transform.forward;
-        camForward.y = 0;
-        transform.position += (camForward * _inputParam.MoveZ + Cam.transform.right * _inputParam.MoveX) * Speed;
+        var button = value.isPressed;
+        if (button)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
-    public void UnitJump()
+    private void PlayerLookDirection()
     {
-        Vector3 force = new Vector3(0, 5, 0);
-        if (_jump && _inputParam.Jump)
-        {
-            _rb.AddForce(force);
-        }
+        var position = _transform.position;
+        var delta = position - _prevPosition;
+
+        _prevPosition = position;
+
+        if (delta == Vector3.zero) return;
+
+        var rotation = Quaternion.LookRotation(delta, Vector3.up);
+
+        _transform.rotation = rotation;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             _jump = true;
         }
     }
 
-    /*public void UnitAttack()
+    private void Start()
     {
-        // 攻撃アニメーション(生命冒涜)
-        if(_inputParam.Attack)
-        {
-            _hitCount._count--;
-        }
-    }*/
+        if (_rb == null) _rb = GetComponent<Rigidbody>();
+
+        _transform = transform;
+        _prevPosition = _transform.position;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        PlayerLookDirection();
+    }
+
+    private void FixedUpdate()
+    {
+        // 移動座標を加算する
+        transform.localPosition += _move;
+    }
 }
-
-

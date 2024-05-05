@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCameraSplit : MonoBehaviour
+public class CameraSplit : MonoBehaviour
 {
     [SerializeField, Range(1, 8)]
     private int m_useDisplayCount = 4;
