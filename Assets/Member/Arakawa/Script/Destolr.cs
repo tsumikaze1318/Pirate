@@ -11,7 +11,7 @@ public class Destolr : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // 0.2ïbå„Ç…è¡Ç¶ÇÈ
-            Destroy(gameObject, 0.01f);
+            Destroy(gameObject, 5f);
         }
     }
 }

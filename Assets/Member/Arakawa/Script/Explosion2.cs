@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddForce : MonoBehaviour
+public class Explosion2 : MonoBehaviour
 {
     public float radius = 10f;
     public float power = 300f;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Ball"))
         {
             // îöêSín
             Vector3 explosionPos = transform.position;
@@ -27,7 +27,7 @@ public class AddForce : MonoBehaviour
                     rb.AddExplosionForce(power, explosionPos, 8.0f);
                 }
             }
-            Destroy(gameObject, 0.01f);
+            //Destroy(gameObject, 0.01f);
         }
     }
 }

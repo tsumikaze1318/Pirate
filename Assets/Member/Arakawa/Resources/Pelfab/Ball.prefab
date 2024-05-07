@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6102827171892004274}
   - component: {fileID: 7863562873501322857}
   - component: {fileID: 6146326585184576113}
+  - component: {fileID: 1459395527696754438}
+  - component: {fileID: 4803266344610295604}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -133,3 +135,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1459395527696754438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300594047883767452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c72400f04028f143af0e78ac7107a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4803266344610295604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300594047883767452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70c0455c5fc70c4fbf240aec1cc94f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticleSystemPrefab: {fileID: 2418087923338435020, guid: e7ff3f6528a22004d96baf82731720c7, type: 3}
+  explosionForce: 100
+  explosionRadius: 100
