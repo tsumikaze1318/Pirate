@@ -16,9 +16,11 @@ public class FireBullet : MonoBehaviour
     [SerializeField]
     //’e‚Ì‘¬‚³
     private float speed = 30f;
-    
+
+
     public float _repeatSpan;
     private float _timeElapsed;
+    private int count;
     //public int maxInstance = 1;
     //private int currentInstance = 0;
 
@@ -32,6 +34,7 @@ public class FireBullet : MonoBehaviour
     //private void Update()
     void Update()
     {
+
         _timeElapsed += Time.deltaTime;
 
         //if(currentInstance < maxInstance)
@@ -53,6 +56,13 @@ public class FireBullet : MonoBehaviour
             //Destroy(newBullet, 20f);
 
             _timeElapsed = 0;
+            if (count < 5)
+            {
+                GameObject ball = GameObject.Instantiate(bullet) as GameObject;
+                ball.GetComponent<Rigidbody>();
+                count++;
+            }
+
         }
 
     }

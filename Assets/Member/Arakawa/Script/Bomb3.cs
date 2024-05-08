@@ -17,12 +17,13 @@ public class Bomb3 : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject, 5f);
+            //Invoke(nameof(Detonate), 5f)
         }
     }
 
     private void Start()
     {
-        Invoke(nameof(Detonate), 5f);
+        //Invoke(nameof(Detonate), 5f);
     }
 
     void Detonate()
