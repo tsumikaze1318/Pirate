@@ -11,13 +11,16 @@ public class Bomb3 : MonoBehaviour
     [SerializeField]
     private float explosionRadius;
 
+    private bool hasDetonated = false;
+
     void OnCollisionEnter(Collision collision)
     {
         // Õ“Ë‚µ‚½‘Šè‚ÉPlayerƒ^ƒO‚ª•t‚¢‚Ä‚¢‚é‚Æ‚«
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player") && !hasDetonated)
         {
-            Destroy(gameObject, 5f);
-            //Invoke(nameof(Detonate), 5f)
+            hasDetonated = true;
+            Invoke(nameof(Detonate), 5f);
+            Destroy(gameObject,5f);
         }
     }
 

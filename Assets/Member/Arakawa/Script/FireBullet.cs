@@ -15,7 +15,7 @@ public class FireBullet : MonoBehaviour
 
     [SerializeField]
     //弾の速さ
-    private float speed = 30f;
+    private float speed = 10f;
 
 
     public float _repeatSpan;
@@ -34,36 +34,50 @@ public class FireBullet : MonoBehaviour
     //private void Update()
     void Update()
     {
-
         _timeElapsed += Time.deltaTime;
 
-        //if(currentInstance < maxInstance)
-        if(_timeElapsed >= _repeatSpan)
+        //カウントが５未満である間、継続的に弾丸を生成する
+        while (count < 1)
         {
-            Vector3 bulletPosition = firingPoint.transform.position;
-            //currentInstance++;
-            //弾を発射する場所
-            //Vector3 bulletPosition = firingPoint.transform.position;
-            //上で取得した場所に"bullet"のprefabを出現させる、Bulletの向き
-            GameObject newBullet = Instantiate(bullet, bulletPosition, this.gameObject.transform.rotation);
-            //出現させた弾のup(y)を取得
-            Vector3 direction = newBullet.transform.up;
-            //弾の発射方向にnewBallのY方向を入れ、弾のオブジェクトのrigidobyに衝撃力を加える
-            newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
-            //出現させた弾のなまを"bullet"に変更
-            newBullet.name = bullet.name;
-            //出現させた弾を5秒後に消す
-            //Destroy(newBullet, 20f);
-
-            _timeElapsed = 0;
-            if (count < 5)
+            // Check if it's time to spawn a new bullet
+            if (_timeElapsed >= _repeatSpan)
             {
-                GameObject ball = GameObject.Instantiate(bullet) as GameObject;
-                ball.GetComponent<Rigidbody>();
+                //新しい弾を生成する時間かどうかを確認する
+                Vector3 bulletPosition = firingPoint.transform.position;
+
+                //計算された位置に弾を生成する
+                GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+
+                //弾の方向を取得する
+                Vector3 direction = newBullet.transform.up;
+
+                //指定された方向に力をたまに加える
+                newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+
+                //弾の名前を設定する
+                newBullet.name = bullet.name;
+
+                //一定時間後に弾を破棄する
+                //Destroy(newBullet, 2f);
+
+                //リセットする
+                _timeElapsed = 0;
+
+                //増やす
                 count++;
             }
-
+            else
+            {
+                break; 
+                //時間の経過が予定された時間に達していない場合、ループを抜ける
+            }
         }
 
+        //すべての弾が破壊された場合は、カウントをリセットします
+        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
+        {
+            count = 0;
+        }
     }
+
 }
