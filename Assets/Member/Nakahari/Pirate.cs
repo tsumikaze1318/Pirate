@@ -107,6 +107,15 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ab786b4-a68a-41ee-8e56-a43ffde491bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -437,6 +446,17 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CursorNone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39e4bfe5-045e-4aca-bc2b-69f30a08fa2f"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Test"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1033,6 +1053,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         m_Player_RightGrab = m_Player.FindAction("RightGrab", throwIfNotFound: true);
         m_Player_CursorLook = m_Player.FindAction("CursorLook", throwIfNotFound: true);
         m_Player_CursorNone = m_Player.FindAction("CursorNone", throwIfNotFound: true);
+        m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1115,6 +1136,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RightGrab;
     private readonly InputAction m_Player_CursorLook;
     private readonly InputAction m_Player_CursorNone;
+    private readonly InputAction m_Player_Test;
     public struct PlayerActions
     {
         private @Pirate m_Wrapper;
@@ -1128,6 +1150,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         public InputAction @RightGrab => m_Wrapper.m_Player_RightGrab;
         public InputAction @CursorLook => m_Wrapper.m_Player_CursorLook;
         public InputAction @CursorNone => m_Wrapper.m_Player_CursorNone;
+        public InputAction @Test => m_Wrapper.m_Player_Test;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1164,6 +1187,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @CursorNone.started += instance.OnCursorNone;
             @CursorNone.performed += instance.OnCursorNone;
             @CursorNone.canceled += instance.OnCursorNone;
+            @Test.started += instance.OnTest;
+            @Test.performed += instance.OnTest;
+            @Test.canceled += instance.OnTest;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1195,6 +1221,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @CursorNone.started -= instance.OnCursorNone;
             @CursorNone.performed -= instance.OnCursorNone;
             @CursorNone.canceled -= instance.OnCursorNone;
+            @Test.started -= instance.OnTest;
+            @Test.performed -= instance.OnTest;
+            @Test.canceled -= instance.OnTest;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1386,6 +1415,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         void OnRightGrab(InputAction.CallbackContext context);
         void OnCursorLook(InputAction.CallbackContext context);
         void OnCursorNone(InputAction.CallbackContext context);
+        void OnTest(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

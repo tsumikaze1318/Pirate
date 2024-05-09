@@ -34,7 +34,7 @@ public class CameraSettings : MonoBehaviour
 
     private void CameraControl()
     {
-
+        transform.RotateAround(_targetTransfrom.position, new Vector3(_look.y, -_look.x, 0f), 1);
     }
 
     private void Update()
