@@ -26,7 +26,7 @@ public class Grab : MonoBehaviour
                     {
                         grabObj = hit.collider.gameObject;
                         grabObj.GetComponent<Rigidbody>().isKinematic = true;
-                        //grabObj.transform.position = grabPoint.position;
+                        grabObj.transform.position = grabPoint.position;
                         grabObj.transform.SetParent(transform);
                     }
                 }

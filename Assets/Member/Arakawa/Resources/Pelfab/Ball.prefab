@@ -114,14 +114,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2300594047883767452}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a70c0455c5fc70c4fbf240aec1cc94f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticleSystemPrefab: {fileID: 2418087923338435020, guid: e7ff3f6528a22004d96baf82731720c7, type: 3}
-  explosionForce: 10
-  explosionRadius: 10
+  explosionForce: 100
+  explosionRadius: 100
 --- !u!54 &826802800879065391
 Rigidbody:
   m_ObjectHideFlags: 0

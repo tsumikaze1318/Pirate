@@ -80,4 +80,9 @@ public class FireBullet : MonoBehaviour
         }
     }
 
+    //public GameObject Fire()
+    //{
+        //return newBullet;
+
+    //}
 }
