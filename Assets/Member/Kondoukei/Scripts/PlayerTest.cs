@@ -1,11 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
 {
     [SerializeField]
+    //プレイヤーが移動するときの速度
     private float speed = 1.0f;
+    //獲得した宝箱の個数
     [SerializeField]
     private int point = 0;
     public int Point => point;
@@ -34,7 +36,7 @@ public class PlayerTest : MonoBehaviour
 
 
         /*
-        // �v���C���[�̈ړ�
+        // プレイヤーの移動
         if (Input.GetKey(KeyCode.W))
         {
             //transform.Translate(speed * Time.deltaTime * Vector3.forward);
