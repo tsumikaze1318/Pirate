@@ -54,6 +54,7 @@ public class SceneFadeManager : MonoBehaviour
     {
         // フェードアウトのフラグを上げる
         isFadeOut = true;
+
         // 遷移先のシーン名をEnumから文字列に変換
         afterScene = SceneNameClass.SceneNameToString[nextScene];
     }

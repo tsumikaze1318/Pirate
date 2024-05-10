@@ -16,6 +16,6 @@ public class SceneNameClass
         {
             {SceneName.Title, "Title"},
             {SceneName.Game, "Game"},
-            {SceneName.Result, "Result"}
+            {SceneName.Result, "TestResult"}
         };
 }
