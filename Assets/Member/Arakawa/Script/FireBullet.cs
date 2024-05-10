@@ -17,17 +17,24 @@ public class FireBullet : MonoBehaviour
     //弾の速さ
     private float speed = 10f;
 
+    [SerializeField]
+    private float _repeatSpan = 1;
 
-    public float _repeatSpan;
+    [SerializeField]
+    private CanonController canonController;
+
+    [SerializeField]
+    private float _FierStartTime;
+
+    //public float _repeatSpan;
     private float _timeElapsed;
-    private int count;
-    //public int maxInstance = 1;
-    //private int currentInstance = 0;
+    //private int count;
+    //private GameObject newBullet;
 
     void Start()
     {
-        _repeatSpan = 1;
-        _timeElapsed = 0;
+        //_repeatSpan = 1;
+        _timeElapsed = _FierStartTime;
         //StartCoroutine("BallSpawn");
     }
 
@@ -37,8 +44,8 @@ public class FireBullet : MonoBehaviour
         _timeElapsed += Time.deltaTime;
 
         //カウントが５未満である間、継続的に弾丸を生成する
-        while (count < 1)
-        {
+        //while (count < 1)
+        //{
             // Check if it's time to spawn a new bullet
             if (_timeElapsed >= _repeatSpan)
             {
@@ -62,27 +69,29 @@ public class FireBullet : MonoBehaviour
 
                 //リセットする
                 _timeElapsed = 0;
+                
+                canonController.CollectBullet(newBullet);
 
                 //増やす
-                count++;
+                //count++;
             }
-            else
-            {
-                break; 
+            //else
+           //{
+                //break; 
                 //時間の経過が予定された時間に達していない場合、ループを抜ける
-            }
-        }
+            //}
+       // }
 
         //すべての弾が破壊された場合は、カウントをリセットします
-        if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
-        {
-            count = 0;
-        }
+        //if (GameObject.FindGameObjectsWithTag("Ball").Length == 0)
+        //{
+           // count = 0;
+        //}
     }
 
     //public GameObject Fire()
     //{
-        //return newBullet;
 
+    //    //return newBullet;
     //}
 }

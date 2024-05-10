@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb3 : MonoBehaviour
@@ -11,16 +9,26 @@ public class Bomb3 : MonoBehaviour
     [SerializeField]
     private float explosionRadius;
 
+    private bool _isGrounded = false;
+
     private bool hasDetonated = false;
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Ground") && !hasDetonated && !_isGrounded) _isGrounded = true;
         // è’ìÀÇµÇΩëäéËÇ…PlayerÉ^ÉOÇ™ïtÇ¢ÇƒÇ¢ÇÈÇ∆Ç´
-        if (collision.gameObject.CompareTag("Player") && !hasDetonated)
+        else if (collision.gameObject.CompareTag("Player") && !hasDetonated && _isGrounded)
         {
             hasDetonated = true;
-            Invoke(nameof(Detonate), 5f);
-            Destroy(gameObject,5f);
+            Invoke(nameof(Detonate), 2f);
+            //Detonate();
+            Destroy(gameObject,2f);
+        }
+        else if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
+        {
+            hasDetonated = true;
+            Detonate();
+            Destroy(gameObject);
         }
     }
 

@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionParticleSystemPrefab: {fileID: 2418087923338435020, guid: e7ff3f6528a22004d96baf82731720c7, type: 3}
   explosionForce: 100
-  explosionRadius: 100
+  explosionRadius: 10
 --- !u!54 &826802800879065391
 Rigidbody:
   m_ObjectHideFlags: 0
