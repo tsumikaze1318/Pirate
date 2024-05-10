@@ -5,6 +5,32 @@ using UnityEngine;
 
 public class TreasureRandomInstance : MonoBehaviour
 {
+    private static object _lock = new object();
+
+    private static TreasureRandomInstance instance;
+    public static TreasureRandomInstance Instance
+    {
+        get
+        {
+            lock (_lock)
+            {
+                if (instance == null)
+                {
+                    instance
+                        = FindObjectOfType<TreasureRandomInstance>();
+                    if (instance == null)
+                    {
+                        var singletonObject = new GameObject();
+                        instance = singletonObject.AddComponent<TreasureRandomInstance>();
+                        singletonObject.name = nameof(TreasureRandomInstance) + "(singleton)";
+                    }
+                }
+
+                return instance;
+            }
+        }
+    }
+
     [SerializeField, Header("宝箱のゲームオブジェクト")]
     private GameObject TreasureBox;
 
