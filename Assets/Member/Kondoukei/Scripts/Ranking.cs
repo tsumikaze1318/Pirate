@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class Ranking : MonoBehaviour
 {
-    [SerializeField]
-    private List<PlayerTest> testList = new List<PlayerTest>();
     //プレイヤーの得点を格納するリスト
     private int[] points = { };
     [SerializeField]
@@ -16,10 +14,11 @@ public class Ranking : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        points = new int[testList.Count];
-        for (int i = 0; i < testList.Count; i++)
+        var gameManager = GameManager.Instance;
+        points = new int[gameManager.Scores.Length];
+        for (int i = 0; i < gameManager.Scores.Length; i++)
         {
-            points[i] = testList[i].Point;
+            points[i] = gameManager.Scores[i];
         }
     }
 
@@ -34,10 +33,10 @@ public class Ranking : MonoBehaviour
     {
         var list = new List<int>();
         // listの要素を更新
-        for (int i = 0; i < testList.Count; i++)
+        for (int i = 0; i < GameManager.Instance.Scores.Length; i++)
         {
             //list[i] = testList[i].Point;
-            list.Add(testList[i].Point);
+            list.Add(GameManager.Instance.Scores[i]);
         }
         // listをラムダ式でソート
         list.Sort((a, b) => b - a);

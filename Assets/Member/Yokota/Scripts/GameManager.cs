@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
+    // 近藤追記
+    public int[] Scores => scores;
 
     [SerializeField]
     private static int[] scoreRanking;
