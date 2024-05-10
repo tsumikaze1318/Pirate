@@ -8,46 +8,56 @@ public class CameraSettings : MonoBehaviour
 {
     private Camera _camera;
     private PlayerInput _playerInput;
+    private PlayerInputs _inputs;
+
+    [SerializeField]
+    [Header("Š´“x")]
+    private float _cameraMoveSpeed;
 
     [SerializeField]
     private Transform _targetTransfrom;
 
-    private Vector2 _look = Vector2.zero;
-    
-    public float _minCameraAngle = -45;
-    public float _maxCameraAngle = 75;
+    [SerializeField]
+    GameObject _player;
 
-    private void OnLook(InputValue value)
-    {
-        // LookAction ‚Ì“ü—Í’l‚ÌŽæ“¾
-        var axis = value.Get<Vector2>();
-        _look = new Vector2(axis.x, 0);
-    }
+    Vector3 _currentPos;
+    Vector3 _pastPos;
+
+    Vector3 _diff;
+
+    private Vector2 _look = Vector2.zero;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
         if(_camera == null) _camera = GetComponent<Camera>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
+        if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
+        _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
     }
 
     private void CameraControl()
     {
-        transform.RotateAround(_targetTransfrom.position, new Vector3(_look.y, -_look.x, 0f), 1);
+        transform.RotateAround(_targetTransfrom.position, new Vector3(_inputs._look.z, _inputs._look.x, 0f), _cameraMoveSpeed);
+    }
+
+    private void CameraMove()
+    {
+        _currentPos = _player.transform.position;
+
+        _diff = _currentPos - _pastPos;
+
+        transform.position = Vector3.Lerp(transform.position, transform.position + _diff, 1.0f);
+
+        _pastPos = _currentPos;
     }
 
     private void Update()
     {
+        CameraMove();
         CameraControl();
-
-
-    }        //this.transform.position = new Vector3(_targetTransfrom.position.x-4, _targetTransfrom.position.y+4, _targetTransfrom.position.z-4);
-
-    private void FixedUpdate()
-    {
-        //transform.Rotate(new Vector3(_look.y, -_look.x, 0f));
-
-        //transform.RotateAround(_targetTransfrom.position, new Vector3(_look.y, -_look.x, 0f), 0);
     }
 }

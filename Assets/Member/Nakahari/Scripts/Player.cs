@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -13,14 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
-    private Vector3 _move;
-    
+    PlayerInputs _inputs;
 
-    private Camera _camera;
     [SerializeField]
     private float _moveSpeed;
 
-    bool _jump;
+    bool _isJump;
 
     Rigidbody _rb;
 
@@ -30,64 +28,74 @@ public class Player : MonoBehaviour
     private Vector3 _prevPosition;
     private Transform _transform;
 
+    [SerializeField]
+    Camera _camera;
+
     #endregion
 
-    private void OnMove(InputValue value)
+    void Move()
     {
-        // MoveAction の入力値の取得
-        var axis = value.Get<Vector2>();
-        // 移動速度の保持
-        _move = new Vector3(axis.x, 0, axis.y) * _moveSpeed;
-    }
-
-    private void OnFire(InputValue value)
-    {
-        var button = value.isPressed;
-        Debug.Log("攻撃");
-    }
-
-    private void OnJump(InputValue value)
-    {
-        var button = value.isPressed;
-
-        if (_jump && button)
+        Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 moveForward = camForward * _inputs._move.z + _camera.transform.right * _inputs._move.x;
+        transform.position += moveForward * _moveSpeed;
+        if (moveForward != Vector3.zero)
         {
-            _rb.AddForce(new Vector3(0, _upForce, 0));
-            _jump = false;
+            transform.rotation = Quaternion.LookRotation(moveForward);
         }
     }
 
-    private void OnLift(InputValue value)
+    void Jump()
     {
-        var button = value.isPressed;
-        Debug.Log("持ち上げる");
+        if (_isJump && _inputs._jump)
+        {
+            _rb.AddForce(new Vector3(0, _upForce, 0));
+            _isJump = false;
+        }
     }
 
-    private void OnLeftGrab(InputValue value)
+    void Fire()
     {
-        var button = value.isPressed;
-        Debug.Log("右手で持つ");
+        if(_inputs._fire)
+        {
+            Debug.Log("攻撃");
+        }
     }
 
-    private void OnRightGrab(InputValue value)
+    void Lift()
     {
-        var button = value.isPressed;
-        Debug.Log("左手で持つ");
+        if (_inputs._lift)
+        {
+            Debug.Log("持ち上げる");
+        }
     }
 
-    private void OnCursorNone(InputValue value)
+    void LeftGrab()
     {
-        var button = value.isPressed;
-        if (button)
+        if (_inputs._leftGrab)
+        {
+            Debug.Log("右手で持つ");
+        }
+    }
+
+    void RightGrab()
+    {
+        if (_inputs._rightGrab)
+        {
+            Debug.Log("左手で持つ");
+        }
+    }
+    
+    void CursorNone()
+    {
+        if (_inputs._cursorNone)
         {
             Cursor.lockState = CursorLockMode.None;
         }
     }
 
-    private void OnCursorLook(InputValue value)
+    void CursorLook()
     {
-        var button = value.isPressed;
-        if (button)
+        if (_inputs._cursorLock)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -111,13 +119,14 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            _jump = true;
+            _isJump = true;
         }
     }
 
     private void Start()
     {
         if (_rb == null) _rb = GetComponent<Rigidbody>();
+        if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
 
         _transform = transform;
         _prevPosition = _transform.position;
@@ -126,12 +135,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerLookDirection();
+        Jump();
+        Lift();
+        Fire();
+        LeftGrab();
+        RightGrab();
+        CursorLook();
+        CursorNone();
+        //PlayerLookDirection();
     }
 
     private void FixedUpdate()
     {
-        // 移動座標を加算する
-        transform.localPosition += _move;
+        Move();
     }
 }
