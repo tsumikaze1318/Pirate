@@ -5,6 +5,32 @@ using UnityEngine;
 
 public class TreasureRandomInstance : MonoBehaviour
 {
+    private static object _lock = new object();
+
+    private static TreasureRandomInstance instance;
+    public static TreasureRandomInstance Instance
+    {
+        get
+        {
+            lock (_lock)
+            {
+                if (instance == null)
+                {
+                    instance
+                        = FindObjectOfType<TreasureRandomInstance>();
+                    if (instance == null)
+                    {
+                        var singletonObject = new GameObject();
+                        instance = singletonObject.AddComponent<TreasureRandomInstance>();
+                        singletonObject.name = nameof(TreasureRandomInstance) + "(singleton)";
+                    }
+                }
+
+                return instance;
+            }
+        }
+    }
+
     [SerializeField, Header("宝箱のゲームオブジェクト")]
     private GameObject TreasureBox;
 
@@ -16,6 +42,14 @@ public class TreasureRandomInstance : MonoBehaviour
 
     // オブジェクトサイズの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
+
+    private void Start()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            RandomInstance();
+        }
+    }
 
     /// <summary>
     /// 宝箱を指定された範囲内でほかのオブジェクトに干渉しないよう

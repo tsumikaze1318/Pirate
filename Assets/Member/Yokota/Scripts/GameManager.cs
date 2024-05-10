@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,7 +9,6 @@ public class GameManager : MonoBehaviour
     private static object _lock = new object();
 
     private static GameManager instance;
-
     public static GameManager Instance
     {
         get
@@ -32,16 +32,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool gameEnded = false;
+
     // シーン遷移マネージャー
     [SerializeField]
     private SceneFadeManager fadeManager;
 
+    [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
+    // 近藤追記
+    public int[] Scores => scores;
+
+    [SerializeField]
+    private static int[] scoreRanking;
+    public static int[] ScoreRanking => scoreRanking;
+
+    private static Dictionary<int, GameObject> scoreToPlayer = new Dictionary<int, GameObject>();
+    public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
+
+    [SerializeField]
+    private List<GameObject> playerObjects;
 
     // 宝箱獲得数のUI表示クラス
     [SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
     private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
+
+    private void Start()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            playerObjects.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SetGameEnded();
+        }
+
+        if (gameEnded) GameEnded();
+    }
 
     #region 外部参照関数
 
@@ -69,5 +102,33 @@ public class GameManager : MonoBehaviour
         gameSystems[plNum].Score = scores[plNum];
     }
 
+    public async void GameEnded() 
+    {
+        gameEnded = false;
+
+        scoreRanking = RankingSort();
+
+        await Task.Delay(3000);
+
+        fadeManager.FadeOut(SceneNameClass.SceneName.Result);
+    }
+
+    public void SetGameEnded() { gameEnded = true; }
+
     #endregion
+
+    private int[] RankingSort()
+    {
+        for (int i = 0; i < scores.Length; i++)
+        {
+            ScoreToPlayer.Add(scores[i], playerObjects[i]);
+        }
+
+        int[] ranking = scores;
+
+        Array.Sort(ranking);
+        Array.Reverse(ranking);
+
+        return ranking;
+    }
 }

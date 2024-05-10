@@ -1,31 +1,30 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ranking : MonoBehaviour
 {
-    [SerializeField]
-    private List<PlayerTest> testList = new List<PlayerTest>();
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¾—ç‚¹ã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
     private int[] points = { };
+    [SerializeField]
+    private List<Text> rankTexts = new List<Text>();
 
     // Start is called before the first frame update
     void Start()
     {
-        points = new int[testList.Count];
-        for (int i = 0; i < testList.Count; i++)
+        var gameManager = GameManager.Instance;
+        points = new int[gameManager.Scores.Length];
+        for (int i = 0; i < gameManager.Scores.Length; i++)
         {
-            points[i] = testList[i].Point;
+            points[i] = gameManager.Scores[i];
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //for (int i = 0; i < testList.Count; i++)
-        //{
-        //    points[i] = testList[i].Point;
-        //}
         ChangeRank();
         Debug.Log($"{points[0]},{points[1]},{points[2]}");
     }
@@ -33,17 +32,22 @@ public class Ranking : MonoBehaviour
     private void ChangeRank()
     {
         var list = new List<int>();
-        // list‚É—v‘f‚ğ’Ç‰Á
-        list.AddRange(points);
-        // list‚ğƒ‰ƒ€ƒ_®‚Åƒ\[ƒg
+        // listã®è¦ç´ ã‚’æ›´æ–°
+        for (int i = 0; i < GameManager.Instance.Scores.Length; i++)
+        {
+            //list[i] = testList[i].Point;
+            list.Add(GameManager.Instance.Scores[i]);
+        }
+        // listã‚’ãƒ©ãƒ ãƒ€å¼ã§ã‚½ãƒ¼ãƒˆ
         list.Sort((a, b) => b - a);
         for (int i = 0; i < list.Count; i++)
         {
             points[i] = list[i];
+            rankTexts[i].text = $"{i + 1} : {points[i]}";
         }
     }
 }
 
-//ƒJƒEƒ“ƒg‘Œ¸‚Å‚¨•ó‚Ì”
-//‘¼ƒvƒŒƒCƒ„[‚Ì‚¨•ó‚Ì”‚ªãˆÊ‚Ì”‚ğ‰z‚¦‚½‚ç‡ˆÊ‚ªã‚É“ü‚ê•Ï‚í‚é
-//‘¼ƒvƒŒƒCƒ„[‚Ì‚¨•ó‚Ì”‚ª‰ºˆÊ‚Ì”‚ğ‰º‰ñ‚Á‚½‚ç‡ˆÊ‚ª‰º‚É“ü‚ê•Ï‚í‚é
+//ã‚«ã‚¦ãƒ³ãƒˆå¢—æ¸›ã§ãŠå®ã®æ•°
+//ä»–ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãŠå®ã®æ•°ãŒä¸Šä½ã®æ•°ã‚’è¶ŠãˆãŸã‚‰é †ä½ãŒä¸Šã«å…¥ã‚Œå¤‰ã‚ã‚‹
+//ä»–ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãŠå®ã®æ•°ãŒä¸‹ä½ã®æ•°ã‚’ä¸‹å›ã£ãŸã‚‰é †ä½ãŒä¸‹ã«å…¥ã‚Œå¤‰ã‚ã‚‹
