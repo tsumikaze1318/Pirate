@@ -17,6 +17,14 @@ public class TreasureRandomInstance : MonoBehaviour
     // オブジェクトサイズの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
 
+    private void Start()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            RandomInstance();
+        }
+    }
+
     /// <summary>
     /// 宝箱を指定された範囲内でほかのオブジェクトに干渉しないよう
     /// ランダムに生成する関数
