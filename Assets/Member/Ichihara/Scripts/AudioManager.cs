@@ -27,7 +27,7 @@ public enum SeType
 /// BGM の音声アセットの詳細設定
 /// </summary>
 [System.Serializable]
-public struct BGMData
+public struct BgmData
 {
     [Header("BGM の種類")]
     public BgmType BGMType;
@@ -44,7 +44,7 @@ public struct BGMData
 /// SE の音声アセットの詳細設定
 /// </summary>
 [System.Serializable]
-public struct SEData
+public struct SeData
 {
     [Header("SE の種類")]
     public SeType SeType;
@@ -71,10 +71,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     #region AudioData
     // BGM データのリスト
     [SerializeField]
-    private List<BGMData> _bgmDataList = new List<BGMData>();
+    private List<BgmData> _bgmDataList = new List<BgmData>();
     // SE データのリスト
     [SerializeField]
-    private List<SEData> _seDataList = new List<SEData>();
+    private List<SeData> _seDataList = new List<SeData>();
     #endregion
 
     new private void Awake()
