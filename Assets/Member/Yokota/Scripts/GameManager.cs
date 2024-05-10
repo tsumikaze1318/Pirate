@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private static object _lock = new object();
 
     private static GameManager instance;
-
     public static GameManager Instance
     {
         get
@@ -35,10 +34,6 @@ public class GameManager : MonoBehaviour
 
     private bool gameEnded = false;
 
-    private SceneNameClass.SceneName sceneName;
-
-    private bool gameSceneLoaded = false;
-
     // シーン遷移マネージャー
     [SerializeField]
     private SceneFadeManager fadeManager;
@@ -48,11 +43,11 @@ public class GameManager : MonoBehaviour
     private int[] scores = { 0, 0, 0, 0 };
 
     [SerializeField]
-    private int[] scoreRanking;
-    public int[] ScoreRanking => scoreRanking;
+    private static int[] scoreRanking;
+    public static int[] ScoreRanking => scoreRanking;
 
-    private Dictionary<int, GameObject> scoreToPlayerNum = new Dictionary<int, GameObject>();
-    public Dictionary<int, GameObject> ScoreToPlayerNum => scoreToPlayerNum;
+    private static Dictionary<int, GameObject> scoreToPlayer = new Dictionary<int, GameObject>();
+    public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
 
     [SerializeField]
     private List<GameObject> playerObjects;
@@ -60,11 +55,6 @@ public class GameManager : MonoBehaviour
     // 宝箱獲得数のUI表示クラス
     [SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
     private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
 
     private void Start()
     {
@@ -76,11 +66,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (sceneName.Equals(SceneNameClass.SceneName.Game) && !gameSceneLoaded)
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            gameSceneLoaded = true;
-
-
+            SetGameEnded();
         }
 
         if (gameEnded) GameEnded();
@@ -112,20 +100,15 @@ public class GameManager : MonoBehaviour
         gameSystems[plNum].Score = scores[plNum];
     }
 
-    public void GameEnded() 
+    public async void GameEnded() 
     {
         gameEnded = false;
 
         scoreRanking = RankingSort();
 
-        Task.Delay(1000);
+        await Task.Delay(3000);
 
         fadeManager.FadeOut(SceneNameClass.SceneName.Result);
-    }
-
-    public void NowSceneChanged(SceneNameClass.SceneName scene)
-    {
-        sceneName = scene;
     }
 
     public void SetGameEnded() { gameEnded = true; }
@@ -136,7 +119,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < scores.Length; i++)
         {
-            scoreToPlayerNum.Add(scores[i], playerObjects[i]);
+            ScoreToPlayer.Add(scores[i], playerObjects[i]);
         }
 
         int[] ranking = scores;
