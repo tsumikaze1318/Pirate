@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     {
         if (_isJump && _inputs._jump)
         {
-            _rb.AddForce(new Vector3(0, _upForce, 0));
+            _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
             _isJump = false;
         }
     }

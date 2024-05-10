@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _state: 0
   _moveSpeed: 0.1
-  _upForce: 1000
+  _upForce: 5
   _camera: {fileID: 5399278142194359788}
 --- !u!1 &5702943347661421314
 GameObject:
@@ -350,7 +350,6 @@ GameObject:
   - component: {fileID: 78952544857693879}
   - component: {fileID: 2833693149232997569}
   - component: {fileID: 1788059084724923720}
-  - component: {fileID: 3132604377858432279}
   m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -423,27 +422,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3132604377858432279
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5941481192135636835}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8876873140674082129
 GameObject:
   m_ObjectHideFlags: 0
