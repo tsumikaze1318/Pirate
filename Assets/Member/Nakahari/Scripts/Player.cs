@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
     PlayerInputs _inputs;
+
+    PlayerInput _playerInput;
 
     [SerializeField]
     private float _moveSpeed;
@@ -121,12 +124,19 @@ public class Player : MonoBehaviour
         {
             _isJump = true;
         }
+        if (collision.gameObject.CompareTag("Treasure"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.Instance.AddScore(_playerInput.user.index);
+            TreasureRandomInstance.Instance.RandomInstance();
+        }
     }
 
     private void Start()
     {
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
+        if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
 
         _transform = transform;
         _prevPosition = _transform.position;
