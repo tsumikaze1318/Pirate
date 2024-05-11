@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6972777660698301067}
   - component: {fileID: 1777133931196546883}
   - component: {fileID: 5550405089823814884}
+  - component: {fileID: 6393447242927912587}
   m_Layer: 0
   m_Name: InputSystemPlayer
   m_TagString: Untagged
@@ -234,6 +235,19 @@ MonoBehaviour:
   _moveSpeed: 0.1
   _upForce: 5
   _camera: {fileID: 5399278142194359788}
+--- !u!114 &6393447242927912587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5040849074350606282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14819138116736c44b57403e1a833a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _count: 3
 --- !u!1 &5702943347661421314
 GameObject:
   m_ObjectHideFlags: 0

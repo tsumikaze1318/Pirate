@@ -199,6 +199,8 @@ GameObject:
   - component: {fileID: 3775900452128998458}
   - component: {fileID: 5070633738778085287}
   - component: {fileID: 2348204980632501441}
+  - component: {fileID: 3031073849945643649}
+  - component: {fileID: 2871223337169379336}
   m_Layer: 0
   m_Name: InputSystemPlayer
   m_TagString: Untagged
@@ -339,6 +341,32 @@ MonoBehaviour:
   _moveSpeed: 0.1
   _upForce: 5
   _camera: {fileID: 8659968960683351870}
+--- !u!114 &3031073849945643649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140643516479735962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14819138116736c44b57403e1a833a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _count: 3
+--- !u!114 &2871223337169379336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7140643516479735962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14819138116736c44b57403e1a833a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _count: 3
 --- !u!1 &7186694769844022556
 GameObject:
   m_ObjectHideFlags: 0

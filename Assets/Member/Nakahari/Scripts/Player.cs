@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     Camera _camera;
 
+    //GameObject _sword;
+
     #endregion
 
     void Move()
@@ -60,14 +62,23 @@ public class Player : MonoBehaviour
     {
         if(_inputs._fire)
         {
+            // Animationの再生
             Debug.Log("攻撃");
         }
+    }
+
+    void SubCount(Collision other)
+    {
+        HitCount _hitCount = other.gameObject.GetComponent<HitCount>();
+
+        _hitCount._count--;
     }
 
     void Lift()
     {
         if (_inputs._lift)
         {
+            // アニメーション再生
             Debug.Log("持ち上げる");
         }
     }
@@ -76,6 +87,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._leftGrab)
         {
+            // 手のポジションを固定
+            // 触れたオブジェクトを腕のwarld座標に追従
             Debug.Log("右手で持つ");
         }
     }
@@ -84,6 +97,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._rightGrab)
         {
+            // 手のポジションを固定
+            // 触れたオブジェクトを腕のwarld座標に追従
             Debug.Log("左手で持つ");
         }
     }
@@ -104,31 +119,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PlayerLookDirection()
+    public void OnCollisionEnter(Collision other)
     {
-        var position = _transform.position;
-        var delta = position - _prevPosition;
-
-        _prevPosition = position;
-
-        if (delta == Vector3.zero) return;
-
-        var rotation = Quaternion.LookRotation(delta, Vector3.up);
-
-        _transform.rotation = rotation;
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             _isJump = true;
         }
-        if (collision.gameObject.CompareTag("Treasure"))
+        if (other.gameObject.CompareTag("Treasure"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             GameManager.Instance.AddScore(_playerInput.user.index);
             TreasureRandomInstance.Instance.RandomInstance();
+        }
+
+        // 取得したオブジェクトが相手のプレイヤーに当たったら
+        if (other.gameObject.CompareTag("Player")/* && _sword.gameObject.ComperTag("Sword") */)
+        {
+            SubCount(other);
         }
     }
 
@@ -138,6 +145,9 @@ public class Player : MonoBehaviour
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
 
+        // 子オブジェクトの剣の取得。
+        //_sword = this.transform.GetChild(0);
+
         _transform = transform;
         _prevPosition = _transform.position;
     }
@@ -145,18 +155,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Jump();
-        Lift();
-        Fire();
-        LeftGrab();
-        RightGrab();
+        if (_state == CommonParam.UnitState.Normal)
+        {
+            Jump();
+            Fire();
+            Lift();
+            LeftGrab();
+            RightGrab();
+        }
         CursorLook();
         CursorNone();
-        //PlayerLookDirection();
     }
 
     private void FixedUpdate()
     {
-        Move();
+        if (_state == CommonParam.UnitState.Normal)
+        {
+            Move();
+        }
     }
 }
