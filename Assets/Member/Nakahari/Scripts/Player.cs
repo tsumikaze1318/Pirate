@@ -34,7 +34,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     Camera _camera;
 
-    //GameObject _sword;
+    private Animator _animator;
+
+    private AnimatorClipInfo[] _animatorClip;
+    public float _stateTime;
+
 
     #endregion
 
@@ -63,15 +67,10 @@ public class Player : MonoBehaviour
         if(_inputs._fire)
         {
             // Animationの再生
+            _animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
+            _stateTime = _animatorClip.Length;
             Debug.Log("攻撃");
         }
-    }
-
-    void SubCount(Collision other)
-    {
-        HitCount _hitCount = other.gameObject.GetComponent<HitCount>();
-
-        _hitCount._count--;
     }
 
     void Lift()
@@ -131,12 +130,6 @@ public class Player : MonoBehaviour
             GameManager.Instance.AddScore(_playerInput.user.index);
             TreasureRandomInstance.Instance.RandomInstance();
         }
-
-        // 取得したオブジェクトが相手のプレイヤーに当たったら
-        if (other.gameObject.CompareTag("Player")/* && _sword.gameObject.ComperTag("Sword") */)
-        {
-            SubCount(other);
-        }
     }
 
     private void Start()
@@ -144,9 +137,6 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
-
-        // 子オブジェクトの剣の取得。
-        //_sword = this.transform.GetChild(0);
 
         _transform = transform;
         _prevPosition = _transform.position;
