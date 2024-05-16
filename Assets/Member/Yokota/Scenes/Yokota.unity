@@ -443,13 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeManager: {fileID: 6924386}
   scores: 0a00000002000000030000000f000000
-  scoreRanking: 
   playerObjects: []
-  gameSystems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &1041904683
 Transform:
   m_ObjectHideFlags: 0

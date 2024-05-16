@@ -14,8 +14,8 @@ public class SceneNameClass
     public static Dictionary<SceneName, string> SceneNameToString
         = new Dictionary<SceneName, string>
         {
-            {SceneName.Title, "Title"},
-            {SceneName.Game, "Game"},
-            {SceneName.Result, "TestResult"}
+            {SceneName.Title, "TitleScene"},
+            {SceneName.Game, "GameScene"},
+            {SceneName.Result, "ResultScene"}
         };
 }
