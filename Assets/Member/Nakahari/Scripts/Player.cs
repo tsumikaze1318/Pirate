@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
     public float _stateTime;
 
 
+
+
     #endregion
 
     void Move()
