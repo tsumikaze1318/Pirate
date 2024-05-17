@@ -69,8 +69,8 @@ public class Player : MonoBehaviour
         if(_inputs._fire)
         {
             // Animation‚ÌÄ¶
-            _animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
-            _stateTime = _animatorClip.Length;
+            //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
+            //_stateTime = _animatorClip.Length;
             Debug.Log("UŒ‚");
         }
     }

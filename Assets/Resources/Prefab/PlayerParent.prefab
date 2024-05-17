@@ -102,8 +102,8 @@ MonoBehaviour:
   - {fileID: 3375928799555258873, guid: 0bce4d611b9045c4fbec8c9fc4dff185, type: 3}
   - {fileID: 1690717111080600581, guid: d8fd7a0ae7a8070408a3b25784dbc38f, type: 3}
   - {fileID: 6589526696265778038, guid: 4adec0d902860184e8e8127b6e8c7f53, type: 3}
-  _respawnPos:
-  - {x: 30, y: 5, z: 25}
-  - {x: 30, y: 5, z: -25}
-  - {x: -30, y: 5, z: 25}
-  - {x: -30, y: 5, z: -25}
+  _spawnPos:
+  - {x: -2, y: 13.5, z: -23}
+  - {x: 0, y: 5, z: -10}
+  - {x: -8, y: 5, z: 2}
+  - {x: -3, y: 10, z: 8.5}
