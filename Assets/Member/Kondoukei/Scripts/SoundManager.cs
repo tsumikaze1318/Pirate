@@ -62,6 +62,17 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Update()
+    {
+        //テスト
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SoundManager.Instance.PlaySe(SEType.SE2);
+        if (Input.GetKey(KeyCode.Alpha2))
+            SoundManager.Instance.PlayLoopSe(SEType.SE1);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            SoundManager.Instance.StopBgm();
+    }
+    //BGM再生
     public void PlayBgm(BGMType type)
     {
         var bgm = bgmDataList[(int)type];
@@ -70,6 +81,10 @@ public class SoundManager : MonoBehaviour
         bgmSource.loop = bgm.Loop;
         bgmSource.Play();
     }
+    public void StopBgm()
+    {
+        bgmSource.Stop();
+    }
 
     public void PlaySe(SEType type) 
     {
@@ -77,5 +92,14 @@ public class SoundManager : MonoBehaviour
         seSource.clip = se.Clip;
         seSource.volume = se.Volume;
         seSource.PlayOneShot(se.Clip);
+    }
+    //サウンドループ再生
+    public void PlayLoopSe(SEType type)
+    {
+        var se = seDataList[(int)type];
+        seSource.clip = se.Clip;
+        seSource.loop = se.Loop;
+        seSource.volume = se.Volume;
+        seSource.Play();
     }
 }

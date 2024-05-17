@@ -411,7 +411,7 @@ MonoBehaviour:
   bgmDataList:
   - Type: 0
     Clip: {fileID: 8300000, guid: 9d8cb97d7181fbb45aab19a9a64dee1e, type: 3}
-    Volume: 0
+    Volume: 1
     Loop: 0
   seDataList:
   - Type: 0
@@ -426,8 +426,8 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: ba6d109a753de7347b68aa0d8841deda, type: 3}
     Volume: 1
     Loop: 0
-  bgmSource: {fileID: 0}
-  seSource: {fileID: 0}
+  bgmSource: {fileID: 405057657}
+  seSource: {fileID: 171567077}
 --- !u!4 &745953637
 Transform:
   m_ObjectHideFlags: 0
