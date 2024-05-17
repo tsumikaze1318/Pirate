@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1241439838763092606}
   - component: {fileID: -297666417955277519}
   m_Layer: 0
-  m_Name: Sphere (2)
+  m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70c0455c5fc70c4fbf240aec1cc94f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticleSystemPrefab: {fileID: 0}
-  explosionForce: 0
-  explosionRadius: 0
+  explosionParticleSystemPrefab: {fileID: 2418087923338435020, guid: e7ff3f6528a22004d96baf82731720c7, type: 3}
+  explosionForce: 100
+  explosionRadius: 10
