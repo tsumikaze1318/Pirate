@@ -11,7 +11,16 @@ public class Shark : MonoBehaviour
     private GameObject TargetObject;
 
     [SerializeField]
+    private Transform randamA;
+
+    [SerializeField]
+    private Transform randamB;
+
+    [SerializeField]
     private float ThroeingAngle;
+
+    //private float time;
+    private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
 
 
     // Start is called before the first frame update
@@ -26,15 +35,17 @@ public class Shark : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             ThrowingBall();
+ 
         }
+
     }
 
     private void ThrowingBall()
     {
-        if(ThrowingObject != null && TargetObject != null)
+        if (ThrowingObject != null && TargetObject != null)
         {
             //Ballオブジェクトの生成
             GameObject ball = Instantiate(ThrowingObject, this.transform.position, Quaternion.identity);
@@ -47,30 +58,26 @@ public class Shark : MonoBehaviour
             //射出
             Rigidbody rid = ball.GetComponent<Rigidbody>();
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
-
         }
-        else
+
+        Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
         {
-            throw new System.Exception("射出するオブジェクト");
-        }
-    }
+            float rad = angle * Mathf.PI / 100;
 
-    private Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
-    {
-        float rad = angle * Mathf.PI / 100;
+            float x = Vector2.Distance(new Vector2(pointA.x, pointA.z), new Vector2(pointB.x, pointB.z));
+            float y = pointA.y - pointB.y;
 
-        float x = Vector2.Distance(new Vector2(pointA.x, pointA.z), new Vector2(pointB.x, pointB.z));
-        float y = pointA.y - pointB.y;
+            float speed = Mathf.Sqrt(-Physics.gravity.y * Mathf.Pow(x, 2) / (2 * Mathf.Pow(Mathf.Cos(rad), 2) * (x * Mathf.Tan(rad) + y)));
 
-        float speed = Mathf.Sqrt(-Physics.gravity.y * Mathf.Pow(x, 2) / (2 * Mathf.Pow(Mathf.Cos(rad), 2) * (x * Mathf.Tan(rad) + y)));
-
-        if(float.IsNaN(speed))
-        {
-            return Vector3.zero;
-        }
-        else
-        {
-            return (new Vector3(pointB.x - pointA.x, x * Mathf.Tan(rad), pointB.z - pointA.z).normalized * speed);
+            if (float.IsNaN(speed))
+            {
+                return Vector3.zero;
+            }
+            else
+            {
+                return (new Vector3(pointB.x - pointA.x, x * Mathf.Tan(rad), pointB.z - pointA.z).normalized * speed);
+            }
         }
     }
 }
+

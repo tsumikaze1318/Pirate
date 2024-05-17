@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2300594047883767452
+--- !u!1 &5942053255751916329
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9122457927844280735}
-  - component: {fileID: 9102372357955422134}
-  - component: {fileID: 6102827171892004274}
-  - component: {fileID: 7863562873501322857}
-  - component: {fileID: 4803266344610295604}
-  - component: {fileID: 826802800879065391}
+  - component: {fileID: 7515620593397592451}
+  - component: {fileID: 6469991222129712191}
+  - component: {fileID: 2334400380165953441}
+  - component: {fileID: 441932280583960014}
+  - component: {fileID: 1241439838763092606}
+  - component: {fileID: -297666417955277519}
   m_Layer: 0
-  m_Name: Ball
-  m_TagString: Untagged
+  m_Name: Sphere (2)
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9122457927844280735
+--- !u!4 &7515620593397592451
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
+  m_GameObject: {fileID: 5942053255751916329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2997694, y: 3.35, z: 0.032126427}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 37.149, y: 6.866, z: 0.438}
+  m_LocalScale: {x: 0.18683, y: 0.18683, z: 0.18683}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9102372357955422134
+--- !u!33 &6469991222129712191
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
+  m_GameObject: {fileID: 5942053255751916329}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6102827171892004274
+--- !u!23 &2334400380165953441
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
+  m_GameObject: {fileID: 5942053255751916329}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7863562873501322857
+--- !u!135 &441932280583960014
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
+  m_GameObject: {fileID: 5942053255751916329}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,28 +107,13 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4803266344610295604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70c0455c5fc70c4fbf240aec1cc94f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionParticleSystemPrefab: {fileID: 2418087923338435020, guid: e7ff3f6528a22004d96baf82731720c7, type: 3}
-  explosionForce: 100
-  explosionRadius: 10
---- !u!54 &826802800879065391
+--- !u!54 &1241439838763092606
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2300594047883767452}
+  m_GameObject: {fileID: 5942053255751916329}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -149,3 +134,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-297666417955277519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5942053255751916329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70c0455c5fc70c4fbf240aec1cc94f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionParticleSystemPrefab: {fileID: 0}
+  explosionForce: 0
+  explosionRadius: 0
