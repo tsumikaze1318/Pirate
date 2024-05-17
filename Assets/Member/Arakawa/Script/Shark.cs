@@ -35,11 +35,13 @@ public class Shark : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ThrowingBall();
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    ThrowingBall();
  
-        }
+        //}
+
+
 
     }
 
