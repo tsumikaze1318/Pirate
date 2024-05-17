@@ -543,6 +543,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3100567248816255603, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: _unitType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3502868667393088507, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_Camera
       value: 
@@ -550,6 +554,10 @@ PrefabInstance:
     - target: {fileID: 6537238617642600159, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_LocalPosition.y
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818949370316369270, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_TargetDisplay
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8535787797953696772, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_IsActive
