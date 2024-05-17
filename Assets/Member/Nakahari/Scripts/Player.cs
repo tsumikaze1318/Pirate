@@ -88,8 +88,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._leftGrab)
         {
-            // 手のポジションを固定
-            // 触れたオブジェクトを腕のwarld座標に追従
+            // 動かないオブジェクトを掴んだ処理はIKで可能
+            // 他のオブジェクトは子オブジェクトにする
             Debug.Log("右手で持つ");
         }
     }
@@ -98,8 +98,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._rightGrab)
         {
-            // 手のポジションを固定
-            // 触れたオブジェクトを腕のwarld座標に追従
+            // 動かないオブジェクトを掴んだ処理はIKで可能
+            // 他のオブジェクトは子オブジェクトにする
             Debug.Log("左手で持つ");
         }
     }
