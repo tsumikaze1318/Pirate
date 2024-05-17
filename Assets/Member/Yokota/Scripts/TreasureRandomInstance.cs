@@ -34,11 +34,8 @@ public class TreasureRandomInstance : MonoBehaviour
     [SerializeField, Header("宝箱のゲームオブジェクト")]
     private GameObject TreasureBox;
 
-    [SerializeField, Header("生成範囲の始点")]
-    private Transform rangeA;
-    
-    [SerializeField, Header("生成範囲の終点")]
-    private Transform rangeB;
+    [SerializeField]
+    private TreasureInstanceRanges[] instanceRanges;
 
     // オブジェクトサイズの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
@@ -64,20 +61,33 @@ public class TreasureRandomInstance : MonoBehaviour
         while (!instanced)
         {
             // x, y, z座標を指定された範囲内で決定する
-            float x = Random.Range(rangeA.position.x, rangeB.position.x);
-            float y = Random.Range(rangeA.position.y, rangeB.position.y);
-            float z = Random.Range(rangeA.position.z, rangeB.position.z);
+            //float x = Random.Range(rangeMin.position.x, rangeMax.position.x);
+            //float y = Random.Range(rangeMin.position.y, rangeMax.position.y);
+            //float z = Random.Range(rangeMin.position.z, rangeMax.position.z);
 
-            Vector3 pos = new Vector3(x, y, z);
+            //Vector3 pos = new Vector3(x, y, z);
 
-            // 宝箱がほかのオブジェクトと干渉しないとき
-            if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
-            {
-                // 宝箱を生成する
-                Instantiate(TreasureBox, pos, Quaternion.identity);
-                // 生成されたことを確認する
-                instanced = true;
-            }
+            //// 宝箱がほかのオブジェクトと干渉しないとき
+            //if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
+            //{
+            //    // 宝箱を生成する
+            //    Instantiate(TreasureBox, pos, Quaternion.identity);
+            //    // 生成されたことを確認する
+            //    instanced = true;
+            //}
         }
     }
+}
+
+[System.Serializable]
+public struct TreasureInstanceRanges
+{
+    [SerializeField, EnumIndex(typeof(RangeType))]
+    public Transform[] transforms;
+}
+
+public enum RangeType
+{
+    MAX,
+    MIN
 }
