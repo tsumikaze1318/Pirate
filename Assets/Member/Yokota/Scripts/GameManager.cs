@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,13 +32,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // メインゲームが始まったことを伝えるフラグ
     private bool gameStart = false;
     public bool GameStart => gameStart;
 
+    // メインゲームが終了したことを伝えるフラグ
     private bool gameEnd = false;
     public bool GameEnd => gameEnd;
-
-    private bool ready4Player = false;
 
     [SerializeField]
     // 各プレイヤーの宝箱獲得数
@@ -47,26 +46,28 @@ public class GameManager : MonoBehaviour
     // 近藤追記
     public int[] Scores => scores;
 
-    [SerializeField]
     private static int[] scoreRanking;
     public static int[] ScoreRanking => scoreRanking;
 
-    private static Dictionary<int, GameObject> scoreToPlayer = new Dictionary<int, GameObject>();
+    private static Dictionary<int, GameObject> scoreToPlayer 
+        = new Dictionary<int, GameObject>();
     public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
 
-    [SerializeField]
-    private List<GameObject> playerModels;
+    [SerializeField, Header("プレイヤーのプレハブ")]
+    private List<GameObject> playerPrefab;
 
+    // ゲーム上に表示されているプレイヤーを格納するList
     private List<GameObject> players;
 
-    [SerializeField]
-    private PlayerInputManager playerInputManager;
-
-    [SerializeField]
+    [SerializeField, Header("参加可能人数")]
     private int attendance;
+    public int Attendance => attendance;
 
-    [SerializeField]
-    private List<GameStartCountDown> gameStartCountDowns = new List<GameStartCountDown>();
+    private int isActivePlayer;
+
+    // カウントダウンを表示するスクリプトを格納するList
+    private List<GameStartCountDown> gameStartCountDowns 
+        = new List<GameStartCountDown>();
 
     // 宝箱獲得数のUI表示クラス
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
@@ -74,25 +75,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < attendance; i++)
         {
-            playerModels.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
+            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
         }
     }
 
     private void Update()
     {
+        // ゲーム画面からリザルトへ遷移するための仮実装
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SetGameEnd();
+            GameEnded();
         }
-
-        if (playerInputManager.playerCount == attendance && !ready4Player)
-        {
-            ready4Player = true;
-        }
-
-        if (gameEnd) GameEnded();
     }
 
     #region 外部参照関数
@@ -121,9 +116,12 @@ public class GameManager : MonoBehaviour
         //gameSystems[plNum].Score = scores[plNum];
     }
 
+    /// <summary>
+    /// メインゲーム終了時にリザルトシーンへ遷移する関数
+    /// </summary>
     public async void GameEnded() 
     {
-        gameEnd = false;
+        gameEnd = true;
 
         scoreRanking = RankingSort();
 
@@ -132,13 +130,33 @@ public class GameManager : MonoBehaviour
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result);
     }
 
+    /// <summary>
+    /// すべてのプレイヤーの参加が確認されたとき、カウントダウンを始める関数
+    /// </summary>
+    public void PlayersReady()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            gameStartCountDowns.Add
+                (players[i].GetComponent<GameStartCountDown>());
+        }
+
+        for (int i = 0; i < gameStartCountDowns.Count; i++)
+        {
+            gameStartCountDowns[i].CountStart();
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーのオブジェクトをListに格納する関数
+    /// </summary>
+    /// <param name="player">Listに格納するプレイヤーのGameObject</param>
     public void AddPlayer(GameObject player)
     {
         players.Add(player);
     }
 
     public void SetGameStart() { gameStart = true; }
-    public void SetGameEnd() { gameEnd = true; }
 
     #endregion
 
@@ -151,7 +169,7 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < 1; i++)
         {
-            ScoreToPlayer.Add(scores[i], playerModels[i]);
+            ScoreToPlayer.Add(scores[i], playerPrefab[i]);
         }
 
         int[] ranking = scores;
