@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> playerObjects;
 
     // 宝箱獲得数のUI表示クラス
-    [SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
-    private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
+    //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
+    //private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
 
     private void Start()
     {
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         // スコアを加算
         scores[plNum]++;
         // UIを更新
-        gameSystems[plNum].Score = scores[plNum];
+        //gameSystems[plNum].Score = scores[plNum];
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         // スコアを減算
         scores[plNum]--;
         // UIを更新
-        gameSystems[plNum].Score = scores[plNum];
+        //gameSystems[plNum].Score = scores[plNum];
     }
 
     public async void GameEnded() 
