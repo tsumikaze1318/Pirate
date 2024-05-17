@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,11 +33,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool gameEnded = false;
+    private bool gameStart = false;
+    public bool GameStart => gameStart;
 
-    // シーン遷移マネージャー
-    [SerializeField]
-    private SceneFadeManager fadeManager;
+    private bool gameEnd = false;
+    public bool GameEnd => gameEnd;
+
+    private bool ready4Player = false;
 
     [SerializeField]
     // 各プレイヤーの宝箱獲得数
@@ -52,7 +55,18 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
 
     [SerializeField]
-    private List<GameObject> playerObjects;
+    private List<GameObject> playerModels;
+
+    private List<GameObject> players;
+
+    [SerializeField]
+    private PlayerInputManager playerInputManager;
+
+    [SerializeField]
+    private int attendance;
+
+    [SerializeField]
+    private List<GameStartCountDown> gameStartCountDowns = new List<GameStartCountDown>();
 
     // 宝箱獲得数のUI表示クラス
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
@@ -62,7 +76,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            playerObjects.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
+            playerModels.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
         }
     }
 
@@ -70,10 +84,15 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SetGameEnded();
+            SetGameEnd();
         }
 
-        if (gameEnded) GameEnded();
+        if (playerInputManager.playerCount == attendance && !ready4Player)
+        {
+            ready4Player = true;
+        }
+
+        if (gameEnd) GameEnded();
     }
 
     #region 外部参照関数
@@ -104,16 +123,22 @@ public class GameManager : MonoBehaviour
 
     public async void GameEnded() 
     {
-        gameEnded = false;
+        gameEnd = false;
 
         scoreRanking = RankingSort();
 
         await Task.Delay(3000);
 
-        fadeManager.FadeOut(SceneNameClass.SceneName.Result);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result);
     }
 
-    public void SetGameEnded() { gameEnded = true; }
+    public void AddPlayer(GameObject player)
+    {
+        players.Add(player);
+    }
+
+    public void SetGameStart() { gameStart = true; }
+    public void SetGameEnd() { gameEnd = true; }
 
     #endregion
 
@@ -126,7 +151,7 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < 1; i++)
         {
-            ScoreToPlayer.Add(scores[i], playerObjects[i]);
+            ScoreToPlayer.Add(scores[i], playerModels[i]);
         }
 
         int[] ranking = scores;
