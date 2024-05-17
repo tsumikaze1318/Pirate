@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
@@ -35,7 +35,7 @@ public class EffectManager : SingletonMonoBehaviour<EffectManager>
             StopEffect();
         }
     }
-
+    //instantiateオブジェクトのクローン
     public void PlayEffect(EffectType effectType)
     {
         var particle = effectData[(int)effectType].Particle;
