@@ -977,6 +977,84 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Title"",
+            ""id"": ""221f8e62-f2ff-4560-ad80-890b5a8fc740"",
+            ""actions"": [
+                {
+                    ""name"": ""Dicition"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0219102-6f1f-4541-b96d-bfa668402546"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e7d3da33-4f3e-4b67-9f78-93a1500c4e54"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dicition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cb6ce1c-4bc2-4b0b-a50f-e22bf5fb50a1"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dicition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Result"",
+            ""id"": ""cdc4d582-7c57-4564-9c8a-c7f145761d50"",
+            ""actions"": [
+                {
+                    ""name"": ""Decition"",
+                    ""type"": ""Button"",
+                    ""id"": ""30c0a1ad-56ce-4b25-888d-3e9bdd280cb5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3e40b613-6e43-4181-a280-017030f3eccf"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Decition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""103ab0a2-97b8-44ae-8a53-40456d1a6395"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Decition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1066,6 +1144,12 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // Title
+        m_Title = asset.FindActionMap("Title", throwIfNotFound: true);
+        m_Title_Dicition = m_Title.FindAction("Dicition", throwIfNotFound: true);
+        // Result
+        m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
+        m_Result_Decition = m_Result.FindAction("Decition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1359,6 +1443,98 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Title
+    private readonly InputActionMap m_Title;
+    private List<ITitleActions> m_TitleActionsCallbackInterfaces = new List<ITitleActions>();
+    private readonly InputAction m_Title_Dicition;
+    public struct TitleActions
+    {
+        private @Pirate m_Wrapper;
+        public TitleActions(@Pirate wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Dicition => m_Wrapper.m_Title_Dicition;
+        public InputActionMap Get() { return m_Wrapper.m_Title; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TitleActions set) { return set.Get(); }
+        public void AddCallbacks(ITitleActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TitleActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TitleActionsCallbackInterfaces.Add(instance);
+            @Dicition.started += instance.OnDicition;
+            @Dicition.performed += instance.OnDicition;
+            @Dicition.canceled += instance.OnDicition;
+        }
+
+        private void UnregisterCallbacks(ITitleActions instance)
+        {
+            @Dicition.started -= instance.OnDicition;
+            @Dicition.performed -= instance.OnDicition;
+            @Dicition.canceled -= instance.OnDicition;
+        }
+
+        public void RemoveCallbacks(ITitleActions instance)
+        {
+            if (m_Wrapper.m_TitleActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ITitleActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TitleActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TitleActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public TitleActions @Title => new TitleActions(this);
+
+    // Result
+    private readonly InputActionMap m_Result;
+    private List<IResultActions> m_ResultActionsCallbackInterfaces = new List<IResultActions>();
+    private readonly InputAction m_Result_Decition;
+    public struct ResultActions
+    {
+        private @Pirate m_Wrapper;
+        public ResultActions(@Pirate wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Decition => m_Wrapper.m_Result_Decition;
+        public InputActionMap Get() { return m_Wrapper.m_Result; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ResultActions set) { return set.Get(); }
+        public void AddCallbacks(IResultActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ResultActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ResultActionsCallbackInterfaces.Add(instance);
+            @Decition.started += instance.OnDecition;
+            @Decition.performed += instance.OnDecition;
+            @Decition.canceled += instance.OnDecition;
+        }
+
+        private void UnregisterCallbacks(IResultActions instance)
+        {
+            @Decition.started -= instance.OnDecition;
+            @Decition.performed -= instance.OnDecition;
+            @Decition.canceled -= instance.OnDecition;
+        }
+
+        public void RemoveCallbacks(IResultActions instance)
+        {
+            if (m_Wrapper.m_ResultActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IResultActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ResultActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ResultActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ResultActions @Result => new ResultActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1429,5 +1605,13 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface ITitleActions
+    {
+        void OnDicition(InputAction.CallbackContext context);
+    }
+    public interface IResultActions
+    {
+        void OnDecition(InputAction.CallbackContext context);
     }
 }

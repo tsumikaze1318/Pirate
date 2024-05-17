@@ -119,7 +119,12 @@ public class GameManager : MonoBehaviour
 
     private int[] RankingSort()
     {
-        for (int i = 0; i < scores.Length; i++)
+        //for (int i = 0; i < scores.Length; i++)
+        //{
+        //    ScoreToPlayer.Add(scores[i], playerObjects[i]);
+        //}
+        
+        for (int i = 0; i < 1; i++)
         {
             ScoreToPlayer.Add(scores[i], playerObjects[i]);
         }
