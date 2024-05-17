@@ -28,6 +28,7 @@ public class HitCount : MonoBehaviour
             }
         }
         HitCountor();
+        Debug.Log(_count);
     }
     public void HitCountor()
     {

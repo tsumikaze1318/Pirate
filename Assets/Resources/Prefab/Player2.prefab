@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2622229326160602477}
   - component: {fileID: 6743221483710984655}
   - component: {fileID: 6826626085061139382}
+  - component: {fileID: 8377117811284253119}
   m_Layer: 0
   m_Name: InputSystemPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,8 +153,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _state: 0
   _moveSpeed: 0.1
-  _upForce: 1000
+  _upForce: 5
   _camera: {fileID: 6975101406290629531}
+  _stateTime: 0
+--- !u!114 &8377117811284253119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717904345980474853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14819138116736c44b57403e1a833a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _count: 3
 --- !u!1 &1723756661134314859
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +180,6 @@ GameObject:
   - component: {fileID: 1604133275425568817}
   - component: {fileID: 8149381301875020992}
   - component: {fileID: 7746262168368571223}
-  - component: {fileID: 2365852831311359187}
   m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -238,27 +252,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2365852831311359187
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723756661134314859}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2000645501395486464
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +490,7 @@ Transform:
   m_GameObject: {fileID: 3375928799555258873}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6772623, y: -9.6, z: -0.35651442}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -560,10 +553,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8130031375856028594}
     m_Modifications:
+    - target: {fileID: 2645765738996067390, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: orthographic size
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3502868667393088507, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2645982741126481204}
+    - target: {fileID: 6537238617642600159, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8535787797953696772, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_IsActive
       value: 1

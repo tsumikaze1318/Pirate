@@ -59,5 +59,6 @@ public class CameraSettings : MonoBehaviour
     {
         CameraMove();
         CameraControl();
+        Debug.Log(_inputs._look);
     }
 }

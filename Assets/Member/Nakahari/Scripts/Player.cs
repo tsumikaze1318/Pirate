@@ -34,6 +34,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     Camera _camera;
 
+    private Animator _animator;
+
+    private AnimatorClipInfo[] _animatorClip;
+    public float _stateTime;
+
+
+
+
     #endregion
 
     void Move()
@@ -51,7 +59,7 @@ public class Player : MonoBehaviour
     {
         if (_isJump && _inputs._jump)
         {
-            _rb.AddForce(new Vector3(0, _upForce, 0));
+            _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
             _isJump = false;
         }
     }
@@ -60,6 +68,9 @@ public class Player : MonoBehaviour
     {
         if(_inputs._fire)
         {
+            // Animationの再生
+            //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
+            //_stateTime = _animatorClip.Length;
             Debug.Log("攻撃");
         }
     }
@@ -68,6 +79,7 @@ public class Player : MonoBehaviour
     {
         if (_inputs._lift)
         {
+            // アニメーション再生
             Debug.Log("持ち上げる");
         }
     }
@@ -76,6 +88,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._leftGrab)
         {
+            // 手のポジションを固定
+            // 触れたオブジェクトを腕のwarld座標に追従
             Debug.Log("右手で持つ");
         }
     }
@@ -84,6 +98,8 @@ public class Player : MonoBehaviour
     {
         if (_inputs._rightGrab)
         {
+            // 手のポジションを固定
+            // 触れたオブジェクトを腕のwarld座標に追従
             Debug.Log("左手で持つ");
         }
     }
@@ -104,29 +120,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PlayerLookDirection()
+    public void OnCollisionEnter(Collision other)
     {
-        var position = _transform.position;
-        var delta = position - _prevPosition;
-
-        _prevPosition = position;
-
-        if (delta == Vector3.zero) return;
-
-        var rotation = Quaternion.LookRotation(delta, Vector3.up);
-
-        _transform.rotation = rotation;
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             _isJump = true;
         }
-        if (collision.gameObject.CompareTag("Treasure"))
+        if (other.gameObject.CompareTag("Treasure"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             GameManager.Instance.AddScore(_playerInput.user.index);
             TreasureRandomInstance.Instance.RandomInstance();
         }
@@ -145,18 +147,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Jump();
-        Lift();
-        Fire();
-        LeftGrab();
-        RightGrab();
+        if (_state == CommonParam.UnitState.Normal)
+        {
+            Jump();
+            Fire();
+            Lift();
+            LeftGrab();
+            RightGrab();
+        }
         CursorLook();
         CursorNone();
-        //PlayerLookDirection();
     }
 
     private void FixedUpdate()
     {
-        Move();
+        if (_state == CommonParam.UnitState.Normal)
+        {
+            Move();
+        }
     }
 }
