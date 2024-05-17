@@ -571,7 +571,8 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 26
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1833053739883066656, guid: 8251e7dcb12309c43aa93daa15d744b7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -975,17 +976,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bb154597eafe7046ae938066d271fd5, type: 3}
---- !u!114 &1860939528 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8936853429108917980, guid: 0bb154597eafe7046ae938066d271fd5, type: 3}
-  m_PrefabInstance: {fileID: 1860939527}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1902208242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,9 +1037,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1da9e388772c343b88ad47afedf730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeManager: {fileID: 1860939528}
   scores: 00000000000000000000000000000000
-  playerObjects: []
+  playerModels: []
+  playerInputManager: {fileID: 0}
+  attendance: 0
+  gameStartCountDowns: []
 --- !u!114 &1902208248
 MonoBehaviour:
   m_ObjectHideFlags: 0

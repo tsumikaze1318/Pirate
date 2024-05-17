@@ -139,6 +139,7 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
+        GameManager.Instance.AddPlayer(this.transform.parent.gameObject);
 
         _transform = transform;
         _prevPosition = _transform.position;
