@@ -5,20 +5,17 @@ using UnityEngine.InputSystem;
 
 public class SceneFadeInput : MonoBehaviour
 {
-    [SerializeField]
-    private SceneFadeManager fadeManager;
-
     public void GoGameScene(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        fadeManager.FadeOut(SceneNameClass.SceneName.Game);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game);
     }
 
     public void GoTitleScene(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        fadeManager.FadeOut(SceneNameClass.SceneName.Title);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Title);
     }
 }
