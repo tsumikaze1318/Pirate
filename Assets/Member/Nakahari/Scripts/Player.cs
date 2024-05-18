@@ -109,6 +109,8 @@ public class Player : MonoBehaviour
         if (_inputs._cursorNone)
         {
             Cursor.lockState = CursorLockMode.None;
+            _inputs._cursorNone = false;
+
         }
     }
 
@@ -117,6 +119,7 @@ public class Player : MonoBehaviour
         if (_inputs._cursorLock)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            _inputs._cursorLock = false;
         }
     }
 
