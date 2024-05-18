@@ -11,12 +11,6 @@ public class Shark : MonoBehaviour
     private GameObject TargetObject;
 
     [SerializeField]
-    private Transform randamA;
-
-    [SerializeField]
-    private Transform randamB;
-
-    [SerializeField]
     private float ThroeingAngle;
 
     //private float time;
@@ -35,11 +29,11 @@ public class Shark : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    ThrowingBall();
+        if (Input.GetMouseButtonDown(0))
+        {
+            ThrowingBall();
  
-        //}
+        }
 
 
 
