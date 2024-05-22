@@ -9,33 +9,28 @@ public class Grab : MonoBehaviour
     [SerializeField]
     private Transform rayPoint;
 
-    private float rayDistance = 0.2f;
+    private float rayDistance = 1f;
     private GameObject grabObj;
     RaycastHit hit;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        for( int i = 0; i < 1; i++)
         {
             if(grabObj == null)
             {
                 if (Physics.Raycast(rayPoint.position, transform.right, out hit, rayDistance))
                 {
-                    if (hit.collider != null && hit.collider.tag == "Ball")
+                    if (hit.collider != null && hit.collider.tag == "Player")
                     {
+                        Debug.Log("‚Â‚©‚ñ‚Å‚éH");
                         grabObj = hit.collider.gameObject;
                         grabObj.GetComponent<Rigidbody>().isKinematic = true;
                         grabObj.transform.position = grabPoint.position;
                         grabObj.transform.SetParent(transform);
                     }
                 }
-            }
-            else
-            {
-                grabObj.GetComponent<Rigidbody>().isKinematic = false;
-                grabObj.transform.SetParent(null);
-                grabObj = null;
             }
         }
 

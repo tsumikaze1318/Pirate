@@ -5,10 +5,10 @@ using UnityEngine;
 public class Shark : MonoBehaviour
 {
     [SerializeField]
-    private GameObject ThrowingObject;
+    private GameObject ThrowingObjectPrefab;
 
     [SerializeField]
-    private GameObject TargetObject;
+    private GameObject TargetObjectPrefab;
 
     [SerializeField]
     private float ThroeingAngle;
@@ -41,12 +41,12 @@ public class Shark : MonoBehaviour
 
     private void ThrowingBall()
     {
-        if (ThrowingObject != null && TargetObject != null)
+        if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-            //Ballオブジェクトの生成
-            GameObject ball = Instantiate(ThrowingObject, this.transform.position, Quaternion.identity);
+            //オブジェクトの生成
+            GameObject ball = Instantiate(ThrowingObjectPrefab, this.transform.position, Quaternion.identity);
             //標的の座標
-            Vector3 targetPosition = TargetObject.transform.position;
+            Vector3 targetPosition = TargetObjectPrefab.transform.position;
             //射出角度
             float angle = ThroeingAngle;
             //射出速度を産出

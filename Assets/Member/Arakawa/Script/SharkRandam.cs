@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SharkRandam : MonoBehaviour
@@ -16,6 +17,9 @@ public class SharkRandam : MonoBehaviour
     [SerializeField]
     private Transform rangeB;
 
+    [SerializeField]
+    private float ThroeingAngle;
+
     private void Start()
     {
         for (int i = 0; i < 1; i++)
@@ -31,30 +35,25 @@ public class SharkRandam : MonoBehaviour
 
         if (!instanced)
         {
-            // x, y, z座標を指定された範囲内で決定する
-            //float x = Random.Range(rangeA.position.x, rangeB.position.x);
-            //float y = Random.Range(rangeA.position.y, rangeB.position.y);
+
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-            Vector3 pos = new Vector3(20f, 0f, z);
+            Vector3 pos = new Vector3(20f, 4.5f, z);
 
             Instantiate(Shark, pos, Quaternion.identity);
+
             // 生成されたことを確認する
             instanced = true;
         }
         if (!!instanced)
         {
-            // x, y, z座標を指定された範囲内で決定する
-            //float x = Random.Range(rangeA.position.x, rangeB.position.x);
-            //float y = Random.Range(rangeA.position.y, rangeB.position.y);
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-            Vector3 pos = new Vector3(45f, 0f, z);
+            Vector3 pos = new Vector3(45f, 4.5f, z);
 
             Instantiate(Taget, pos, Quaternion.identity);
             // 生成されたことを確認する
             instanced = true;
         }
     }
-
 }
