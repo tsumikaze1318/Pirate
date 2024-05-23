@@ -9,16 +9,16 @@ public class Grab : MonoBehaviour
     [SerializeField]
     private Transform rayPoint;
 
-    private float rayDistance = 1f;
+    private float rayDistance = 5f;
     private GameObject grabObj;
     RaycastHit hit;
 
     // Update is called once per frame
     void Update()
     {
-        for( int i = 0; i < 1; i++)
+        for (int i = 0; i < 1; i++)
         {
-            if(grabObj == null)
+            if (grabObj == null)
             {
                 if (Physics.Raycast(rayPoint.position, transform.right, out hit, rayDistance))
                 {
@@ -34,6 +34,14 @@ public class Grab : MonoBehaviour
             }
         }
 
-        
+
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Untagged"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
+

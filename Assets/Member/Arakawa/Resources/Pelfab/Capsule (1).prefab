@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 7862347274546528}
   m_Layer: 0
   m_Name: Capsule (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3898caecc9f95434284f79ceb730482e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabPoint: {fileID: 0}
-  rayPoint: {fileID: 0}
+  grabPoint: {fileID: 8653630930419284380}
+  rayPoint: {fileID: 9175081171302463644}
 --- !u!54 &7862347274546528
 Rigidbody:
   m_ObjectHideFlags: 0
