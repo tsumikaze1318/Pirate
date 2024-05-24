@@ -5,16 +5,10 @@ using UnityEngine;
 public class Shark : MonoBehaviour
 {
     [SerializeField]
-    private GameObject ThrowingObject;
+    private GameObject ThrowingObjectPrefab;
 
     [SerializeField]
-    private GameObject TargetObject;
-
-    [SerializeField]
-    private Transform randamA;
-
-    [SerializeField]
-    private Transform randamB;
+    private GameObject TargetObjectPrefab;
 
     [SerializeField]
     private float ThroeingAngle;
@@ -41,27 +35,34 @@ public class Shark : MonoBehaviour
  
         }
 
+
+
     }
 
     private void ThrowingBall()
     {
-        if (ThrowingObject != null && TargetObject != null)
+        if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-            //Ballオブジェクトの生成
-            GameObject ball = Instantiate(ThrowingObject, this.transform.position, Quaternion.identity);
+            //オブジェクトの生成
+            GameObject ball = Instantiate(ThrowingObjectPrefab, this.transform.position, Quaternion.identity);
             //標的の座標
-            Vector3 targetPosition = TargetObject.transform.position;
+            Debug.Log("ターゲットしてる？パート５");
+            Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
+            Debug.Log("ターゲットしてる？パート４");
             //射出角度
             float angle = ThroeingAngle;
+            Debug.Log("ターゲットしてる？パート３");
             //射出速度を産出
-            Vector3 velocity = CalculateVelocity(this.transform.position, targetPosition, angle);
+            Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
             //射出
             Rigidbody rid = ball.GetComponent<Rigidbody>();
+            Debug.Log("ターゲットしてる？パート２");
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
         }
 
         Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
         {
+            Debug.Log("ターゲットしてる？");
             float rad = angle * Mathf.PI / 100;
 
             float x = Vector2.Distance(new Vector2(pointA.x, pointA.z), new Vector2(pointB.x, pointB.z));
