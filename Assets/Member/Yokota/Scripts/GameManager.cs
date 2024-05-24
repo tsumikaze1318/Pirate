@@ -13,22 +13,19 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            lock (_lock)
+            if (instance == null)
             {
-                if (instance == null)
-                {
-                    instance
-                        = FindObjectOfType<GameManager>();
-                    if (instance == null)
-                    {
-                        var singletonObject = new GameObject();
-                        instance = singletonObject.AddComponent<GameManager>();
-                        singletonObject.name = nameof(GameManager) + "(singleton)";
-                    }
-                }
-
-                return instance;
+                instance
+                    = FindObjectOfType<GameManager>();
+                //if (instance == null)
+                //{
+                //    var singletonObject = new GameObject();
+                //    instance = singletonObject.AddComponent<GameManager>();
+                //    singletonObject.name = nameof(GameManager) + "(singleton)";
+                //}
             }
+
+            return instance;
         }
     }
 
@@ -181,7 +178,7 @@ public class GameManager : MonoBehaviour
             if (!sameKey) scoreToPlayer.Add(scores[i], list);
         }
 
-        int[] ranking = new int[] { } ;
+        int[] ranking = scores;
 
         Array.Sort(ranking);
         Array.Reverse(ranking);
