@@ -35,14 +35,14 @@ public class TreasureRandomInstance : MonoBehaviour
     private GameObject TreasureBox;
 
     [SerializeField]
-    private TreasureInstanceRanges[] instanceRanges;
+    private List<TreasureInstanceRanges> rangeStruct;
 
     // オブジェクトサイズの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
 
     private void Start()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 2;  i++)
         {
             RandomInstance();
         }
@@ -60,21 +60,27 @@ public class TreasureRandomInstance : MonoBehaviour
         // 宝箱が生成されるまでループ
         while (!instanced)
         {
-            // x, y, z座標を指定された範囲内で決定する
-            //float x = Random.Range(rangeMin.position.x, rangeMax.position.x);
-            //float y = Random.Range(rangeMin.position.y, rangeMax.position.y);
-            //float z = Random.Range(rangeMin.position.z, rangeMax.position.z);
+            int section = Random.Range(0, rangeStruct.Count);
 
-            //Vector3 pos = new Vector3(x, y, z);
+            float x = Random.Range
+                (rangeStruct[section].Ranges[(int)RangeType.MIN].position.x,
+                 rangeStruct[section].Ranges[(int)RangeType.MAX].position.x);
+            float y = Random.Range
+                (rangeStruct[section].Ranges[(int)RangeType.MIN].position.y,
+                 rangeStruct[section].Ranges[(int)RangeType.MAX].position.y);
+            float z = Random.Range
+                (rangeStruct[section].Ranges[(int)RangeType.MIN].position.z,
+                 rangeStruct[section].Ranges[(int)RangeType.MAX].position.z);
 
-            //// 宝箱がほかのオブジェクトと干渉しないとき
-            //if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
-            //{
-            //    // 宝箱を生成する
-            //    Instantiate(TreasureBox, pos, Quaternion.identity);
-            //    // 生成されたことを確認する
-            //    instanced = true;
-            //}
+            Vector3 pos = new Vector3(x, y, z);
+
+            if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
+            {
+                // 宝箱を生成する
+                Instantiate(TreasureBox, pos, Quaternion.identity);
+                // 生成されたことを確認する
+                instanced = true;
+            }
         }
     }
 }
@@ -83,11 +89,11 @@ public class TreasureRandomInstance : MonoBehaviour
 public struct TreasureInstanceRanges
 {
     [SerializeField, EnumIndex(typeof(RangeType))]
-    public Transform[] transforms;
+    public List<Transform> Ranges;
 }
 
 public enum RangeType
 {
-    MAX,
-    MIN
+    MIN,
+    MAX
 }
