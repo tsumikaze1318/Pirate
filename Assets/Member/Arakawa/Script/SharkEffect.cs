@@ -12,23 +12,18 @@ public class SharkEffect : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Detonate();
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
-    // Start is called before the first frame updat
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
     void Detonate()
     {
         // パーティクルシステムを生成して爆発エフェクトを再生
-        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
+        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(50f, -90f, 1.0f));
         explosionParticleSystem.Play();
 
         // パーティクル再生時間が終了したらパーティクルシステムを破棄
         Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
-
     }
+
 }
