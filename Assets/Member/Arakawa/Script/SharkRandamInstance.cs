@@ -10,11 +10,16 @@ public class SharkRandamInstance : MonoBehaviour
     [SerializeField]
     private Transform[] Ranges;
 
+    private float timeLine = 3f;
+
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        timeLine += Time.deltaTime;
+
+        if (timeLine > 3f)
         {
             RandamInstance();
+            timeLine = 0;
         }
     }
 
@@ -22,8 +27,6 @@ public class SharkRandamInstance : MonoBehaviour
     {
         float z = Random.Range(Ranges[0].position.z, Ranges[1].position.z);
 
-        Vector3 pos = new Vector3(0, 0, z);
-
-        shark.ThrowingBall(pos);
+        shark.ThrowingBall(z);
     }
 }

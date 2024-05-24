@@ -35,7 +35,7 @@ public class Shark : MonoBehaviour
 
     }
 
-    public void ThrowingBall(Vector3 pos)
+    public void ThrowingBall(float pos)
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
@@ -47,7 +47,9 @@ public class Shark : MonoBehaviour
             Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
 
             //オブジェクトの生成
-            GameObject ball = Instantiate(ThrowingObjectPrefab, this.transform.position + pos, Quaternion.identity);
+            GameObject ball = Instantiate(ThrowingObjectPrefab, 
+                new Vector3(transform.position.x,transform.position.y, pos),
+                Quaternion.identity);;
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
@@ -77,6 +79,7 @@ public class Shark : MonoBehaviour
                 return (new Vector3(pointB.x - pointA.x, x * Mathf.Tan(rad), pointB.z - pointA.z).normalized * speed);
             }
         }
+
 
     }
 }
