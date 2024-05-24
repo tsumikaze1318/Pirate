@@ -59,11 +59,12 @@ public class Bomb3 : MonoBehaviour
     void ApplyExplosionForce(Collider targetCollider)
     {
         Rigidbody targetRigidbody = targetCollider.GetComponent<Rigidbody>();
+        HitCount hitCount = targetCollider.GetComponent<HitCount>();
+
+        if(hitCount != null) { hitCount._count = 0; }
 
         if (targetRigidbody != null)
         {
-            HitCount hitCount = targetCollider.GetComponent<HitCount>();
-            hitCount._count = 0;
             // ”šS‚©‚ç‚Ì‹——£‚É‰‚¶‚Ä—Í‚ğŒvZ
             Vector3 explosionDirection = targetCollider.transform.position - transform.position;
             float distance = explosionDirection.magnitude;

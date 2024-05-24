@@ -137,6 +137,8 @@ public class Player : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Water"))
         {
+            GameManager.Instance.SubScore(_playerInput.user.index);
+            _rb.velocity = Vector3.zero;
             _respawn = true;
         }
     }
@@ -166,6 +168,8 @@ public class Player : MonoBehaviour
         }
         CursorLook();
         CursorNone();
+
+        Debug.Log(_state);
     }
 
     private void FixedUpdate()

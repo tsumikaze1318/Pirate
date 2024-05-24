@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HitCount : MonoBehaviour
@@ -20,6 +21,12 @@ public class HitCount : MonoBehaviour
         if (_player._state == CommonParam.UnitState.Stun)
         {
             _time += Time.deltaTime;
+            if (_player._respawn)
+            {
+                _player._state = CommonParam.UnitState.Normal;
+                _count = 3;
+                _time = 0;
+            }
             if (_time >= 4)
             {
                 _player._state = CommonParam.UnitState.Normal;
@@ -28,8 +35,9 @@ public class HitCount : MonoBehaviour
             }
         }
         HitCountor();
-        Debug.Log(_count);
+        //Debug.Log(_count);
     }
+
     public void HitCountor()
     {
         if (_count == 0)

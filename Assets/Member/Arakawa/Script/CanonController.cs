@@ -67,6 +67,6 @@ public class CanonController : MonoBehaviour
             _bullets.Add(bullet);
         }
 
-        Debug.Log(_bullets.Count);
+        //Debug.Log(_bullets.Count);
     }
 }
