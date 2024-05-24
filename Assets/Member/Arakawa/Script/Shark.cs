@@ -5,6 +5,9 @@ using UnityEngine;
 public class Shark : MonoBehaviour
 {
     [SerializeField]
+    private ParticleSystem explosionParticleSystemPrefab;
+
+    [SerializeField]
     private GameObject ThrowingObjectPrefab;
 
     [SerializeField]
@@ -25,6 +28,8 @@ public class Shark : MonoBehaviour
         {
             collider.isTrigger = true;
         }
+
+        //TargetObjectPrefab = GetComponentInChildren<GameObject>();
     }
 
     void Update()
@@ -43,20 +48,23 @@ public class Shark : MonoBehaviour
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
+            // パーティクルシステムを生成して爆発エフェクトを再生
+            ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
+            explosionParticleSystem.Play();
+
+            // パーティクル再生時間が終了したらパーティクルシステムを破棄
+            Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
+
             //オブジェクトの生成
             GameObject ball = Instantiate(ThrowingObjectPrefab, this.transform.position, Quaternion.identity);
             //標的の座標
-            Debug.Log("ターゲットしてる？パート５");
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
-            Debug.Log("ターゲットしてる？パート４");
             //射出角度
             float angle = ThroeingAngle;
-            Debug.Log("ターゲットしてる？パート３");
             //射出速度を産出
             Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
             //射出
             Rigidbody rid = ball.GetComponent<Rigidbody>();
-            Debug.Log("ターゲットしてる？パート２");
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
         }
 
