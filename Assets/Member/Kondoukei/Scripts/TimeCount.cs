@@ -23,6 +23,9 @@ public class TimeCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 5/24 ’Ç‹L‚µ‚Ü‚µ‚½ ‰¡“c
+        if (!GameManager.Instance.GameStart) return;
+
         Timer -= Time.deltaTime;
         //timerText.text = ((int)Timer).ToString();
         timerText.text = string.Format("{0:#}", Timer);
