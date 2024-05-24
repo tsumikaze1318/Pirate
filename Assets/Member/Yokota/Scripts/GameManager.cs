@@ -54,14 +54,13 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
 
     [SerializeField, Header("プレイヤーのプレハブ")]
-    private List<GameObject> playerPrefab;
+    private List<GameObject> playerPrefab = new List<GameObject>();
 
     // ゲーム上に表示されているプレイヤーを格納するList
     private List<GameObject> players = new List<GameObject>();
 
     [SerializeField, Header("参加可能人数")]
     private int attendance;
-    public int Attendance => attendance;
 
     private int isActivePlayer;
 
@@ -79,15 +78,6 @@ public class GameManager : MonoBehaviour
         {
             playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
         }
-    }
-
-    private void Update()
-    {
-        // ゲーム画面からリザルトへ遷移するための仮実装
-        //if (Input.GetKeyUp(KeyCode.Escape))
-        //{
-        //    GameEnded();
-        //}
     }
 
     #region 外部参照関数
@@ -138,7 +128,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             gameStartCountDowns.Add
-                (players[i].GetComponent<GameStartCountDown>());
+                (players[i].GetComponentInChildren<GameStartCountDown>());
         }
 
         for (int i = 0; i < gameStartCountDowns.Count; i++)
@@ -154,6 +144,11 @@ public class GameManager : MonoBehaviour
     public void AddPlayer(GameObject player)
     {
         players.Add(player);
+
+        if (players.Count == attendance)
+        {
+            PlayersReady();
+        }
     }
 
     public void SetGameStart() { gameStart = true; }
@@ -162,12 +157,7 @@ public class GameManager : MonoBehaviour
 
     private int[] RankingSort()
     {
-        //for (int i = 0; i < scores.Length; i++)
-        //{
-        //    ScoreToPlayer.Add(scores[i], playerObjects[i]);
-        //}
-        
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             ScoreToPlayer.Add(scores[i], playerPrefab[i]);
         }
