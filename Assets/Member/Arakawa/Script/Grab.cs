@@ -36,12 +36,5 @@ public class Grab : MonoBehaviour
 
 
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Untagged"))
-        {
-            Destroy(gameObject);
-        }
-    }
 }
 

@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class SharkRandam : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Shark;
+    private GameObject shark;
 
     [SerializeField]
-    private GameObject Taget;
+    private GameObject taget;
 
     [SerializeField]
     private Transform rangeA;
@@ -31,29 +32,32 @@ public class SharkRandam : MonoBehaviour
     public void RandomInstance()
     {
 
-        bool instanced = false;
+        //bool instanced = false;
 
-        if (!instanced)
-        {
+        //if (!instanced)
+        //{
 
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-            Vector3 pos = new Vector3(20f, 4.5f, z);
+            Vector3 leftPos = new Vector3(20f, 5f, z);
+            Vector3 rightPos = new Vector3(45f, 5f, z);
 
-            Instantiate(Shark, pos, Quaternion.identity);
+            shark.transform.position = leftPos;
+            taget.transform.position = rightPos;
+
 
             // 生成されたことを確認する
-            instanced = true;
-        }
-        if (!!instanced)
+            //instanced = true;
+        //}
+/*        if (instanced)
         {
             float z = Random.Range(rangeA.position.z, rangeB.position.z);
 
-            Vector3 pos = new Vector3(45f, 4.5f, z);
+            
 
-            Instantiate(Taget, pos, Quaternion.identity);
+            
             // 生成されたことを確認する
             instanced = true;
-        }
+        }*/
     }
 }
