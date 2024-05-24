@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     private AnimatorClipInfo[] _animatorClip;
     public float _stateTime;
 
-
+    public bool _respawn = false;
 
 
     #endregion
@@ -135,6 +135,10 @@ public class Player : MonoBehaviour
             GameManager.Instance.AddScore(_playerInput.user.index);
             TreasureRandomInstance.Instance.RandomInstance();
         }
+        if (other.gameObject.CompareTag("Water"))
+        {
+            _respawn = true;
+        }
     }
 
     private void Start()
@@ -142,7 +146,7 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
-        GameManager.Instance.AddPlayer(this.transform.parent.gameObject);
+        
 
         _transform = transform;
         _prevPosition = _transform.position;

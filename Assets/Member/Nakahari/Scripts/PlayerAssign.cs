@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerAssign : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> _player = new List<GameObject>();
+    List<GameObject> _playerList = new List<GameObject>();
 
     [SerializeField]
     List<Vector3> _spawnPos = new List<Vector3>();
 
     PlayerInput _playerInput;
+
+    Player _player;
 
     int _playerIndex;
 
@@ -20,6 +22,8 @@ public class PlayerAssign : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerIndex = this._playerInput.user.index;
         Assign();
+        _player = GetComponentInChildren<Player>();
+        GameManager.Instance.AddPlayer(gameObject);
     }
 
     void Assign()
@@ -27,17 +31,43 @@ public class PlayerAssign : MonoBehaviour
         switch (_playerIndex)
         {
             case 0:
-                Instantiate(_player[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 break;
             case 1:
-                Instantiate(_player[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 break;
             case 2:
-                Instantiate(_player[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 break;
             case 3:
-                Instantiate(_player[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 break;
+        }
+    }
+
+    private void Update()
+    {
+        if (_player._respawn)
+        {
+            switch ( _playerIndex)
+            {
+                case 0:
+                    _player.transform.position = _spawnPos[_playerIndex];
+                    _player._respawn = false;
+                    break;
+                case 1:
+                    _player.transform.position = _spawnPos[_playerIndex];
+                    _player._respawn = false;
+                    break;
+                case 2:
+                    _player.transform.position = _spawnPos[_playerIndex];
+                    _player._respawn = false;
+                    break;
+                case 3:
+                    _player.transform.position = _spawnPos[_playerIndex];
+                    _player._respawn = false;
+                    break;
+            }
         }
     }
 }

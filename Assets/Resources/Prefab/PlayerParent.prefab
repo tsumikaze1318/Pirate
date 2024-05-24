@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3342777600711200732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,13 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42feecdca8dc44696b0eb24102343d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player:
+  _playerList:
   - {fileID: 886118938816421512, guid: 9ceb86f0f3a1a764aa0443a5a10f5d53, type: 3}
   - {fileID: 3375928799555258873, guid: 0bce4d611b9045c4fbec8c9fc4dff185, type: 3}
   - {fileID: 1690717111080600581, guid: d8fd7a0ae7a8070408a3b25784dbc38f, type: 3}
   - {fileID: 6589526696265778038, guid: 4adec0d902860184e8e8127b6e8c7f53, type: 3}
   _spawnPos:
-  - {x: -2, y: 13.5, z: -23}
-  - {x: 0, y: 5, z: -10}
-  - {x: -8, y: 5, z: 2}
-  - {x: -3, y: 10, z: 8.5}
+  - {x: -2, y: -5, z: -23}
+  - {x: 0, y: -7, z: -10}
+  - {x: -8, y: -7, z: 2}
+  - {x: -3, y: -7, z: 8.5}
