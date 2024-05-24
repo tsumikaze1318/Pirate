@@ -15,12 +15,8 @@ public class ShowRanking : MonoBehaviour
         {
             for (int j = 0; j < GameManager.ScoreToPlayer[GameManager.ScoreRanking[i]].Count; j++)
             {
-                var plObj = Instantiate(GameManager.ScoreToPlayer[GameManager.ScoreRanking[i]][j]
-                        , new Vector3(i * 2 - 3, 0, 0)
-                        , Quaternion.identity);
-
                 RectTransform rect = rankTexts[count].GetComponent<RectTransform>();
-                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, plObj.transform.position + new Vector3(0, 2, 0));
+                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector3(i * 2 - 3, 0, 0) + new Vector3(0, 2, 0));
 
                 count++;
 

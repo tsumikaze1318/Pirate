@@ -1855,7 +1855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scores: 00000000000000000000000000000000
   playerPrefab: []
-  attendance: 4
+  attendance: 1
 --- !u!114 &1902208248
 MonoBehaviour:
   m_ObjectHideFlags: 0
