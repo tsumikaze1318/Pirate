@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
     private static int[] scoreRanking;
     public static int[] ScoreRanking => scoreRanking;
 
-    private static Dictionary<int, GameObject> scoreToPlayer 
-        = new Dictionary<int, GameObject>();
-    public static Dictionary<int, GameObject> ScoreToPlayer => scoreToPlayer;
+    private static Dictionary<int, List<GameObject>> scoreToPlayer 
+        = new Dictionary<int, List<GameObject>>();
+    public static Dictionary<int, List<GameObject>> ScoreToPlayer => scoreToPlayer;
 
     [SerializeField, Header("プレイヤーのプレハブ")]
     private List<GameObject> playerPrefab = new List<GameObject>();
@@ -76,8 +76,13 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < attendance; i++)
         {
-            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/Player{i + 1}"));
+            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/PlayerModel{i + 1}"));
         }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape)) { GameEnded(); }
     }
 
     #region 外部参照関数
@@ -159,10 +164,24 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < players.Count; i++)
         {
-            ScoreToPlayer.Add(scores[i], playerPrefab[i]);
+            List<GameObject> list = new List<GameObject>();
+            list.Add(playerPrefab[i]);
+
+            bool sameKey = false;
+
+            foreach (var dic in scoreToPlayer)
+            {
+                if (scores[i] == dic.Key)
+                {
+                    scoreToPlayer[scores[i]].Add(playerPrefab[i]);
+                    sameKey = true;
+                }
+            }
+
+            if (!sameKey) scoreToPlayer.Add(scores[i], list);
         }
 
-        int[] ranking = scores;
+        int[] ranking = new int[] { } ;
 
         Array.Sort(ranking);
         Array.Reverse(ranking);
