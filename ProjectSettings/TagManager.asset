@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Treasure
+  - Ball
+  - Water
   layers:
   - Default
   - TransparentFX
