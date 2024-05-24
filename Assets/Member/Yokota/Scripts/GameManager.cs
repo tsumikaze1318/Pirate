@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> playerPrefab;
 
     // ゲーム上に表示されているプレイヤーを格納するList
-    private List<GameObject> players;
+    private List<GameObject> players = new List<GameObject>();
 
     [SerializeField, Header("参加可能人数")]
     private int attendance;

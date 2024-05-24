@@ -155,6 +155,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.GameStart) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Jump();
@@ -169,6 +170,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.GameStart) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Move();

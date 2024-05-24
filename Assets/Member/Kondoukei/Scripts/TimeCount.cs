@@ -32,7 +32,8 @@ public class TimeCount : MonoBehaviour
 
         if (Timer <= 0)
         {
-            timerText.text = "‚Í";
+            SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result,BGMType.BGM1);
+            //timerText.text = "‚Í";
         }
 
     }

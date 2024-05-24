@@ -16,7 +16,7 @@ public class GameStartCountDown : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0)) isContDown = true;
+        //if (Input.GetMouseButtonUp(0)) isContDown = true;
 
         if (!isContDown) return;
 
