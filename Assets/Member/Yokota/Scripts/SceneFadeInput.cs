@@ -9,13 +9,13 @@ public class SceneFadeInput : MonoBehaviour
     {
         if (!context.performed) return;
 
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game, BGMType.BGM1);
     }
 
     public void GoTitleScene(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
 
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Title);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Title, BGMType.BGM1);
     }
 }

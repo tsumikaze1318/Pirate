@@ -52,7 +52,7 @@ public class FadeCanvas : MonoBehaviour
     /// 遷移先のシーン名を指定
     /// </summary>
     /// <param name="nextScene">遷移先のシーン名</param>
-    public void FadeOut(SceneNameClass.SceneName nextScene)
+    public void FadeOut(SceneNameClass.SceneName nextScene, BGMType bgmType)
     {
         // フェードアウトのフラグを上げる
         isFadeOut = true;

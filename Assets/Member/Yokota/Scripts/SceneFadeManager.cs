@@ -32,11 +32,11 @@ public class SceneFadeManager : MonoBehaviour
         }
     }
 
-    public void FadeStart(SceneNameClass.SceneName sceneName)
+    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
     {
         for (int i = 0; i < canvasList.Count; i++)
         {
-            canvasList[i].FadeOut(sceneName);
+            canvasList[i].FadeOut(sceneName, bgmType);
         }
     }
 }
