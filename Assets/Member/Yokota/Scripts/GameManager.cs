@@ -84,10 +84,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // ゲーム画面からリザルトへ遷移するための仮実装
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GameEnded();
-        }
+        //if (Input.GetKeyUp(KeyCode.Escape))
+        //{
+        //    GameEnded();
+        //}
     }
 
     #region 外部参照関数
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 
         await Task.Delay(3000);
 
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result, BGMType.BGM1);
     }
 
     /// <summary>
