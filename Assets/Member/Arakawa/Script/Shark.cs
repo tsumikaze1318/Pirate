@@ -5,9 +5,6 @@ using UnityEngine;
 public class Shark : MonoBehaviour
 {
     [SerializeField]
-    private ParticleSystem explosionParticleSystemPrefab;
-
-    [SerializeField]
     private GameObject ThrowingObjectPrefab;
 
     [SerializeField]
@@ -25,31 +22,16 @@ public class Shark : MonoBehaviour
     [SerializeField]
     private float ThroeingAngle;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //ThrowingBall();
- 
-        }
-
-    }
-
     public void ThrowingBall(float pos)
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-            // パーティクルシステムを生成してエフェクトを再生
-            ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(50f, -90f, 1.0f));
-            explosionParticleSystem.Play();
-
-            // パーティクル再生時間が終了したらパーティクルシステムを破棄
-            Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
 
             //オブジェクトの生成
             GameObject ball = Instantiate(ThrowingObjectPrefab, 
                 new Vector3(transform.position.x,transform.position.y, pos),
-                Quaternion.identity);;
+                Quaternion.identity);
+            Debug.Log("動いていますよね");
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度

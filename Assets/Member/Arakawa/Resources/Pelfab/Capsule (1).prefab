@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 264598731199764406}
   - component: {fileID: 858405974865429618}
   - component: {fileID: 7862347274546528}
+  - component: {fileID: 3495599145442483705}
   m_Layer: 0
   m_Name: Capsule (1)
   m_TagString: Player
@@ -199,3 +200,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3495599145442483705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113722573546456240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f427f58297d0d846801e4e31ea74e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectObject: {fileID: 1687118924408352, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
+  deleteTime: 1
+  offsetY: 1

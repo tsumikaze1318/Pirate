@@ -8,6 +8,8 @@ TagManager:
   - Treasure
   - Ball
   - Water
+  - Taget
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX

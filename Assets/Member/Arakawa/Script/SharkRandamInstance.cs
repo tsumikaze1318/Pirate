@@ -7,6 +7,7 @@ public class SharkRandamInstance : MonoBehaviour
     [SerializeField]
     private Shark shark;
 
+
     [SerializeField]
     private Transform[] Ranges;
 
@@ -25,6 +26,7 @@ public class SharkRandamInstance : MonoBehaviour
 
     private void RandamInstance()
     {
+        
         float z = Random.Range(Ranges[0].position.z, Ranges[1].position.z);
 
         shark.ThrowingBall(z);
