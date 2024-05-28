@@ -25,17 +25,17 @@ public class TimeCount : MonoBehaviour
     {
         // 5/24 ’Ç‹L‚µ‚Ü‚µ‚½ ‰¡“c
         if (!GameManager.Instance.GameStart) return;
-
+        if (GameManager.Instance.GameEnd) return;
         Timer -= Time.deltaTime;
         //timerText.text = ((int)Timer).ToString();
         timerText.text = string.Format("{0:#}", Timer);
 
-        if (Timer <= 0)
+        if (Timer < 0)
         {
-            SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result,BGMType.BGM1);
+            Timer = 0;
+            GameManager.Instance.GameEnded();
             //timerText.text = "‚Í";
         }
-
     }
 
 }

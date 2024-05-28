@@ -42,6 +42,7 @@ public class FireBullet : MonoBehaviour
     void Update()
     {
         if(!GameManager.Instance.GameStart) return;
+        if(GameManager.Instance.GameEnd) return;
         _timeElapsed += Time.deltaTime;
 
         //カウントが５未満である間、継続的に弾丸を生成する

@@ -104,7 +104,11 @@ public class GameManager : MonoBehaviour
     {
         // スコアを減算
         scores[plNum]--;
-        // UIを更新
+        if (scores[plNum] < 0)
+        {
+            scores[plNum] = 0;
+        }
+        // UIを更新1
         //gameSystems[plNum].Score = scores[plNum];
     }
 
@@ -115,9 +119,9 @@ public class GameManager : MonoBehaviour
     {
         gameEnd = true;
 
-        scoreRanking = RankingSort();
-
         await Task.Delay(3000);
+
+        scoreRanking = RankingSort();
 
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result, BGMType.BGM1);
     }

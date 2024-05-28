@@ -125,6 +125,8 @@ public class Player : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
         if (other.gameObject.CompareTag("Ground"))
         {
             _isJump = true;
@@ -158,6 +160,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.GameStart) return;
+        if(GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Jump();
@@ -175,6 +178,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Move();
