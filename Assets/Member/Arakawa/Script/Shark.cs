@@ -31,7 +31,6 @@ public class Shark : MonoBehaviour
             GameObject ball = Instantiate(ThrowingObjectPrefab, 
                 new Vector3(transform.position.x,transform.position.y, pos),
                 Quaternion.identity);
-            Debug.Log("動いていますよね");
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
@@ -45,7 +44,7 @@ public class Shark : MonoBehaviour
 
         Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
         {
-            float rad = angle * Mathf.PI / 100;
+            float rad = angle * Mathf.PI / 150;
 
             float x = Vector2.Distance(new Vector2(pointA.x, pointA.z), new Vector2(pointB.x, pointB.z));
             float y = pointA.y - pointB.y;
