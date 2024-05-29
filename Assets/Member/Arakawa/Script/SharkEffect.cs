@@ -20,6 +20,7 @@ public class SharkEffect : MonoBehaviour
         if (collision.gameObject.CompareTag("Taget"))
         {
             Detonate();
+            Destroy(gameObject);
         }
     }
     // Start is called before the first frame update
@@ -41,7 +42,7 @@ public class SharkEffect : MonoBehaviour
     void Detonate()
     {
         // パーティクルシステムを生成して爆発エフェクトを再生
-        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
+        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(150f, -90f, 1f));
         explosionParticleSystem.Play();
     }
 
