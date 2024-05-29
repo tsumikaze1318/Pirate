@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6275421962769860936
+--- !u!1 &4321987954213101821
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3248300190880484478}
-  - component: {fileID: 6380495283669802935}
-  - component: {fileID: 3860822819391897366}
-  - component: {fileID: 3040579326254297119}
-  - component: {fileID: 785118602272958640}
-  - component: {fileID: 1169057838542469115}
+  - component: {fileID: 7370491321985275334}
+  - component: {fileID: 7374176424226289180}
+  - component: {fileID: 7638543940008546717}
+  - component: {fileID: 8457125257783973820}
+  - component: {fileID: 6749936636115391818}
+  - component: {fileID: 341280713411957084}
   m_Layer: 0
   m_Name: SharkApp
   m_TagString: Untagged
@@ -21,36 +21,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3248300190880484478
+--- !u!4 &7370491321985275334
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.21, y: 8.158684, z: 0.5778318}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -21.8, y: -12, z: -3.61}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6380495283669802935
+--- !u!33 &7374176424226289180
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3860822819391897366
+--- !u!23 &7638543940008546717
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3040579326254297119
+--- !u!135 &8457125257783973820
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -107,37 +107,36 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &785118602272958640
+--- !u!114 &6749936636115391818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3df96747bb445b740a92e0580fe8f465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionParticleSystemPrefab: {fileID: 198039942544698878, guid: 77c69ec12208c4c4380d15e30b6f8f68, type: 3}
-  ThrowingObjectPrefab: {fileID: 9113722573546456240, guid: 91ae18cc4875d8545af27bd9aad3c33c, type: 3}
-  TargetObjectPrefab: {fileID: 4775725091616516666, guid: e24cf9b7db433f543bde649d7869414d, type: 3}
-  shark: {fileID: 0}
+  ThrowingObjectPrefab: {fileID: 7446339820378233328, guid: 629ab3d2f1a383449998a0d51c5a2f4d, type: 3}
+  TargetObjectPrefab: {fileID: 0}
+  shark: {fileID: 7446339820378233328, guid: 629ab3d2f1a383449998a0d51c5a2f4d, type: 3}
   taget: {fileID: 0}
-  ThroeingAngle: 14
---- !u!114 &1169057838542469115
+  ThroeingAngle: 20
+--- !u!114 &341280713411957084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275421962769860936}
+  m_GameObject: {fileID: 4321987954213101821}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53e29218c3d4a834a8b6e6649a45b70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shark: {fileID: 785118602272958640}
+  shark: {fileID: 6749936636115391818}
   Ranges:
   - {fileID: 0}
   - {fileID: 0}
