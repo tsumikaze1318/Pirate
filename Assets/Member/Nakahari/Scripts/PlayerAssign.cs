@@ -54,18 +54,22 @@ public class PlayerAssign : MonoBehaviour
                 case 0:
                     _player.transform.position = _spawnPos[_playerIndex];
                     _player._respawn = false;
+                    _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 1:
                     _player.transform.position = _spawnPos[_playerIndex];
                     _player._respawn = false;
+                    _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 2:
                     _player.transform.position = _spawnPos[_playerIndex];
                     _player._respawn = false;
+                    _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 3:
                     _player.transform.position = _spawnPos[_playerIndex];
                     _player._respawn = false;
+                    _player._state = CommonParam.UnitState.Normal;
                     break;
             }
         }

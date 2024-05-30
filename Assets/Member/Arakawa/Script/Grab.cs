@@ -33,7 +33,7 @@ public class Grab : MonoBehaviour
         //}
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (grabObj == null)
         {
@@ -41,9 +41,26 @@ public class Grab : MonoBehaviour
             {
                 Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
                 grabObj = collision.gameObject;
-                grabObj.transform.SetParent(transform);
+                grabObj.transform.parent.SetParent(transform);
                 grabObj.GetComponent<Rigidbody>().isKinematic = true;
-                grabObj.transform.localPosition = grabPoint.localPosition;
+                grabObj.transform.position = grabPoint.localPosition;
+
+            }
+        }
+    }*/
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (grabObj == null)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                Player player = collision.gameObject.GetComponent<Player>();
+                player._state = CommonParam.UnitState.Immovable;
+                Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
+                grabObj = collision.gameObject;
+                //grabObj.GetComponent<Rigidbody>().isKinematic = true;
+                grabObj.transform.position = grabPoint.position;
 
             }
         }

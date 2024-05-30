@@ -5,9 +5,6 @@ using UnityEngine;
 public class Shark : MonoBehaviour
 {
     [SerializeField]
-    private ParticleSystem explosionParticleSystemPrefab;
-
-    [SerializeField]
     private GameObject ThrowingObjectPrefab;
 
     [SerializeField]
@@ -25,29 +22,15 @@ public class Shark : MonoBehaviour
     [SerializeField]
     private float ThroeingAngle;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //ThrowingBall();
- 
-        }
-
-    }
-
-    public void ThrowingBall(Vector3 pos)
+    public void ThrowingBall(float pos)
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-            // パーティクルシステムを生成してエフェクトを再生
-            ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(50f, -90f, 1.0f));
-            explosionParticleSystem.Play();
-
-            // パーティクル再生時間が終了したらパーティクルシステムを破棄
-            Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
 
             //オブジェクトの生成
-            GameObject ball = Instantiate(ThrowingObjectPrefab, this.transform.position + pos, Quaternion.identity);
+            GameObject ball = Instantiate(ThrowingObjectPrefab, 
+                new Vector3(transform.position.x,transform.position.y, pos),
+                Quaternion.identity);
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
@@ -61,7 +44,7 @@ public class Shark : MonoBehaviour
 
         Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
         {
-            float rad = angle * Mathf.PI / 100;
+            float rad = angle * Mathf.PI / 150;
 
             float x = Vector2.Distance(new Vector2(pointA.x, pointA.z), new Vector2(pointB.x, pointB.z));
             float y = pointA.y - pointB.y;
@@ -77,6 +60,7 @@ public class Shark : MonoBehaviour
                 return (new Vector3(pointB.x - pointA.x, x * Mathf.Tan(rad), pointB.z - pointA.z).normalized * speed);
             }
         }
+
 
     }
 }
