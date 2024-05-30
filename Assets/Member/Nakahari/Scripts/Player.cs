@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.AddScore(_playerInput.user.index);
             TreasureRandomInstance.Instance.RandomInstance();
         }
-        if (other.gameObject.CompareTag("Water"))
+        if (other.gameObject.CompareTag("UnderGround"))
         {
             GameManager.Instance.SubScore(_playerInput.user.index);
             _rb.velocity = Vector3.zero;
