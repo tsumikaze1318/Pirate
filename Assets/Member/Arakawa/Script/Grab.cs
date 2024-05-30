@@ -14,37 +14,33 @@ public class Grab : MonoBehaviour
     RaycastHit hit;
 
     // Update is called once per frame
-    void Update()
-    {
-        //if (grabObj == null)
-        //{
-        //    if (Physics.Raycast(rayPoint.position, transform.right, out hit, rayDistance))
-        //    {
-        //        if (hit.collider != null && hit.collider.tag == "Player")
-        //        {
-        //            Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
-        //            grabObj = hit.collider.gameObject;
-        //            grabObj.GetComponent<Rigidbody>().isKinematic = true;
-        //            grabObj.transform.localPosition = grabPoint.localPosition;
-        //            grabObj.transform.SetParent(transform);
 
-        //        }
-        //    }
-        //}
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (grabObj == null)
+    //    {
+    //        if (collision.gameObject.tag == "Player")
+    //        {
+    //            Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
+    //            grabObj = collision.gameObject;
+    //            grabObj.transform.SetParent(transform);
+    //            grabObj.GetComponent<Rigidbody>().isKinematic = true;
+    //            grabObj.transform.localPosition = grabPoint.localPosition;
 
-    private void OnCollisionEnter(Collision collision)
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (grabObj == null)
+        if(grabObj == null)
         {
-            if (collision.gameObject.tag == "Player")
+            if(other.gameObject.tag == "Player")
             {
-                Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
-                grabObj = collision.gameObject;
+                grabObj = other.gameObject;
                 grabObj.transform.SetParent(transform);
                 grabObj.GetComponent<Rigidbody>().isKinematic = true;
                 grabObj.transform.localPosition = grabPoint.localPosition;
-
             }
         }
     }
