@@ -173,7 +173,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 50
 --- !u!114 &5714417798207678251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d97d36e4f2f3b14b97fb9d6a6c04352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timer: 99
+  Timer: 50
   timerText: {fileID: 3627466763794319434}
 --- !u!1 &2724517292407239406
 GameObject:
