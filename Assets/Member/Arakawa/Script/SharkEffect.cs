@@ -15,13 +15,15 @@ public class SharkEffect : MonoBehaviour
     private float deleteTime;
 
 
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Taget"))
-        {
+        
+       if(other.gameObject.tag == "Taget")
+       {
             Detonate();
             Destroy(gameObject);
-        }
+       }
+
     }
     // Start is called before the first frame update
     void Start()
