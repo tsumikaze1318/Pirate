@@ -13,7 +13,7 @@ public class Bomb3 : MonoBehaviour
 
     private bool hasDetonated = false;
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(UnityEngine.Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !hasDetonated && !_isGrounded) _isGrounded = true;
         // Õ“Ë‚µ‚½‘Šè‚ÉPlayerƒ^ƒO‚ª•t‚¢‚Ä‚¢‚é‚Æ‚«

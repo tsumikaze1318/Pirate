@@ -23,7 +23,7 @@ public class BralOff : MonoBehaviour
     }
 
     //è’ìÀîªíË
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(UnityEngine.Collision collision)
     {
         if (collision.gameObject.tag == "Player" && isCollision == false)
         {
