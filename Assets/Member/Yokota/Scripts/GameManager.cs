@@ -83,6 +83,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            GameEnded();
+        }
+    }
+
     #region 外部参照関数
 
     /// <summary>

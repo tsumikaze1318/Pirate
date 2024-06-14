@@ -8,7 +8,7 @@ public class TreasureModel : MonoBehaviour
 
     public void DestroyTreasure()
     {
-        TreasureRandomInstance treasureRandom = GetComponentInParent<TreasureRandomInstance>();
+        TreasureInstance treasureRandom = GetComponentInParent<TreasureInstance>();
         treasureRandom.RandomInstance(Place);
     }
 }

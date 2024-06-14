@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             GameManager.Instance.AddScore(_playerInput.user.index);
-            TreasureRandomInstance.Instance.RandomInstance();
+            other.gameObject.GetComponent<TreasureModel>().DestroyTreasure();
         }
         if (other.gameObject.CompareTag("UnderGround"))
         {

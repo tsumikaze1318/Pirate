@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TreasureRandomInstance : MonoBehaviour
+public class TreasureInstance : MonoBehaviour
 {
     private static object _lock = new object();
 
-    private static TreasureRandomInstance instance;
-    public static TreasureRandomInstance Instance
+    private static TreasureInstance instance;
+    public static TreasureInstance Instance
     {
         get
         {
@@ -17,12 +17,12 @@ public class TreasureRandomInstance : MonoBehaviour
                 if (instance == null)
                 {
                     instance
-                        = FindObjectOfType<TreasureRandomInstance>();
+                        = FindObjectOfType<TreasureInstance>();
                     if (instance == null)
                     {
                         var singletonObject = new GameObject();
-                        instance = singletonObject.AddComponent<TreasureRandomInstance>();
-                        singletonObject.name = nameof(TreasureRandomInstance) + "(singleton)";
+                        instance = singletonObject.AddComponent<TreasureInstance>();
+                        singletonObject.name = nameof(TreasureInstance) + "(singleton)";
                     }
                 }
 
@@ -41,6 +41,8 @@ public class TreasureRandomInstance : MonoBehaviour
 
     // オブジェクトサイズの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
+
+    private readonly Vector3 preciousBoxPos = new Vector3(0, -7.6f, 23.6f);
 
     private const uint maxInstance = 2;
 

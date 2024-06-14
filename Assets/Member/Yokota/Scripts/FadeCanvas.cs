@@ -31,7 +31,6 @@ public class FadeCanvas : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(this);
         SetAlpha();
         // シーン遷移が完了したときにフェードインを実行するように設定
         SceneManager.sceneLoaded += FadeIn_and_SceneChange;

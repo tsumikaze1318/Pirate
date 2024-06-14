@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class ShowRanking : MonoBehaviour
         {
             var key = ranking.Key;
             scores.Add(key);
+            scores = scores.OrderByDescending(i => i).ToList();
         }
 
         for (int i = 0; i < GameManager.ScoreToPlayer.Count; i++)
