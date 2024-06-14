@@ -47,6 +47,8 @@ public class PlayerAssign : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.GameStart) return;
+
         if (_player._respawn)
         {
             switch ( _playerIndex)

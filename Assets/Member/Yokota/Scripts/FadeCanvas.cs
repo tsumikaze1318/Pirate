@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class FadeCanvas : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class FadeCanvas : MonoBehaviour
 
     // フェードする時間
     private float fadeTime = 1f;
+
+    private Action cameraChange = null;
+
+    private Action countStart = null;
 
     private void Start()
     {
@@ -57,8 +62,15 @@ public class FadeCanvas : MonoBehaviour
         // フェードアウトのフラグを上げる
         isFadeOut = true;
 
-        // 遷移先のシーン名をEnumから文字列に変換
-        afterScene = SceneNameClass.SceneNameToString[nextScene];
+        if (nextScene == SceneNameClass.SceneName.Null)
+        {
+            // シーンは遷移しない
+        }
+        else
+        {
+            // 遷移先のシーン名をEnumから文字列に変換
+            afterScene = SceneNameClass.SceneNameToString[nextScene];
+        }
     }
 
     /// <summary>
@@ -81,6 +93,12 @@ public class FadeCanvas : MonoBehaviour
                 alpha = 0;
                 // フェードインのフラグを下げる
                 isFadeIn = false;
+
+                if (countStart != null)
+                {
+                    GameManager.Instance.CountStart();
+                    countStart = null;
+                }
             }
         }
         // フェードアウトしているとき
@@ -100,8 +118,21 @@ public class FadeCanvas : MonoBehaviour
                 isFadeOut = false;
                 // 次のシーンをロードする
                 if (afterScene != null) SceneManager.LoadScene(afterScene);
+                else isFadeIn = true;
+
+                if (cameraChange != null)
+                {
+                    cameraChange();
+                    cameraChange = null;
+                }
             }
         }
+    }
+
+    public void RegisterAction(Action camera, Action count)
+    {
+        cameraChange = camera;
+        countStart = count;
     }
 
     /// <summary>

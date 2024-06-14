@@ -37,5 +37,5 @@ public class GameStartCountDown : MonoBehaviour
         countDownText.text = Mathf.Ceil(countDown).ToString("0");
     }
 
-    public void CountStart() { isContDown = true; }
+    public void CountDown() { isContDown = true; }
 }

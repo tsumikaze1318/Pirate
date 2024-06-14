@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SceneNameClass;
 
 public class SceneFadeManager : MonoBehaviour
 {
@@ -37,6 +39,14 @@ public class SceneFadeManager : MonoBehaviour
         for (int i = 0; i < canvasList.Count; i++)
         {
             canvasList[i].FadeOut(sceneName, bgmType);
+        }
+    }
+
+    public void RegisterAction_Assign(Action camera, Action count)
+    {
+        for (int i = 0; i < canvasList.Count; i++)
+        {
+            canvasList[i].RegisterAction(camera, count);
         }
     }
 }

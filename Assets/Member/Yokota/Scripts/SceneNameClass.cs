@@ -6,6 +6,7 @@ public class SceneNameClass
 {
     public enum SceneName
     {
+        Null,
         Title,
         Game,
         Result

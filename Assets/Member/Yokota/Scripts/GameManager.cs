@@ -37,14 +37,14 @@ public class GameManager : MonoBehaviour
     private bool gameEnd = false;
     public bool GameEnd => gameEnd;
 
+    private bool cameraChanged = false;
+    public bool CameraChanged => cameraChanged;
+
     [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
     public int[] Scores => scores;
-
-    private static int[] scoreRanking;
-    public static int[] ScoreRanking => scoreRanking;
 
     private static Dictionary<int, List<GameObject>> scoreToPlayer 
         = new Dictionary<int, List<GameObject>>();
@@ -61,11 +61,15 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("参加可能人数")]
     private int attendance;
 
-    private int isActivePlayer;
-
     // カウントダウンを表示するスクリプトを格納するList
     private List<GameStartCountDown> gameStartCountDowns 
         = new List<GameStartCountDown>();
+
+    [SerializeField]
+    private List<Camera> cameras = new List<Camera>();
+
+    [SerializeField]
+    private List<Canvas> canvass = new List<Canvas>();
 
     // 宝箱獲得数のUI表示クラス
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
@@ -77,11 +81,6 @@ public class GameManager : MonoBehaviour
         {
             playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/PlayerModel{i + 1}"));
         }
-    }
-
-    private void Update()
-    {
-        //if (Input.GetKeyUp(KeyCode.Escape)) { GameEnded(); }
     }
 
     #region 外部参照関数
@@ -123,7 +122,7 @@ public class GameManager : MonoBehaviour
 
         await Task.Delay(3000);
 
-        scoreRanking = RankingSort();
+        RankingSort();
 
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result, BGMType.BGM1);
     }
@@ -133,6 +132,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayersReady()
     {
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera, CountStart);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+    }
+
+    public void CountStart()
+    {
         for (int i = 0; i < players.Count; i++)
         {
             gameStartCountDowns.Add
@@ -141,7 +146,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < gameStartCountDowns.Count; i++)
         {
-            gameStartCountDowns[i].CountStart();
+            gameStartCountDowns[i].CountDown();
         }
     }
 
@@ -159,11 +164,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ChangeCamera()
+    {
+        Debug.Log("ChangeCamera");
+
+        foreach (var camera in cameras)
+        {
+            camera.enabled = false;
+        }
+
+        foreach (var canvas in canvass)
+        {
+            canvas.enabled = false;
+        }
+
+        cameraChanged = true;
+    }
+
     public void SetGameStart() { gameStart = true; }
 
     #endregion
 
-    private int[] RankingSort()
+    private void RankingSort()
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -183,12 +205,5 @@ public class GameManager : MonoBehaviour
 
             if (!sameKey) scoreToPlayer.Add(scores[i], list);
         }
-
-        int[] ranking = scores;
-
-        Array.Sort(ranking);
-        Array.Reverse(ranking);
-
-        return ranking;
     }
 }

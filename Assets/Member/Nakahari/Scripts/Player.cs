@@ -41,6 +41,9 @@ public class Player : MonoBehaviour
 
     public bool _respawn = false;
 
+    [SerializeField]
+    private GameObject uiObject;
+
 
     #endregion
 
@@ -159,6 +162,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.CameraChanged && !uiObject.activeInHierarchy)
+            uiObject.SetActive(true);
+
         if (!GameManager.Instance.GameStart) return;
         if(GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
