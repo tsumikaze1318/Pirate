@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
     // ゲーム上に表示されているプレイヤーを格納するList
     private List<GameObject> players = new List<GameObject>();
 
+    public List<GameObject> Players => players;
+
     [SerializeField, Header("参加可能人数")]
     private int attendance;
 

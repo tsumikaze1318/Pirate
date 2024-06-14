@@ -9,19 +9,34 @@ public class ShowRanking : MonoBehaviour
     {
         int count = 0;
 
+        int rank = 1;
+
         var rankTexts = GetComponentsInChildren<Text>();
+
+        List<int> scores = new List<int>();
+
+        foreach (var ranking in GameManager.ScoreToPlayer)
+        {
+            var key = ranking.Key;
+            scores.Add(key);
+        }
 
         for (int i = 0; i < GameManager.ScoreToPlayer.Count; i++)
         {
-            for (int j = 0; j < GameManager.ScoreToPlayer[GameManager.ScoreRanking[i]].Count; j++)
+            int same = 0;
+
+            for (int j = 0; j < GameManager.ScoreToPlayer[scores[i]].Count; j++)
             {
                 RectTransform rect = rankTexts[count].GetComponent<RectTransform>();
-                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector3(i * 2 - 3, 0, 0) + new Vector3(0, 2, 0));
+                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector3(count * 2 - 3, 2, 0));
 
                 count++;
+                same++;
 
-                rankTexts[count - 1].text = $"{count}位 : {GameManager.ScoreRanking[i]}";
+                rankTexts[count - 1].text = $"{rank}位 : {scores[i]}";
             }
+
+            rank += same;
         }
     }
 }
