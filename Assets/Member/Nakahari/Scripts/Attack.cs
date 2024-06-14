@@ -10,13 +10,13 @@ public class Attack : MonoBehaviour
         _player = GetComponentInParent<Player>();
     }
 
-    void SubCount(Collision other)
+    void SubCount(UnityEngine.Collision other)
     {
         HitCount hitCount = other.gameObject.GetComponent<HitCount>();
         hitCount._count--;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(UnityEngine.Collision other)
     {
         if(other.gameObject.CompareTag("Player") && _player._stateTime >= 1)
         {

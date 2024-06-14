@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(UnityEngine.Collision other)
     {
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
