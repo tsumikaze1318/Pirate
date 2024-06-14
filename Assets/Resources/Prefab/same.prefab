@@ -84,7 +84,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999986
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -92,11 +92,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.0016581292
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -108,7 +108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       propertyPath: m_Name
@@ -136,6 +136,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 928939682064586188}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4411700879812055772}
   m_SourcePrefab: {fileID: 100100000, guid: 18ca7a99a5822a448b730dea037f31e2, type: 3}
 --- !u!4 &2737420833675490744 stripped
 Transform:
@@ -224,3 +227,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabPoint: {fileID: 5242501839671816230}
   rayPoint: {fileID: 7399760090409702583}
+--- !u!114 &4411700879812055772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366041677076328194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f41d21ce36ad8248ae0d2dadafd9c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
