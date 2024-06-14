@@ -335,11 +335,11 @@ MonoBehaviour:
   TreasureBox: {fileID: 8170576461701378360, guid: 18bd2e2ce36332f47bca6e5e19d17621, type: 3}
   rangeStruct:
   - Ranges:
-    - {fileID: 8484535027248177669}
-    - {fileID: 2432854111649388891}
-  - Ranges:
     - {fileID: 8500130939936977004}
     - {fileID: 6283853502902248109}
+  - Ranges:
+    - {fileID: 8484535027248177669}
+    - {fileID: 2432854111649388891}
   - Ranges:
     - {fileID: 9012005555229776934}
     - {fileID: 5647678545083973680}

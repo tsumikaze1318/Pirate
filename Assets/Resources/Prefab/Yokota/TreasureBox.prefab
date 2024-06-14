@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4777416929629046138}
   - component: {fileID: 6229881337159579560}
   - component: {fileID: -9069786851501380290}
+  - component: {fileID: 4727375245612750804}
   m_Layer: 0
   m_Name: TreasureBox
   m_TagString: Treasure
@@ -133,3 +134,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 10
   m_CollisionDetection: 0
+--- !u!114 &4727375245612750804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170576461701378360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdc5195c84c08d48b2fe1184836cf74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Place: 3
