@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    #region 宣言
     private static object _lock = new object();
 
     private static GameManager instance;
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
     private bool cameraChanged = false;
     public bool CameraChanged => cameraChanged;
 
+    private bool fiftySecondsLeft = false;
+    public bool FiftySecondsLeft => fiftySecondsLeft;
+
     [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
@@ -61,6 +65,9 @@ public class GameManager : MonoBehaviour
     [SerializeField, Header("参加可能人数")]
     private int attendance;
 
+    [SerializeField]
+    private TreasureInstance treasureInstance;
+
     // カウントダウンを表示するスクリプトを格納するList
     private List<GameStartCountDown> gameStartCountDowns 
         = new List<GameStartCountDown>();
@@ -75,12 +82,16 @@ public class GameManager : MonoBehaviour
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
     //private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
 
+    #endregion
+
     private void Start()
     {
         for (int i = 0; i < attendance; i++)
         {
             playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/PlayerModel{i + 1}"));
         }
+
+        treasureInstance ??= FindObjectOfType<TreasureInstance>();
     }
 
     private void Update()
@@ -97,10 +108,11 @@ public class GameManager : MonoBehaviour
     /// プレイヤー番号に応じた宝箱獲得数を加算しUIに反映する関数
     /// </summary>
     /// <param name="plNum">プレイヤー番号</param>
-    public void AddScore(int plNum)
+    public void AddScore(int plNum, bool precious)
     {
         // スコアを加算
-        scores[plNum]++;
+        if (precious) scores[plNum] += 3;
+        else scores[plNum]++;
         // UIを更新
         //gameSystems[plNum].Score = scores[plNum];
     }
@@ -190,6 +202,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetGameStart() { gameStart = true; }
+
+    public void InvokeKraken()
+    {
+        Debug.Log("!!!CLIMAX!!!");
+        treasureInstance.SetClimax(true);
+    }
 
     #endregion
 

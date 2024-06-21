@@ -6,17 +6,21 @@ public class TreasureModel : MonoBehaviour
 {
     public TreasurePlace Place;
 
-    public void DestroyTreasure()
+    public void DestroyTreasure(int plNum)
     {
-        TreasureInstance treasureRandom = GetComponentInParent<TreasureInstance>();
-        treasureRandom.RandomInstance(Place);
+        if (Place == TreasurePlace.Sprit) GameManager.Instance.AddScore(plNum, true);
+        else GameManager.Instance.AddScore(plNum, false);
+
+        TreasureInstance treasureInstance = GetComponentInParent<TreasureInstance>();
+        treasureInstance.GenerateTreasure(Place);
     }
 }
 
 public enum TreasurePlace
 {
-    Midship,
+    Main,
     Fore,
-    Stern,
+    Mizzen,
+    Sprit,
     Null
 }
