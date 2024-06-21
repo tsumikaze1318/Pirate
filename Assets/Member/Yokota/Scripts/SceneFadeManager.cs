@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static SceneNameClass;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class SceneFadeManager : MonoBehaviour
 {
@@ -22,8 +22,18 @@ public class SceneFadeManager : MonoBehaviour
 
     public static SceneFadeManager Instance => instance;
 
+    private bool isFade = false;
+    public bool IsFade => isFade;
+
+    [SerializeField]
+    private SoundManager soundManager;
+
     [SerializeField]
     private List<FadeCanvas> canvasList = new List<FadeCanvas>();
+
+    private PlayerInputManager playerInputManager;
+
+    private BGMType _bgmType;
 
     private void Start()
     {
@@ -32,13 +42,17 @@ public class SceneFadeManager : MonoBehaviour
         {
             canvasList.Add(canvasItem);
         }
+
+        SceneManager.sceneLoaded += SceneChanged;
     }
 
     public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
     {
+        _bgmType = bgmType;
+
         for (int i = 0; i < canvasList.Count; i++)
         {
-            canvasList[i].FadeOut(sceneName, bgmType);
+            canvasList[i].FadeOut(sceneName);
         }
     }
 
@@ -48,5 +62,23 @@ public class SceneFadeManager : MonoBehaviour
         {
             canvasList[i].RegisterAction(camera, count);
         }
+    }
+
+    private void DisablePlayerInputManager()
+    {
+        playerInputManager.enabled = false;
+    }
+
+    public void SetIsFade(bool fade)
+    {
+        isFade = fade;
+    }
+
+    private void SceneChanged(Scene scene, LoadSceneMode mode)
+    {
+        soundManager.StopBgm();
+        soundManager.PlayBgm(_bgmType);
+
+        playerInputManager = FindObjectOfType<PlayerInputManager>();
     }
 }

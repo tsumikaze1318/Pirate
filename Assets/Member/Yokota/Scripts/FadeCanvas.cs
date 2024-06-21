@@ -29,9 +29,12 @@ public class FadeCanvas : MonoBehaviour
 
     private Action countStart = null;
 
+    private SceneFadeManager sceneFadeManager;
+
     private void Start()
     {
         SetAlpha();
+        sceneFadeManager = GetComponentInParent<SceneFadeManager>();
         // シーン遷移が完了したときにフェードインを実行するように設定
         SceneManager.sceneLoaded += FadeIn_and_SceneChange;
     }
@@ -56,10 +59,12 @@ public class FadeCanvas : MonoBehaviour
     /// 遷移先のシーン名を指定
     /// </summary>
     /// <param name="nextScene">遷移先のシーン名</param>
-    public void FadeOut(SceneNameClass.SceneName nextScene, BGMType bgmType)
+    public void FadeOut(SceneNameClass.SceneName nextScene)
     {
         // フェードアウトのフラグを上げる
         isFadeOut = true;
+
+        sceneFadeManager.SetIsFade(true);
 
         if (nextScene == SceneNameClass.SceneName.Null)
         {
@@ -92,6 +97,7 @@ public class FadeCanvas : MonoBehaviour
                 alpha = 0;
                 // フェードインのフラグを下げる
                 isFadeIn = false;
+                sceneFadeManager.SetIsFade(false);
 
                 if (countStart != null)
                 {

@@ -28,8 +28,8 @@ public class CharactorModelInstance : MonoBehaviour
             for (int j = 0; j < GameManager.ScoreToPlayer[scores[i]].Count; j++)
             {
                 var plObj = Instantiate(GameManager.ScoreToPlayer[scores[i]][j]
-                        , new Vector3(count * 2 - 3, 0, 0)
-                        , Quaternion.identity);
+                        , new Vector3(count * 2 - 3, -5.4f, -21f)
+                        , Quaternion.Euler(0f, 180f, 0f));
 
                 count++;
             }

@@ -7,7 +7,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region 宣言
-    private static object _lock = new object();
 
     private static GameManager instance;
     public static GameManager Instance
@@ -92,14 +91,6 @@ public class GameManager : MonoBehaviour
         }
 
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            GameEnded();
-        }
     }
 
     #region 外部参照関数
