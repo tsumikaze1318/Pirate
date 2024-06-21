@@ -27,7 +27,15 @@ public class CameraSettings : MonoBehaviour
 
     private Vector2 _look = Vector2.zero;
 
-    
+    private Transform _preTransform;
+
+    private float _currentAngle;
+
+    [SerializeField]
+    private float _maxAngleX;
+
+    [SerializeField]
+    private float _minAngleX;
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +45,24 @@ public class CameraSettings : MonoBehaviour
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
+        _currentAngle = transform.rotation.eulerAngles.x;
     }
 
     private void CameraControl()
     {
-        transform.RotateAround(_targetTransfrom.position, new Vector3(_inputs._look.z, _inputs._look.x, 0f), _cameraMoveSpeed);
+        var x = _inputs._look.y * _cameraMoveSpeed;
+        var y = _inputs._look.x * _cameraMoveSpeed;
+        transform.RotateAround(_targetTransfrom.position, Vector3.up, y);
+        _currentAngle = transform.rotation.eulerAngles.x;
+        if(_currentAngle <= _maxAngleX && _currentAngle >= _minAngleX)
+        {
+            transform.RotateAround(_targetTransfrom.position, -transform.right, x);
+        }
+        if(_currentAngle >= _maxAngleX || _currentAngle <= _minAngleX)
+        {
+
+        }
+        _preTransform = this.transform;
     }
 
     private void CameraMove()
@@ -59,6 +80,5 @@ public class CameraSettings : MonoBehaviour
     {
         CameraMove();
         CameraControl();
-        //Debug.Log(_inputs._look);
     }
 }
