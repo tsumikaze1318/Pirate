@@ -140,6 +140,11 @@ public class Player : MonoBehaviour
             TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
             treasure.GetTreasure(_playerInput.user.index);
         }
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.gameObject.CompareTag("UnderGround"))
         {
             GameManager.Instance.SubScore(_playerInput.user.index);
