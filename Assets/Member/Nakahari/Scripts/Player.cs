@@ -137,8 +137,8 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Treasure"))
         {
             Destroy(other.gameObject);
-            GameManager.Instance.AddScore(_playerInput.user.index);
-            other.gameObject.GetComponent<TreasureModel>().DestroyTreasure();
+            TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
+            treasure.GetTreasure(_playerInput.user.index);
         }
         if (other.gameObject.CompareTag("UnderGround"))
         {
@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
         CursorLook();
         CursorNone();
 
-        Debug.Log(_state);
+        //Debug.Log(_state);
     }
 
     private void FixedUpdate()
