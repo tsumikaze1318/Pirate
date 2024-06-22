@@ -11,6 +11,8 @@ public class HitCount : MonoBehaviour
 
     float _time = 0;
 
+    float _stunTime = 1;
+
     private void Start()
     {
         if( _player == null ) _player = GetComponent<Player>();
@@ -27,7 +29,7 @@ public class HitCount : MonoBehaviour
                 _count = 3;
                 _time = 0;
             }
-            if (_time >= 4)
+            if (_time >= _stunTime)
             {
                 _player._state = CommonParam.UnitState.Normal;
                 _count = 3;
