@@ -8,6 +8,7 @@ public class SceneFadeInput : MonoBehaviour
     public void GoGameScene(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (SceneFadeManager.Instance.IsFade) return;
 
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game, BGMType.BGM1);
     }
@@ -15,6 +16,7 @@ public class SceneFadeInput : MonoBehaviour
     public void GoTitleScene(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
+        if (SceneFadeManager.Instance.IsFade) return;
 
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Title, BGMType.BGM1);
     }

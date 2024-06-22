@@ -29,9 +29,7 @@ public class Shark : MonoBehaviour
 
             //オブジェクトの生成
             GameObject ball = Instantiate(ThrowingObjectPrefab, 
-                new Vector3(transform.position.x,transform.position.y, pos),
-            
-                Quaternion.identity);
+            new Vector3(transform.position.x,transform.position.y, pos),Quaternion.Euler(0f, 0f, 35f));
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度

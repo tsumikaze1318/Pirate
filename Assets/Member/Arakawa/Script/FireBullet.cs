@@ -41,6 +41,7 @@ public class FireBullet : MonoBehaviour
     //private void Update()
     void Update()
     {
+        Debug.Log("‚¤‚²‚¢‚Ä‚é‚©H");
         if(!GameManager.Instance.GameStart) return;
         if(GameManager.Instance.GameEnd) return;
         _timeElapsed += Time.deltaTime;
@@ -56,6 +57,7 @@ public class FireBullet : MonoBehaviour
 
                 //ŒvZ‚³‚ê‚½ˆÊ’u‚É’e‚ğ¶¬‚·‚é
                 GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+            Debug.Log("‚¤‚²‚¢‚Ä‚é‚©‚PH");
 
                 //’e‚Ì•ûŒü‚ğæ“¾‚·‚é
                 Vector3 direction = newBullet.transform.up;
