@@ -15,6 +15,7 @@ struct BGMData
 {
     public BGMType Type;
     public AudioClip Clip;
+    [Range(0, 1)]
     public float Volume;
     public bool Loop;
 }
@@ -31,6 +32,7 @@ struct SEData
 {
     public SEType Type;
     public AudioClip Clip;
+    [Range (0, 1)]
     public float Volume;
     public bool Loop;
 }
@@ -101,5 +103,11 @@ public class SoundManager : MonoBehaviour
         seSource.loop = se.Loop;
         seSource.volume = se.Volume;
         seSource.Play();
+    }
+
+    // 市原追記
+    public void StopLoopBgm()
+    {
+        seSource.Stop();
     }
 }
