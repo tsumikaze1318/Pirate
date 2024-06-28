@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: md_woodenBox1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c090101ca14f94d4da965cca471227e4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c090101ca14f94d4da965cca471227e4, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
