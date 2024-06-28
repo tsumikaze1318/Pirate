@@ -5,6 +5,14 @@ public class TreasureModel : MonoBehaviour
     // この宝箱の生成区画
     public TreasurePlace Place;
 
+    private TreasureInstance treasureInstance;
+
+    private void Start()
+    {
+        // 親オブジェクトから宝箱生成クラスを取得
+        treasureInstance = GetComponentInParent<TreasureInstance>();
+    }
+
     /// <summary>
     /// 宝箱を獲得した時に呼ぶ関数
     /// </summary>
@@ -15,8 +23,7 @@ public class TreasureModel : MonoBehaviour
         if (Place == TreasurePlace.Sprit) GameManager.Instance.AddScore(plNum, true);
         else GameManager.Instance.AddScore(plNum, false);
 
-        // 親オブジェクトから宝箱生成クラスを取得
-        TreasureInstance treasureInstance = GetComponentInParent<TreasureInstance>();
+        
         // 宝箱生成関数を呼び出す
         treasureInstance.GenerateTreasure(Place);
     }
