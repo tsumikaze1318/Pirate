@@ -8,6 +8,13 @@ public class PlayerGrab : MonoBehaviour
 
     private GameObject grabObject = null;
 
+    private void Update()
+    {
+        if (grabObject == null) return;
+
+        grabObject.transform.position = gameObject.transform.position;
+    }
+
     public void Grab()
     {
         if (grabObject != null) return;
@@ -30,7 +37,8 @@ public class PlayerGrab : MonoBehaviour
         if (grabObject != null)
         {
             canGrabObjects.Clear();
-            grabObject.transform.parent = transform.parent;
+            grabObject.transform.position = transform.position;
+            grabObject.transform.parent = transform;
         }
     }
 
@@ -45,7 +53,9 @@ public class PlayerGrab : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (grabObject != null) return;
-        if (!other.CompareTag("Ground")) canGrabObjects.Add(other.gameObject);
+        if (other.gameObject.layer != 6) return;
+
+        canGrabObjects.Add(other.gameObject);
         
         Debug.Log($"TriggerEnter : {canGrabObjects.Count}");
     }
