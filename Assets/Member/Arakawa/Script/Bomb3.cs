@@ -41,6 +41,7 @@ public class Bomb3 : MonoBehaviour
     {
         // パーティクルシステムを生成して爆発エフェクトを再生
         ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
+        SoundManager.Instance.PlaySe(SEType.SE2);
         explosionParticleSystem.Play();
 
         // パーティクル再生時間が終了したらパーティクルシステムを破棄

@@ -54,13 +54,15 @@ public class FireBullet : MonoBehaviour
             {
                 //新しい弾を生成する時間かどうかを確認する
                 Vector3 bulletPosition = firingPoint.transform.position;
-
-                //計算された位置に弾を生成する
-                GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+            //計算された位置に弾を生成する
+            GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+            SoundManager.Instance.PlaySe(SEType.SE3);
             Debug.Log("うごいてるか１？");
 
                 //弾の方向を取得する
                 Vector3 direction = newBullet.transform.up;
+
+            
 
                 //指定された方向に力をたまに加える
                 newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);

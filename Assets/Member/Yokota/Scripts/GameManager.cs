@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
     public void AddPlayer(GameObject player)
     {
         players.Add(player);
+        SoundManager.Instance.PlaySe(SEType.SE1);
 
         if (players.Count == attendance)
         {

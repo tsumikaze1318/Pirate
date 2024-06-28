@@ -20,6 +20,7 @@ public class SharkEffect : MonoBehaviour
         
        if(other.gameObject.tag == "Taget")
        {
+            SoundManager.Instance.PlaySe(SEType.SE4);
             Detonate();
             Destroy(gameObject);
        }

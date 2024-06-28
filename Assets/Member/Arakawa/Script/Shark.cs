@@ -33,7 +33,7 @@ public class Shark : MonoBehaviour
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
             float angle = ThroeingAngle;
-            //SoundManager.Instance.PlaySe(SEType.SE4);
+            SoundManager.Instance.PlaySe(SEType.SE4);
             //射出速度を産出
             Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
             //射出
