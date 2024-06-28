@@ -44,6 +44,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject uiObject;
 
+    // 6/28　追記しました　横田
+    [SerializeField]
+    private PlayerGrab _playerGrab;
+
 
     #endregion
 
@@ -93,8 +97,15 @@ public class Player : MonoBehaviour
         {
             // 動かないオブジェクトを掴んだ処理はIKで可能
             // 他のオブジェクトは子オブジェクトにする
+            // 6/28　追記しました　横田
+            _playerGrab.Grab();
             Debug.Log("右手で持つ");
         }
+        else
+        {
+            _playerGrab.Release();
+        }
+        
     }
 
     void RightGrab()
@@ -157,7 +168,7 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
-        
+        _playerGrab ??= GetComponentInChildren<PlayerGrab>();
 
         _transform = transform;
         _prevPosition = _transform.position;
