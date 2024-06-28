@@ -20,24 +20,24 @@ public class Shark : MonoBehaviour
     private GameObject taget;
 
     [SerializeField]
-    private float ThroeingAngle;
+    private float ThroeingAngle; 
 
     public void ThrowingBall(float pos)
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-
             //オブジェクトの生成
-            GameObject ball = Instantiate(ThrowingObjectPrefab, 
-            new Vector3(transform.position.x,transform.position.y, pos),Quaternion.Euler(0f, 0f, 35f));
+            GameObject Shark = Instantiate(ThrowingObjectPrefab, 
+            new Vector3(transform.position.x,transform.position.y, pos),Quaternion.Euler(0f, -180f, 35f));
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
             float angle = ThroeingAngle;
+            //SoundManager.Instance.PlaySe(SEType.SE4);
             //射出速度を産出
             Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
             //射出
-            Rigidbody rid = ball.GetComponent<Rigidbody>();
+            Rigidbody rid = Shark.GetComponent<Rigidbody>();
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
         }
 
