@@ -15,6 +15,7 @@ public class SharkRandamInstance : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.GameStart) return;
         timeLine += Time.deltaTime;
 
         if (timeLine > 3f)
