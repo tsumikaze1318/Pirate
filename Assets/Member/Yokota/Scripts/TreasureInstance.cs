@@ -5,8 +5,8 @@ public class TreasureInstance : MonoBehaviour
 {
     // レア宝箱生成フラグ
     private bool _climax = false;
-    [SerializeField, Header("宝箱のゲームオブジェクト")]
-    private GameObject TreasureBox;
+    [SerializeField, Header("お宝のオブジェクトリスト")]
+    private GameObject[] Treasure;
     // 宝箱生成範囲のリスト
     [SerializeField, EnumIndex(typeof(RangeSection))]
     private List<TreasureInstanceRanges> rangeStruct = new List<TreasureInstanceRanges>();
@@ -173,7 +173,7 @@ public class TreasureInstance : MonoBehaviour
             if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
             {
                 // 宝箱を生成
-                var treasure = Instantiate(TreasureBox, pos, Quaternion.identity, transform);
+                var treasure = Instantiate(Treasure[0], pos, Quaternion.identity, transform);
 
                 // リストに追加
                 treasureModels.Add(treasure.GetComponent<TreasureModel>());
@@ -191,7 +191,7 @@ public class TreasureInstance : MonoBehaviour
     private void PreciousBoxGenerate()
     {
         // 指定の場所に生成
-        var treasure = Instantiate(TreasureBox, preciousBoxPos, Quaternion.identity, transform);
+        var treasure = Instantiate(Treasure[1], preciousBoxPos, Quaternion.identity, transform);
 
         // リストに追加
         treasureModels.Add(treasure.GetComponent<TreasureModel>());
