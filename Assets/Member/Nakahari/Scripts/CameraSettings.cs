@@ -6,16 +6,11 @@ using UnityEngine.InputSystem;
 
 public class CameraSettings : MonoBehaviour
 {
-    private Camera _camera;
     private PlayerInput _playerInput;
     private PlayerInputs _inputs;
 
-    [SerializeField]
-    [Header("Š´“x")]
-    private float _cameraMoveSpeed;
-
-    [SerializeField]
-    private Transform _targetTransfrom;
+    //[SerializeField]
+    //private Transform _targetTransfrom;
 
     [SerializeField]
     GameObject _player;
@@ -31,54 +26,51 @@ public class CameraSettings : MonoBehaviour
 
     private float _currentAngle;
 
+
     [SerializeField]
     private float _maxAngleX;
 
     [SerializeField]
     private float _minAngleX;
 
+    [SerializeField]
+    private Camera _camera;
+
+    [SerializeField]
+    [Header("Š´“x")]
+    private float _cameraMoveSpeed;
+
+    [SerializeField]
+    Vector3 _axisPos;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(_camera == null) _camera = GetComponent<Camera>();
-        if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
-        if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
+        if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
+        if (_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
-        _currentAngle = transform.rotation.eulerAngles.x;
+        _camera.transform.localPosition = new Vector3(0, 0, -5);
+        _camera.transform.localRotation = transform.rotation;
     }
 
     private void CameraControl()
     {
-        var x = _inputs._look.y * _cameraMoveSpeed;
-        var y = _inputs._look.x * _cameraMoveSpeed;
-        transform.RotateAround(_targetTransfrom.position, Vector3.up, y);
-        _currentAngle = transform.rotation.eulerAngles.x;
-        if(_currentAngle <= _maxAngleX && _currentAngle >= _minAngleX)
-        {
-            transform.RotateAround(_targetTransfrom.position, -transform.right, x);
-        }
-        if(_currentAngle >= _maxAngleX || _currentAngle <= _minAngleX)
-        {
+        transform.position = _player.transform.position + _axisPos;
 
-        }
-        _preTransform = this.transform;
-    }
+        transform.eulerAngles += new Vector3(_inputs._look.y * _cameraMoveSpeed, _inputs._look.x * _cameraMoveSpeed, 0);
+        
+        float angleX = transform.eulerAngles.x;
 
-    private void CameraMove()
-    {
-        _currentPos = _player.transform.position;
+        if(angleX >= 180) { angleX = angleX - 360; }
 
-        _diff = _currentPos - _pastPos;
+        transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
 
-        transform.position = Vector3.Lerp(transform.position, transform.position + _diff, 1.0f);
-
-        _pastPos = _currentPos;
     }
 
     private void Update()
     {
-        CameraMove();
+        if (!GameManager.Instance.GameStart) return;
         CameraControl();
     }
 }
