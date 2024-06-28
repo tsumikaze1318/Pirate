@@ -57,6 +57,7 @@ public class CameraSettings : MonoBehaviour
     private void CameraControl()
     {
         transform.position = _player.transform.position + _axisPos;
+        if (!GameManager.Instance.GameStart) return;
 
         transform.eulerAngles += new Vector3(_inputs._look.y * _cameraMoveSpeed, _inputs._look.x * _cameraMoveSpeed, 0);
         
@@ -70,7 +71,6 @@ public class CameraSettings : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.GameStart) return;
         CameraControl();
     }
 }
