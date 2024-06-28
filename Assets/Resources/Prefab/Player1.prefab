@@ -547,6 +547,8 @@ MonoBehaviour:
   _cameraMoveSpeed: 2
   _targetTransfrom: {fileID: 6103214418155992002}
   _player: {fileID: 5040849074350606282}
+  _maxAngleX: 80
+  _minAngleX: -10
 --- !u!1001 &861843417946937605
 PrefabInstance:
   m_ObjectHideFlags: 0

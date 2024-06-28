@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5962032762494907038}
   - component: {fileID: 2916388776669917877}
   - component: {fileID: 4428705047734572532}
+  - component: {fileID: 7791757050987991428}
   m_Layer: 0
   m_Name: InputSystemPlayer
   m_TagString: Player
@@ -157,6 +158,19 @@ MonoBehaviour:
   _stateTime: 0
   _respawn: 0
   uiObject: {fileID: 7564977258134529531}
+--- !u!114 &7791757050987991428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3414640709536870539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14819138116736c44b57403e1a833a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _count: 3
 --- !u!1 &3596775000484777564
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +384,8 @@ MonoBehaviour:
   _cameraMoveSpeed: 2
   _targetTransfrom: {fileID: 8412683413200131250}
   _player: {fileID: 3414640709536870539}
+  _maxAngleX: 0
+  _minAngleX: 0
 --- !u!1 &5173320452986617334
 GameObject:
   m_ObjectHideFlags: 0

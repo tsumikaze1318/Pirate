@@ -27,7 +27,7 @@ public class PlayerInputs : MonoBehaviour
     {
         // LookAction ‚Ì“ü—Í’l‚ÌŽæ“¾
         var axis = value.Get<Vector2>();
-        _look = new Vector2(axis.x, 0);
+        _look = new Vector3(axis.x, axis.y, 0f);
     }
 
     private void OnFire(InputValue value)
