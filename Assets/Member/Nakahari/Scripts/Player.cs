@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
-        if (other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground") || other.gameObject.layer == 6)
         {
             _isJump = true;
         }
