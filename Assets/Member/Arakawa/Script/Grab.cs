@@ -49,7 +49,7 @@ public class Grab : MonoBehaviour
         }
     }*/
 
-    private void OnCollisionStay(UnityEngine.Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (grabObj == null)
         {
@@ -65,5 +65,6 @@ public class Grab : MonoBehaviour
             }
         }
     }
+
 }
 

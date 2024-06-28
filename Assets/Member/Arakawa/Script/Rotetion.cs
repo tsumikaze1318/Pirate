@@ -10,6 +10,6 @@ public class Rotetion : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0f, 0f ,20f * Time.deltaTime);
+        transform.Rotate(0f, 0f ,19f * Time.deltaTime);
     }
 }
