@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -171,6 +172,20 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PlaySe(SEType.SE1);
 
         if (players.Count == attendance)
+        {
+            StandbyPlayersReady();
+        }
+    }
+
+    private async void StandbyPlayersReady()
+    {
+        if (SceneFadeManager.IsFade)
+        {
+            await Task.Delay(100);
+            StandbyPlayersReady();
+            return;
+        }
+        else
         {
             PlayersReady();
         }
