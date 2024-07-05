@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < attendance; i++)
         {
-            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Yokota/PlayerModel{i + 1}"));
+            playerPrefab.Add((GameObject)Resources.Load($"Object/Character_D{i + 1}/Character_D{i + 1}"));
         }
 
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
