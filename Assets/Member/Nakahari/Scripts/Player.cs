@@ -99,7 +99,6 @@ public class Player : MonoBehaviour
             // 他のオブジェクトは子オブジェクトにする
             // 6/28　追記しました　横田
             _playerGrab.Grab();
-            Debug.Log("右手で持つ");
         }
         else
         {
@@ -114,7 +113,7 @@ public class Player : MonoBehaviour
         {
             // 動かないオブジェクトを掴んだ処理はIKで可能
             // 他のオブジェクトは子オブジェクトにする
-            Debug.Log("左手で持つ");
+            
         }
     }
     

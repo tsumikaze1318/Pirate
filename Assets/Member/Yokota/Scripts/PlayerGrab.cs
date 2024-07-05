@@ -8,11 +8,43 @@ public class PlayerGrab : MonoBehaviour
 
     private GameObject grabObject = null;
 
+    [SerializeField]
+    private GameObject player = null;
+
+    private float preRotY;
+
+    private Vector3 preRot;
+
+    private float rotYOffset;
+
+    private Vector3 offset = Vector3.zero;
+
+    private void Start()
+    {
+        player = GetComponentInParent<Player>().gameObject;
+    }
+
     private void Update()
     {
         if (grabObject == null) return;
 
-        grabObject.transform.position = gameObject.transform.position;
+        float nowRotY = player.transform.localEulerAngles.y;
+
+        Vector3 nowRot = player.transform.localEulerAngles;
+
+        float rad = (nowRotY - preRotY) * Mathf.Deg2Rad;
+
+        float x = offset.x * Mathf.Cos(rad) + offset.z * Mathf.Sin(rad);
+        float y = offset.y;
+        float z = offset.x * -Mathf.Sin(rad) + offset.z * Mathf.Cos(rad);
+
+        offset = new Vector3(x, y, z);
+
+        grabObject.transform.position = player.transform.position + offset;
+        grabObject.transform.localEulerAngles += nowRot - preRot;
+
+        preRot = nowRot;
+        preRotY = nowRotY;
     }
 
     public void Grab()
@@ -37,8 +69,9 @@ public class PlayerGrab : MonoBehaviour
         if (grabObject != null)
         {
             canGrabObjects.Clear();
-            grabObject.transform.position = transform.position;
-            grabObject.transform.parent = transform;
+            offset = grabObject.transform.position - player.transform.position;
+            preRot = player.transform.localEulerAngles;
+            preRotY = player.transform.localEulerAngles.y;
         }
     }
 
@@ -56,8 +89,6 @@ public class PlayerGrab : MonoBehaviour
         if (other.gameObject.layer != 6) return;
 
         canGrabObjects.Add(other.gameObject);
-        
-        Debug.Log($"TriggerEnter : {canGrabObjects.Count}");
     }
 
     private void OnTriggerExit(Collider other)
@@ -74,7 +105,5 @@ public class PlayerGrab : MonoBehaviour
 
             count++;
         }
-
-        Debug.Log($"TriggerExit : {canGrabObjects.Count}");
     }
 }
