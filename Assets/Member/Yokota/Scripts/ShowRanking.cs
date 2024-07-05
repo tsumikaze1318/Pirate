@@ -36,7 +36,7 @@ public class ShowRanking : MonoBehaviour
             for (int j = 0; j < GameManager.ScoreToPlayer[scores[i]].Count; j++)
             {
                 RectTransform rect = rankTexts[count].GetComponent<RectTransform>();
-                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector3(count * 2 - 3, -3.4f, -21f));
+                rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, new Vector3(count * 2 - 3, -1.5f, -15f));
 
                 count++;
                 same++;
