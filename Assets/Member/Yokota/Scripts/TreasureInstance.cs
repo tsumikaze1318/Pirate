@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class TreasureInstance : MonoBehaviour
@@ -15,7 +16,7 @@ public class TreasureInstance : MonoBehaviour
     // 宝箱の大きさの半分
     private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
     // 高ポイント宝箱生成位置
-    private readonly Vector3 preciousBoxPos = new Vector3(0, -7.5f, 23f);
+    private readonly Vector3 preciousBoxPos = new Vector3(0, -5f, 27f);
     // 宝箱を生成する数の上限
     private const uint maxInstance = 2;
 
@@ -148,7 +149,7 @@ public class TreasureInstance : MonoBehaviour
     /// 宝箱にほかのオブジェクトが重なっていないか確認する関数
     /// </summary>
     /// <param name="section">宝箱生成区画を指定する番号</param>
-    private void CheckOverlapping(int section)
+    private async void CheckOverlapping(int section)
     {
         // 宝箱が生成されたか確認するフラグ
         bool instanced = false;
@@ -172,6 +173,8 @@ public class TreasureInstance : MonoBehaviour
             // 宝箱が生成される場所にオブジェクトがないとき
             if (!Physics.CheckBox(pos, halfExtens, Quaternion.identity))
             {
+                await Task.Delay(2000);
+
                 // 宝箱を生成
                 var treasure = Instantiate(Treasure[0], pos, Quaternion.identity, transform);
 
