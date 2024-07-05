@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = camForward * _inputs._move.z + _camera.transform.right * _inputs._move.x;
         transform.position += moveForward * _moveSpeed;
+        _rb.angularVelocity = moveForward;
         if (moveForward != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(moveForward);
