@@ -39,6 +39,7 @@ public class Shark : MonoBehaviour
             //éÀèo
             Rigidbody rid = Shark.GetComponent<Rigidbody>();
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
+           
         }
 
         Vector3 CalculateVelocity(Vector3 pointA, Vector3 pointB, float angle)
@@ -59,8 +60,6 @@ public class Shark : MonoBehaviour
                 return (new Vector3(pointB.x - pointA.x, x * Mathf.Tan(rad), pointB.z - pointA.z).normalized * speed);
             }
         }
-
-
     }
 }
 

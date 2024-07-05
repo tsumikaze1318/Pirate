@@ -17,8 +17,11 @@ public class FireBullet : MonoBehaviour
     //弾の速さ
     private float speed = 10f;
 
+    //[SerializeField]
+    //private float _repeatSpan = 6;
+
     [SerializeField]
-    private float _repeatSpan = 1;
+    private GameObject List;
 
     [SerializeField]
     private CanonController canonController;
@@ -34,7 +37,7 @@ public class FireBullet : MonoBehaviour
     void Start()
     {
         //_repeatSpan = 1;
-        _timeElapsed = _FierStartTime;
+        //_timeElapsed = _FierStartTime;
         //StartCoroutine("BallSpawn");
     }
 
@@ -50,37 +53,37 @@ public class FireBullet : MonoBehaviour
         //while (count < 1)
         //{
             // Check if it's time to spawn a new bullet
-            if (_timeElapsed >= _repeatSpan)
-            {
-                //新しい弾を生成する時間かどうかを確認する
-                Vector3 bulletPosition = firingPoint.transform.position;
-            //計算された位置に弾を生成する
-            GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
-            SoundManager.Instance.PlaySe(SEType.SE3);
-            Debug.Log("うごいてるか１？");
+            //if (_timeElapsed >= _repeatSpan)
+            //{
+            //    //新しい弾を生成する時間かどうかを確認する
+            //    Vector3 bulletPosition = firingPoint.transform.position;
+            //    //計算された位置に弾を生成する
+            //    GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+            //    SoundManager.Instance.PlaySe(SEType.SE3);
+            //    Debug.Log("うごいてるか１？");
 
-                //弾の方向を取得する
-                Vector3 direction = newBullet.transform.up;
+            //    //弾の方向を取得する
+            //    Vector3 direction = newBullet.transform.up;
 
             
 
-                //指定された方向に力をたまに加える
-                newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+            //    //指定された方向に力をたまに加える
+            //    newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
 
-                //弾の名前を設定する
-                newBullet.name = bullet.name;
+            //    //弾の名前を設定する
+            //    newBullet.name = bullet.name;
 
-                //一定時間後に弾を破棄する
-                //Destroy(newBullet, 2f);
+            //    //一定時間後に弾を破棄する
+            //    //Destroy(newBullet, 2f);
 
-                //リセットする
-                _timeElapsed = 0;
+            //    //リセットする
+            //    _timeElapsed = 0;
                 
-                canonController.CollectBullet(newBullet);
+            //    canonController.CollectBullet(newBullet);
 
-                //増やす
-                //count++;
-            }
+            //    //増やす
+            //    //count++;
+            //}
             //else
            //{
                 //break; 
@@ -93,6 +96,35 @@ public class FireBullet : MonoBehaviour
         //{
            // count = 0;
         //}
+    }
+
+    public void Bullet()
+    {
+        //新しい弾を生成する時間かどうかを確認する
+        Vector3 bulletPosition = firingPoint.transform.position;
+        //計算された位置に弾を生成する
+        GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
+        SoundManager.Instance.PlaySe(SEType.SE3);
+        Debug.Log("うごいてるか１？");
+
+        //弾の方向を取得する
+        Vector3 direction = newBullet.transform.up;
+
+
+
+        //指定された方向に力をたまに加える
+        newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
+
+        //弾の名前を設定する
+        newBullet.name = bullet.name;
+
+        //一定時間後に弾を破棄する
+        //Destroy(newBullet, 2f);
+
+        //リセットする
+        _timeElapsed = 0;
+
+        canonController.CollectBullet(newBullet);
     }
 
     //public GameObject Fire()
