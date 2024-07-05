@@ -64,8 +64,6 @@ public class FadeCanvas : MonoBehaviour
         // フェードアウトのフラグを上げる
         isFadeOut = true;
 
-        sceneFadeManager.SetIsFade(true);
-
         if (nextScene == SceneNameClass.SceneName.Null)
         {
             // シーンは遷移しない

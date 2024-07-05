@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static SceneNameClass;
 
 public class SceneFadeManager : MonoBehaviour
 {
@@ -22,16 +24,14 @@ public class SceneFadeManager : MonoBehaviour
 
     public static SceneFadeManager Instance => instance;
 
-    private bool isFade = false;
-    public bool IsFade => isFade;
+    private static bool isFade = false;
+    public static bool IsFade => isFade;
 
     [SerializeField]
     private SoundManager soundManager;
 
     [SerializeField]
     private List<FadeCanvas> canvasList = new List<FadeCanvas>();
-
-    private PlayerInputManager playerInputManager;
 
     private BGMType _bgmType;
 
@@ -46,15 +46,36 @@ public class SceneFadeManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneChanged;
     }
 
-    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
+    public void FadeStart(SceneName sceneName, BGMType bgmType)
     {
         _bgmType = bgmType;
 
         for (int i = 0; i < canvasList.Count; i++)
         {
+            isFade = true;
             canvasList[i].FadeOut(sceneName);
         }
+
+        isFade = true;
     }
+
+    //private async void StandbyFade(SceneName sceneName)
+    //{
+    //    if (isFade)
+    //    {
+    //        await Task.Delay(100);
+    //        StandbyFade(sceneName);
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < canvasList.Count; i++)
+    //        {
+    //            isFade = true;
+    //            canvasList[i].FadeOut(sceneName);
+    //        }
+    //    }
+    //}
 
     public void RegisterAction_Assign(Action camera, Action count)
     {
@@ -62,11 +83,6 @@ public class SceneFadeManager : MonoBehaviour
         {
             canvasList[i].RegisterAction(camera, count);
         }
-    }
-
-    private void DisablePlayerInputManager()
-    {
-        playerInputManager.enabled = false;
     }
 
     public void SetIsFade(bool fade)
@@ -78,7 +94,5 @@ public class SceneFadeManager : MonoBehaviour
     {
         soundManager.StopBgm();
         soundManager.PlayBgm(_bgmType);
-
-        playerInputManager = FindObjectOfType<PlayerInputManager>();
     }
 }
