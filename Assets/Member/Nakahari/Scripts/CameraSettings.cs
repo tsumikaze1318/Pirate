@@ -42,6 +42,8 @@ public class CameraSettings : MonoBehaviour
 
     [SerializeField]
     Vector3 _axisPos;
+    [SerializeField]
+    Vector3 _axisRot;
 
     // Start is called before the first frame update
     void Start()
@@ -50,13 +52,15 @@ public class CameraSettings : MonoBehaviour
         if (_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
-        _camera.transform.localPosition = new Vector3(0, 0, -5);
+        _camera.transform.localPosition = new Vector3(0, 2, -5);
         _camera.transform.localRotation = transform.rotation;
+        transform.eulerAngles = _axisRot;
     }
 
     private void CameraControl()
     {
         transform.position = _player.transform.position + _axisPos;
+        
         if (!GameManager.Instance.GameStart) return;
 
         transform.eulerAngles += new Vector3(-_inputs._look.y * _cameraMoveSpeed, _inputs._look.x * _cameraMoveSpeed, 0);
