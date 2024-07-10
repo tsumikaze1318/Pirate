@@ -59,7 +59,13 @@ public class Player : MonoBehaviour
         _rb.angularVelocity = moveForward;
         if (moveForward != Vector3.zero)
         {
+            _animator.SetTrigger("Move");
             transform.rotation = Quaternion.LookRotation(moveForward);
+            Debug.Log("aaa");
+        }
+        else if(moveForward ==  Vector3.zero)
+        {
+            _animator.SetTrigger("Idle");
         }
     }
 
@@ -168,6 +174,7 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
+        if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
 
         _transform = transform;
