@@ -10,11 +10,7 @@ public class DummyTargetPlayer : MonoBehaviour
 
     private Transform playerTransform = null;
 
-
     private float distanceBetweenKrakenAndPlayerposition = 0f;
-
-
-
 
     // Start is called before the first frame update
     void Start()
