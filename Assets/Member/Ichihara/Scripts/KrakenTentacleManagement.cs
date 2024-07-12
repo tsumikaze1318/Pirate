@@ -14,7 +14,7 @@ public struct TentacleAndShipPartsTable
     public GameObject BreakShipParts;
 }
 
-[RequireComponent(typeof(TargetPlayer))]
+[RequireComponent(typeof(DummyTargetPlayer))]
 public class KrakenTentacleManagement : MonoBehaviour
 {
     [SerializeField]
@@ -22,7 +22,7 @@ public class KrakenTentacleManagement : MonoBehaviour
     [SerializeField]
     private List<TentacleAndShipPartsTable> _tentacleAndShipPartsTable = new List<TentacleAndShipPartsTable>();
     [SerializeField]
-    private TargetPlayer _targetPlayer = null;
+    private DummyTargetPlayer _targetPlayer = null;
     [SerializeField]
     private GameObject _marker = null;
 
@@ -34,7 +34,7 @@ public class KrakenTentacleManagement : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        _targetPlayer = GetComponent<TargetPlayer>();
+        _targetPlayer = GetComponent<DummyTargetPlayer>();
         for (int i = 0; i < _tentacleAndShipPartsTable.Count; i++)
         {
             var obj = Instantiate(_krakenTentacle, _tentacleAndShipPartsTable[i].TentacleSpawnPoint);
@@ -61,7 +61,7 @@ public class KrakenTentacleManagement : MonoBehaviour
                 // クラーケンの足を出す座標を選定
                 int randomNumber = Random.Range(0, _tentacleAndShipPartsTable.Count);
                 TentacleAndShipPartsTable table = _tentacleAndShipPartsTable[randomNumber];
-                KrakenTentacleAttack tentacle = table.TentacleSpawnPoint.GetChild(0).GetComponent<KrakenTentacleAttack>();
+                DummyKrakenTentacleAttack tentacle = table.TentacleSpawnPoint.GetChild(0).GetComponent<DummyKrakenTentacleAttack>();
 
                 tentacle.gameObject.SetActive(true);
                 await Task.Yield();
