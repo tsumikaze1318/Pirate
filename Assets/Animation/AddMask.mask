@@ -8,4 +8,132 @@ AvatarMask:
   m_PrefabAsset: {fileID: 0}
   m_Name: AddMask
   m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-  m_Elements: []
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: joint_Grp
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_B_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_B_01/Jnt_L_coat_B_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_B_01/Jnt_L_coat_B_02/Jnt_L_coat_B_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_F_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_F_01/Jnt_L_coat_F_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_F_01/Jnt_L_coat_F_02/Jnt_L_coat_F_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_M_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_M_01/Jnt_L_coat_M_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_coat_all/Jnt_L_coat_M_01/Jnt_L_coat_M_02/Jnt_L_coat_M_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_leg
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_leg/Jnt_L_nee
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_L_leg/Jnt_L_nee/Jnt_L_heel
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_B_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_B_01/Jnt_R_coat_B_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_B_01/Jnt_R_coat_B_02/Jnt_R_coat_B_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_F_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_F_01/Jnt_R_coat_F_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_F_01/Jnt_R_coat_F_02/Jnt_R_coat_F_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_M_01
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_M_01/Jnt_R_coat_M_02
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_coat_all/Jnt_R_coat_M_01/Jnt_R_coat_M_02/Jnt_R_coat_M_03
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_leg
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_leg/Jnt_R_nee
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_hip/Jnt_R_leg/Jnt_R_nee/Jnt_R_heel
+    m_Weight: 0
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_index_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_index_01/Jnt_L_index_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_little_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_little_01/Jnt_L_little_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_middle_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_middle_01/Jnt_L_middle_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_ring_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_ring_01/Jnt_L_ring_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_thumb_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_L_shoulder/Jnt_L_elbow/Jnt_L_wrist/Jnt_L_thumb_01/Jnt_L_thumb_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_neck
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_neck/Jnt_head
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_index_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_index_01/Jnt_R_index_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_little_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_little_01/Jnt_R_little_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_middle_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_middle_01/Jnt_R_middle_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_ring_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_ring_01/Jnt_R_ring_02
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_thumb_01
+    m_Weight: 1
+  - m_Path: joint_Grp/Jnt_root/Jnt_spine_01/Jnt_spine_02/Jnt_chest/Jnt_R_shoulder/Jnt_R_elbow/Jnt_R_wrist/Jnt_R_thumb_01/Jnt_R_thumb_02
+    m_Weight: 1
+  - m_Path: mesh_Grp
+    m_Weight: 1
+  - m_Path: mesh_Grp/Character_D1_mesh_01
+    m_Weight: 1
+  - m_Path: mesh_Grp/Character_D1_mesh_02
+    m_Weight: 1

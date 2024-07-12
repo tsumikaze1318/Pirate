@@ -172,6 +172,7 @@ public class GameManager : MonoBehaviour
     {
         SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+        _movieController.MovieEnd();
     }
 
     /// <summary>

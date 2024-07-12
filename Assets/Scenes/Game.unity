@@ -3399,6 +3399,14 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: c03bcd62fb0ad0349bda67dff6288519, type: 3}
     Volume: 1
     Loop: 0
+  - Type: 4
+    Clip: {fileID: 8300000, guid: 5afe55bc316ddbd4f84c4c0168519fcd, type: 3}
+    Volume: 1
+    Loop: 0
+  - Type: 5
+    Clip: {fileID: 8300000, guid: 12bca9c005f3ea14994280fc7aa32ec6, type: 3}
+    Volume: 1
+    Loop: 0
   bgmSource: {fileID: 1432266314}
   seSource: {fileID: 799389762}
 --- !u!4 &969948230

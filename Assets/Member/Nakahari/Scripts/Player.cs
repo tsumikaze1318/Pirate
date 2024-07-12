@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -34,12 +35,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     Camera _camera;
 
-    private Animator _animator;
+    public Animator _animator;
 
-    private AnimatorClipInfo[] _animatorClip;
-    public float _stateTime;
+    [SerializeField]
+    private GameObject _obj;
 
     public bool _respawn = false;
+
+    private BoxCollider _collider;
 
     [SerializeField]
     private GameObject uiObject;
@@ -48,7 +51,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerGrab _playerGrab;
 
-
+    bool lastFire = false;
     #endregion
 
     void Move()
@@ -79,13 +82,13 @@ public class Player : MonoBehaviour
 
     void Fire()
     {
-        if(_inputs._fire)
+        if(_inputs._fire != lastFire)
         {
             // AnimationÇÃçƒê∂
-            //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
-            //_stateTime = _animatorClip.Length;
-            _animator.SetTrigger("Attack");
-            Debug.Log("çUåÇ");
+            _animator.SetBool("Attack", _inputs._fire);
+            _collider.enabled = true;
+
+            lastFire = _inputs._fire;
         }
     }
 
@@ -176,6 +179,7 @@ public class Player : MonoBehaviour
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
+        _collider = _obj.GetComponent<BoxCollider>();
 
         _transform = transform;
         _prevPosition = _transform.position;
@@ -199,8 +203,6 @@ public class Player : MonoBehaviour
         }
         CursorLook();
         CursorNone();
-
-        //Debug.Log(_state);
     }
 
     private void FixedUpdate()
