@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,7 +45,6 @@ public class GameManager : MonoBehaviour
     private bool fiftySecondsLeft = false;
     public bool FiftySecondsLeft => fiftySecondsLeft;
 
-    [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
@@ -73,10 +73,15 @@ public class GameManager : MonoBehaviour
         = new List<GameStartCountDown>();
 
     [SerializeField]
-    private List<Camera> cameras = new List<Camera>();
+    private List<Camera> attendCameras = new List<Camera>();
 
     [SerializeField]
-    private List<Canvas> canvass = new List<Canvas>();
+    private List<Canvas> attendCanvass = new List<Canvas>();
+
+    [SerializeField]
+    private GameObject _videoPlayersObj;
+    [SerializeField]
+    private MovieController _movieController;
 
     // 宝箱獲得数のUI表示クラス
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
@@ -90,6 +95,9 @@ public class GameManager : MonoBehaviour
         {
             playerPrefab.Add((GameObject)Resources.Load($"Object/Character_D{i + 1}/Character_D{i + 1}"));
         }
+        
+
+        _movieController ??= _videoPlayersObj.GetComponent<MovieController>();
 
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
     }
@@ -144,22 +152,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayersReady()
     {
-        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera, CountStart);
+        SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
     }
 
-    public void CountStart()
+    /// <summary>
+    /// オープニングムービーが終了したときに呼ばれる関数
+    /// </summary>
+    public void FinishMovie()
     {
-        for (int i = 0; i < players.Count; i++)
-        {
-            gameStartCountDowns.Add
-                (players[i].GetComponentInChildren<GameStartCountDown>());
-        }
-
-        for (int i = 0; i < gameStartCountDowns.Count; i++)
-        {
-            gameStartCountDowns[i].CountDown();
-        }
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
     }
 
     /// <summary>
@@ -191,22 +194,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeCamera()
-    {
-        Debug.Log("ChangeCamera");
-
-        foreach (var camera in cameras)
-        {
-            camera.enabled = false;
-        }
-
-        foreach (var canvas in canvass)
-        {
-            canvas.enabled = false;
-        }
-
-        cameraChanged = true;
-    }
+    
 
     public void SetGameStart() { gameStart = true; }
 
@@ -237,6 +225,48 @@ public class GameManager : MonoBehaviour
             }
 
             if (!sameKey) scoreToPlayer.Add(scores[i], list);
+        }
+    }
+
+    private void CountStart()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            gameStartCountDowns.Add
+                (players[i].GetComponentInChildren<GameStartCountDown>());
+        }
+
+        for (int i = 0; i < gameStartCountDowns.Count; i++)
+        {
+            gameStartCountDowns[i].CountDown();
+        }
+    }
+
+    private void ChangeCamera()
+    {
+        Debug.Log("ChangeCamera");
+
+        foreach (var camera in attendCameras)
+        {
+            camera.enabled = false;
+        }
+
+        cameraChanged = true;
+    }
+
+    private void MovieStart()
+    {
+        _movieController.StartMovie();
+        
+    }
+
+    private void MovieSet()
+    {
+        _movieController.SetMovie();
+
+        foreach (var canvas in attendCanvass)
+        {
+            canvas.enabled = false;
         }
     }
 }
