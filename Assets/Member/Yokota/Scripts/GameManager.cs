@@ -148,6 +148,15 @@ public class GameManager : MonoBehaviour
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
     }
 
+    /// <summary>
+    /// オープニングムービーが終了したときに呼ばれる関数
+    /// </summary>
+    public void FinishMovie()
+    {
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera, CountStart);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+    }
+
     public void CountStart()
     {
         for (int i = 0; i < players.Count; i++)

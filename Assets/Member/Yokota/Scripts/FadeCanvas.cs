@@ -99,7 +99,7 @@ public class FadeCanvas : MonoBehaviour
 
                 if (countStart != null)
                 {
-                    GameManager.Instance.CountStart();
+                    countStart();
                     countStart = null;
                 }
             }

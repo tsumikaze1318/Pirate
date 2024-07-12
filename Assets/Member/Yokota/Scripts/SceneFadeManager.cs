@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static SceneNameClass;
 
 public class SceneFadeManager : MonoBehaviour
 {
@@ -46,7 +43,7 @@ public class SceneFadeManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneChanged;
     }
 
-    public void FadeStart(SceneName sceneName, BGMType bgmType)
+    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
     {
         _bgmType = bgmType;
 
@@ -59,24 +56,6 @@ public class SceneFadeManager : MonoBehaviour
         isFade = true;
     }
 
-    //private async void StandbyFade(SceneName sceneName)
-    //{
-    //    if (isFade)
-    //    {
-    //        await Task.Delay(100);
-    //        StandbyFade(sceneName);
-    //        return;
-    //    }
-    //    else
-    //    {
-    //        for (int i = 0; i < canvasList.Count; i++)
-    //        {
-    //            isFade = true;
-    //            canvasList[i].FadeOut(sceneName);
-    //        }
-    //    }
-    //}
-
     public void RegisterAction_Assign(Action camera, Action count)
     {
         for (int i = 0; i < canvasList.Count; i++)
@@ -88,6 +67,15 @@ public class SceneFadeManager : MonoBehaviour
     public void SetIsFade(bool fade)
     {
         isFade = fade;
+    }
+
+    /// <summary>
+    /// フェード時間設定関数
+    /// </summary>
+    /// <param name="time">フェード時間</param>
+    public void SetFadeTime(float time)
+    {
+
     }
 
     private void SceneChanged(Scene scene, LoadSceneMode mode)
