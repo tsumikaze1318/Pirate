@@ -8,33 +8,35 @@ using System;
 public class FadeCanvas : MonoBehaviour
 {
     // フェードアウトの開始、終了を伝えるフラグ
-    private bool isFadeOut;
+    private bool _isFadeOut;
     // フェードインの開始、終了を伝えるフラグ
-    private bool isFadeIn;
+    private bool _isFadeIn;
 
     // フェードする画像のイメージ
     [SerializeField]
-    private Image fadeImage;
+    private Image _fadeImage;
 
     // フェードする画像の不透明度
-    private float alpha = 0;
+    private float _alpha = 0;
 
     // 遷移先のシーン名
-    private string afterScene;
+    private string _afterScene;
 
     // フェードする時間
-    private float fadeTime = 1f;
+    private float _fadeTime = 1f;
 
-    private Action cameraChange = null;
+    private Action _cameraChange = null;
 
-    private Action countStart = null;
+    private Action _countStart = null;
 
-    private SceneFadeManager sceneFadeManager;
+    private Action _movieStart = null;
+
+    private SceneFadeManager _sceneFadeManager;
 
     private void Start()
     {
         SetAlpha();
-        sceneFadeManager = GetComponentInParent<SceneFadeManager>();
+        _sceneFadeManager = GetComponentInParent<SceneFadeManager>();
         // シーン遷移が完了したときにフェードインを実行するように設定
         SceneManager.sceneLoaded += FadeIn_and_SceneChange;
     }
@@ -49,9 +51,9 @@ public class FadeCanvas : MonoBehaviour
     private void FadeIn_and_SceneChange(Scene scene, LoadSceneMode mode)
     {
         // フェードインのフラグを上げる
-        isFadeIn = true;
+        _isFadeIn = true;
 
-        afterScene = null;
+        _afterScene = null;
     }
 
     /// <summary>
@@ -59,10 +61,11 @@ public class FadeCanvas : MonoBehaviour
     /// 遷移先のシーン名を指定
     /// </summary>
     /// <param name="nextScene">遷移先のシーン名</param>
-    public void FadeOut(SceneNameClass.SceneName nextScene)
+    public void FadeOut(SceneNameClass.SceneName nextScene, float fadeTime)
     {
         // フェードアウトのフラグを上げる
-        isFadeOut = true;
+        _isFadeOut = true;
+        _fadeTime = fadeTime;
 
         if (nextScene == SceneNameClass.SceneName.Null)
         {
@@ -71,7 +74,7 @@ public class FadeCanvas : MonoBehaviour
         else
         {
             // 遷移先のシーン名をEnumから文字列に変換
-            afterScene = SceneNameClass.SceneNameToString[nextScene];
+            _afterScene = SceneNameClass.SceneNameToString[nextScene];
         }
     }
 
@@ -81,61 +84,70 @@ public class FadeCanvas : MonoBehaviour
     private void FadeProcess()
     {
         // フェードインしているとき
-        if (isFadeIn)
+        if (_isFadeIn)
         {
             // 不透明度を徐々に下げる
-            alpha -= fadeTime * Time.deltaTime;
+            _alpha -= _fadeTime * Time.deltaTime;
             // 不透明度を画像に反映
             SetAlpha();
 
             // 不透明度が0より小さくなった時
-            if (alpha < 0)
+            if (_alpha < 0)
             {
                 // 不透明度を0にそろえる
-                alpha = 0;
+                _alpha = 0;
                 // フェードインのフラグを下げる
-                isFadeIn = false;
-                sceneFadeManager.SetIsFade(false);
+                _isFadeIn = false;
+                _sceneFadeManager.SetIsFade(false);
 
-                if (countStart != null)
+                if (_countStart != null)
                 {
-                    countStart();
-                    countStart = null;
+                    _countStart();
+                    _countStart = null;
+                }
+
+                if (_movieStart != null)
+                {
+                    _movieStart();
+                    _movieStart = null;
                 }
             }
         }
         // フェードアウトしているとき
-        if (isFadeOut)
+        if (_isFadeOut)
         {
             // 不透明度を徐々に上げる
-            alpha += fadeTime * Time.deltaTime;
+            _alpha += _fadeTime * Time.deltaTime;
             // 不透明度を画像に反映
             SetAlpha();
 
             // 不透明度が1より大きくなった時
-            if (alpha > 1)
+            if (_alpha > 1)
             {
                 // 不透明度を1にそろえる
-                alpha = 1;
+                _alpha = 1;
                 // フェードアウトのフラグを上げる
-                isFadeOut = false;
+                _isFadeOut = false;
                 // 次のシーンをロードする
-                if (afterScene != null) SceneManager.LoadScene(afterScene);
-                else isFadeIn = true;
+                if (_afterScene != null) SceneManager.LoadScene(_afterScene);
+                else _isFadeIn = true;
 
-                if (cameraChange != null)
+                if (_cameraChange != null)
                 {
-                    cameraChange();
-                    cameraChange = null;
+                    _cameraChange();
+                    _cameraChange = null;
                 }
             }
         }
     }
 
-    public void RegisterAction(Action camera, Action count)
+    public void RegisterAction(Action cameraChange,
+                                Action countStart,
+                                Action movieStart)
     {
-        cameraChange = camera;
-        countStart = count;
+        _cameraChange = cameraChange;
+        _countStart = countStart;
+        _movieStart = movieStart;
     }
 
     /// <summary>
@@ -143,6 +155,6 @@ public class FadeCanvas : MonoBehaviour
     /// </summary>
     private void SetAlpha()
     {
-        fadeImage.color = new Color(0, 0, 0, alpha);
+        _fadeImage.color = new Color(0, 0, 0, _alpha);
     }
 }

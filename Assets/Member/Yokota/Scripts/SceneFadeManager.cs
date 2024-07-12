@@ -43,39 +43,30 @@ public class SceneFadeManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneChanged;
     }
 
-    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
+    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType, float fadeTime = 1f)
     {
         _bgmType = bgmType;
 
         for (int i = 0; i < canvasList.Count; i++)
         {
             isFade = true;
-            canvasList[i].FadeOut(sceneName);
+            canvasList[i].FadeOut(sceneName, fadeTime);
         }
 
         isFade = true;
     }
 
-    public void RegisterAction_Assign(Action camera, Action count)
+    public void RegisterAction_Assign(Action camera, Action count, Action movie)
     {
         for (int i = 0; i < canvasList.Count; i++)
         {
-            canvasList[i].RegisterAction(camera, count);
+            canvasList[i].RegisterAction(camera, count, movie);
         }
     }
 
     public void SetIsFade(bool fade)
     {
         isFade = fade;
-    }
-
-    /// <summary>
-    /// フェード時間設定関数
-    /// </summary>
-    /// <param name="time">フェード時間</param>
-    public void SetFadeTime(float time)
-    {
-
     }
 
     private void SceneChanged(Scene scene, LoadSceneMode mode)
