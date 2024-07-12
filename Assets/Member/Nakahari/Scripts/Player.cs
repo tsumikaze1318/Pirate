@@ -59,13 +59,12 @@ public class Player : MonoBehaviour
         _rb.angularVelocity = moveForward;
         if (moveForward != Vector3.zero)
         {
-            _animator.SetTrigger("Move");
+            _animator.SetBool("Move", true);
             transform.rotation = Quaternion.LookRotation(moveForward);
-            Debug.Log("aaa");
         }
         else if(moveForward ==  Vector3.zero)
         {
-            _animator.SetTrigger("Idle");
+            _animator.SetBool("Move", false);
         }
     }
 
@@ -85,6 +84,7 @@ public class Player : MonoBehaviour
             // AnimationÇÃçƒê∂
             //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
             //_stateTime = _animatorClip.Length;
+            _animator.SetTrigger("Attack");
             Debug.Log("çUåÇ");
         }
     }
