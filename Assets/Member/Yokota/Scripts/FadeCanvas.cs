@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
+using System.Threading.Tasks;
 
 public class FadeCanvas : MonoBehaviour
 {
@@ -21,15 +19,6 @@ public class FadeCanvas : MonoBehaviour
 
     // 遷移先のシーン名
     private string _afterScene;
-
-    // フェードする時間
-    private float _fadeTime = 1f;
-
-    private Action _cameraChange = null;
-
-    private Action _countStart = null;
-
-    private Action _movieStart = null;
 
     private SceneFadeManager _sceneFadeManager;
 
@@ -61,11 +50,10 @@ public class FadeCanvas : MonoBehaviour
     /// 遷移先のシーン名を指定
     /// </summary>
     /// <param name="nextScene">遷移先のシーン名</param>
-    public void FadeOut(SceneNameClass.SceneName nextScene, float fadeTime)
+    public void FadeOut(SceneNameClass.SceneName nextScene)
     {
         // フェードアウトのフラグを上げる
         _isFadeOut = true;
-        _fadeTime = fadeTime;
 
         if (nextScene == SceneNameClass.SceneName.Null)
         {
@@ -81,13 +69,13 @@ public class FadeCanvas : MonoBehaviour
     /// <summary>
     /// フェード処理をする関数
     /// </summary>
-    private void FadeProcess()
+    private async void FadeProcess()
     {
         // フェードインしているとき
         if (_isFadeIn)
         {
             // 不透明度を徐々に下げる
-            _alpha -= _fadeTime * Time.deltaTime;
+            _alpha -= Time.deltaTime / _sceneFadeManager._fadeTime;
             // 不透明度を画像に反映
             SetAlpha();
 
@@ -96,20 +84,21 @@ public class FadeCanvas : MonoBehaviour
             {
                 // 不透明度を0にそろえる
                 _alpha = 0;
+                _sceneFadeManager._fadeTime = 1f;
                 // フェードインのフラグを下げる
                 _isFadeIn = false;
                 _sceneFadeManager.SetIsFade(false);
 
-                if (_countStart != null)
+                if (_sceneFadeManager._movieStart != null)
                 {
-                    _countStart();
-                    _countStart = null;
+                    _sceneFadeManager._movieStart();
+                    _sceneFadeManager._movieStart = null;
                 }
 
-                if (_movieStart != null)
+                if (_sceneFadeManager._countStart != null)
                 {
-                    _movieStart();
-                    _movieStart = null;
+                    _sceneFadeManager._countStart();
+                    _sceneFadeManager._countStart = null;
                 }
             }
         }
@@ -117,7 +106,7 @@ public class FadeCanvas : MonoBehaviour
         if (_isFadeOut)
         {
             // 不透明度を徐々に上げる
-            _alpha += _fadeTime * Time.deltaTime;
+            _alpha += Time.deltaTime / _sceneFadeManager._fadeTime;
             // 不透明度を画像に反映
             SetAlpha();
 
@@ -128,26 +117,26 @@ public class FadeCanvas : MonoBehaviour
                 _alpha = 1;
                 // フェードアウトのフラグを上げる
                 _isFadeOut = false;
+
+                if (_sceneFadeManager._movieSet != null)
+                {
+                    _sceneFadeManager._movieSet();
+                    _sceneFadeManager._movieSet = null;
+                }
+
+                if (_sceneFadeManager._cameraChange != null)
+                {
+                    _sceneFadeManager._cameraChange();
+                    _sceneFadeManager._cameraChange = null;
+                }
+
+                await Task.Delay(100);
+
                 // 次のシーンをロードする
                 if (_afterScene != null) SceneManager.LoadScene(_afterScene);
                 else _isFadeIn = true;
-
-                if (_cameraChange != null)
-                {
-                    _cameraChange();
-                    _cameraChange = null;
-                }
             }
         }
-    }
-
-    public void RegisterAction(Action cameraChange,
-                                Action countStart,
-                                Action movieStart)
-    {
-        _cameraChange = cameraChange;
-        _countStart = countStart;
-        _movieStart = movieStart;
     }
 
     /// <summary>

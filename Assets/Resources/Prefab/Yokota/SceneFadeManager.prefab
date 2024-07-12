@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  canvasList: []
   _fadeImage: {fileID: 2856244219572220395}
 --- !u!1 &4258182119020921485
 GameObject:
@@ -431,6 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  canvasList: []
   _fadeImage: {fileID: 453677490462103461}
 --- !u!1 &5263723290021040680
 GameObject:
@@ -697,6 +701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  canvasList: []
   _fadeImage: {fileID: 1180312118521105567}
 --- !u!1 &8081295325860397756
 GameObject:
@@ -813,4 +819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  canvasList: []
   _fadeImage: {fileID: 142954066984708993}

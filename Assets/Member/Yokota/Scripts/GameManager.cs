@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
     private bool fiftySecondsLeft = false;
     public bool FiftySecondsLeft => fiftySecondsLeft;
 
-    [SerializeField]
     // 各プレイヤーの宝箱獲得数
     private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
@@ -74,15 +73,15 @@ public class GameManager : MonoBehaviour
         = new List<GameStartCountDown>();
 
     [SerializeField]
-    private List<Camera> cameras = new List<Camera>();
+    private List<Camera> attendCameras = new List<Camera>();
 
     [SerializeField]
-    private List<Canvas> canvass = new List<Canvas>();
+    private List<Canvas> attendCanvass = new List<Canvas>();
 
     [SerializeField]
     private GameObject _videoPlayersObj;
-
-    private List<VideoPlayer> _videoPlayers = new List<VideoPlayer>();
+    [SerializeField]
+    private MovieController _movieController;
 
     // 宝箱獲得数のUI表示クラス
     //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
@@ -96,14 +95,9 @@ public class GameManager : MonoBehaviour
         {
             playerPrefab.Add((GameObject)Resources.Load($"Object/Character_D{i + 1}/Character_D{i + 1}"));
         }
+        
 
-        var videoPlayers = _videoPlayersObj.GetComponents<VideoPlayer>();
-        _videoPlayers.Clear();
-        foreach (var video in videoPlayers) 
-        {
-            _videoPlayers.Add(video);
-        }
-       
+        _movieController ??= _videoPlayersObj.GetComponent<MovieController>();
 
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
     }
@@ -158,7 +152,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayersReady()
     {
-        SceneFadeManager.Instance.RegisterAction_Assign(null, null, MovieStart);
+        SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
     }
 
@@ -167,7 +161,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishMovie()
     {
-        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera, CountStart, null);
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
     }
 
@@ -252,14 +246,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ChangeCamera");
 
-        foreach (var camera in cameras)
+        foreach (var camera in attendCameras)
         {
             camera.enabled = false;
-        }
-
-        foreach (var canvas in canvass)
-        {
-            canvas.enabled = false;
         }
 
         cameraChanged = true;
@@ -267,6 +256,17 @@ public class GameManager : MonoBehaviour
 
     private void MovieStart()
     {
+        _movieController.StartMovie();
+        
+    }
 
+    private void MovieSet()
+    {
+        _movieController.SetMovie();
+
+        foreach (var canvas in attendCanvass)
+        {
+            canvas.enabled = false;
+        }
     }
 }
