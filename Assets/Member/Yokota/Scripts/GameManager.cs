@@ -102,6 +102,15 @@ public class GameManager : MonoBehaviour
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
     }
 
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (gameStart) return;
+        if (SceneFadeManager.IsFade) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) FinishMovie();
+#endif
+    }
+
     #region 外部参照関数
 
     /// <summary>
@@ -244,8 +253,6 @@ public class GameManager : MonoBehaviour
 
     private void ChangeCamera()
     {
-        Debug.Log("ChangeCamera");
-
         foreach (var camera in attendCameras)
         {
             camera.enabled = false;
@@ -257,7 +264,6 @@ public class GameManager : MonoBehaviour
     private void MovieStart()
     {
         _movieController.StartMovie();
-        
     }
 
     private void MovieSet()
