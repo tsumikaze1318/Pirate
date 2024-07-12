@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9491b1b501bff17418c7252de5b206a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
   canvasList: []
 --- !u!1 &1833060923242499987
 GameObject:
@@ -260,7 +261,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 2
 --- !u!114 &3543821226942783680
 MonoBehaviour:
@@ -314,7 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 2856244219572220395}
+  soundManager: {fileID: 0}
+  canvasList: []
+  _fadeImage: {fileID: 2856244219572220395}
 --- !u!1 &4258182119020921485
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +379,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 0
 --- !u!114 &4305521544226704593
 MonoBehaviour:
@@ -430,7 +433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 453677490462103461}
+  soundManager: {fileID: 0}
+  canvasList: []
+  _fadeImage: {fileID: 453677490462103461}
 --- !u!1 &5263723290021040680
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +647,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 3
 --- !u!114 &7125199981970707466
 MonoBehaviour:
@@ -696,7 +701,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 1180312118521105567}
+  soundManager: {fileID: 0}
+  canvasList: []
+  _fadeImage: {fileID: 1180312118521105567}
 --- !u!1 &8081295325860397756
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +765,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_TargetDisplay: 1
 --- !u!114 &8951631185448104769
 MonoBehaviour:
@@ -812,4 +819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770046690d411ef4eab25fcf82b1340e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 142954066984708993}
+  soundManager: {fileID: 0}
+  canvasList: []
+  _fadeImage: {fileID: 142954066984708993}

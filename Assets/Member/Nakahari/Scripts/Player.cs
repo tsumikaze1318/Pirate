@@ -59,7 +59,12 @@ public class Player : MonoBehaviour
         _rb.angularVelocity = moveForward;
         if (moveForward != Vector3.zero)
         {
+            _animator.SetBool("Move", true);
             transform.rotation = Quaternion.LookRotation(moveForward);
+        }
+        else if(moveForward ==  Vector3.zero)
+        {
+            _animator.SetBool("Move", false);
         }
     }
 
@@ -79,6 +84,7 @@ public class Player : MonoBehaviour
             // AnimationÇÃçƒê∂
             //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
             //_stateTime = _animatorClip.Length;
+            _animator.SetTrigger("Attack");
             Debug.Log("çUåÇ");
         }
     }
@@ -168,6 +174,7 @@ public class Player : MonoBehaviour
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
+        if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
 
         _transform = transform;
