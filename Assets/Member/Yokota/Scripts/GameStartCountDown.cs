@@ -12,6 +12,8 @@ public class GameStartCountDown : MonoBehaviour
 
     private bool isContDown = false;
 
+    private bool callOneTime = false;
+
     private float countDown = 3;
 
     private void Update()
@@ -19,11 +21,20 @@ public class GameStartCountDown : MonoBehaviour
         //if (Input.GetMouseButtonUp(0)) isContDown = true;
 
         if (!isContDown) return;
+        if (!callOneTime) 
+        {
+            SoundManager.Instance.PlaySe(SEType.SE5);
+            callOneTime = true;
+        }
+
+        float preIntSecond = Mathf.Ceil(countDown);
 
         countDown -= Time.deltaTime;
 
         if (countDown < 0)
         {
+            SoundManager.Instance.PlaySe(SEType.SE6);
+
             countDown = 0;
 
             countDownText.enabled = false;
@@ -32,9 +43,17 @@ public class GameStartCountDown : MonoBehaviour
             GameManager.Instance.SetGameStart();
 
             isContDown = false;
+            callOneTime = false;
         }
 
-        countDownText.text = Mathf.Ceil(countDown).ToString("0");
+        float nowIntSecond = Mathf.Ceil(countDown);
+
+        if (preIntSecond != nowIntSecond)
+        {
+            SoundManager.Instance.PlaySe(SEType.SE5);
+        }
+
+        countDownText.text = nowIntSecond.ToString("0");
     }
 
     public void CountDown() { isContDown = true; }
