@@ -8,6 +8,15 @@ public class Bomb3 : MonoBehaviour
     private float explosionForce;
     [SerializeField]
     private float explosionRadius;
+    [SerializeField]
+    private Renderer _target;
+    [SerializeField]
+    private float _cycle = 1;
+
+    private double _time;
+
+
+
 
     private bool _isGrounded = false;
 
@@ -35,6 +44,12 @@ public class Bomb3 : MonoBehaviour
     private void Start()
     {
         //Invoke(nameof(Detonate), 5f);
+
+        //_time += Time.deltaTime;
+
+        //var repeatValuse = Mathf.Repeat((float)_time, _cycle);
+
+        //_target.enabled = repeatValuse >= _cycle * 0.5f;
     }
 
     void Detonate()
