@@ -99,7 +99,16 @@ public class Bomb3 : MonoBehaviour
 
             _target.enabled = repeatValue >= _cycle * 0.5f;
 
+            //if(hasDetonated)
+            //{
+            //    _time++;
+
+            //    _target.enabled = repeatValue >= _cycle * 0.2f;
+            //}
+
             hasDetonated = true;
+
+            
 
         }
 
