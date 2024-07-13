@@ -26,7 +26,7 @@ public class Ranking : MonoBehaviour
     void Update()
     {
         ChangeRank();
-        Debug.Log($"{points[0]},{points[1]},{points[2]}");
+        //Debug.Log($"{points[0]},{points[1]},{points[2]}");
     }
 
     private void ChangeRank()

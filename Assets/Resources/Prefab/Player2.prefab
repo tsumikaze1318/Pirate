@@ -154,7 +154,8 @@ MonoBehaviour:
   _moveSpeed: 0.1
   _upForce: 5
   _camera: {fileID: 0}
-  _stateTime: 0
+  _animator: {fileID: 0}
+  _obj: {fileID: 0}
   _respawn: 0
   uiObject: {fileID: 32247620796258109}
   _playerGrab: {fileID: 0}
@@ -677,6 +678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_D2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -720,7 +725,8 @@ MonoBehaviour:
   _moveSpeed: 0.1
   _upForce: 5
   _camera: {fileID: 0}
-  _stateTime: 0
+  _animator: {fileID: 0}
+  _obj: {fileID: 0}
   _respawn: 0
   uiObject: {fileID: 32247620796258109}
   _playerGrab: {fileID: 0}

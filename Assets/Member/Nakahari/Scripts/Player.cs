@@ -86,7 +86,6 @@ public class Player : MonoBehaviour
         {
             // AnimationÇÃçƒê∂
             _animator.SetBool("Attack", _inputs._fire);
-            _collider.enabled = true;
 
             lastFire = _inputs._fire;
         }
@@ -146,6 +145,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    void ColliderEnabled()
+    {
+        _collider.enabled = true;
+    }
+
+    void ColliderDisabled()
+    {
+        _collider.enabled = false;
+    }
+
+    void SubCount(Collision other)
+    {
+        HitCount hitCount = other.gameObject.GetComponent<HitCount>();
+        hitCount._count--;
+    }
+
     public void OnCollisionEnter(UnityEngine.Collision other)
     {
         if (!GameManager.Instance.GameStart) return;
@@ -159,6 +174,12 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
             TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
             treasure.GetTreasure(_playerInput.user.index);
+        }
+
+        if (_collider ==  other.gameObject.CompareTag("Player"))
+        {
+            SubCount(other);
+            _collider.enabled = false;
         }
     }
 
@@ -180,6 +201,7 @@ public class Player : MonoBehaviour
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
         _collider = _obj.GetComponent<BoxCollider>();
+        _collider.enabled = false;
 
         _transform = transform;
         _prevPosition = _transform.position;

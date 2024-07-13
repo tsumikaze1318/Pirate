@@ -7,7 +7,8 @@ public class Attack : MonoBehaviour
     public BoxCollider _collider;
     private void Start()
     {
-        
+        this._collider = GetComponent<BoxCollider>();
+        _collider.enabled = false;
     }
 
     void SubCount(Collision other)
@@ -23,5 +24,8 @@ public class Attack : MonoBehaviour
             SubCount(other);
             _collider.enabled = false;
         }
+
+        Debug.Log("‘ŠŽè‚Ìƒ^ƒO:"+other.gameObject.tag);
+        Debug.Log("‘ŠŽè‚Ì–¼‘O"+other.gameObject.name);
     }
 }
