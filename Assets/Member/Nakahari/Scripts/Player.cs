@@ -233,6 +233,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
+            if (_respawn) return;
             Move();
         }
     }

@@ -16,6 +16,9 @@ public class PlayerAssign : MonoBehaviour
     Player _player;
 
     int _playerIndex;
+    [SerializeField]
+    private float _respwanTimer;
+    private float _timer;
 
     void Start()
     {
@@ -51,6 +54,8 @@ public class PlayerAssign : MonoBehaviour
 
         if (_player._respawn)
         {
+            _timer += Time.deltaTime;
+            if (_respwanTimer >= _timer) return;
             switch ( _playerIndex)
             {
                 case 0:
@@ -74,6 +79,7 @@ public class PlayerAssign : MonoBehaviour
                     _player._state = CommonParam.UnitState.Normal;
                     break;
             }
+            _timer = 0;
         }
     }
 }

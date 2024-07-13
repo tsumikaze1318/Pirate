@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986228c2eb86e5e4898bebb985ffff6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 7261527191261372377}
+  _playerObj: {fileID: 7261527191261372377}
   _maxAngleX: 60
   _minAngleX: -10
   _camera: {fileID: 8011213383464760869}

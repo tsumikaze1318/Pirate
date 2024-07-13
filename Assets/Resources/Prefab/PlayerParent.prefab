@@ -107,3 +107,4 @@ MonoBehaviour:
   - {x: 1.75, y: -2, z: -17}
   - {x: -1.75, y: -2, z: -17}
   - {x: 3.5, y: -2, z: -17}
+  _respwanTimer: 2
