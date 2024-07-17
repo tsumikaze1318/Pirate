@@ -14,7 +14,7 @@ public class ImageColor : MonoBehaviour
     {
         if(num != GameManager.Instance.Players.Count)
         {
-            images[num].color = Color.gray;
+            images[num].enabled = true;
             num = GameManager.Instance.Players.Count;
         }
     }
