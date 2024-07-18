@@ -104,11 +104,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
         if (gameStart) return;
         if (SceneFadeManager.IsFade) return;
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1) && Input.GetKeyDown(KeyCode.Joystick1Button2)) FinishMovie();
-#endif
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
+
     }
 
     #region 外部参照関数
@@ -150,6 +149,8 @@ public class GameManager : MonoBehaviour
         gameEnd = true;
 
         await Task.Delay(3000);
+
+        scoreToPlayer.Clear();
 
         RankingSort();
 
@@ -220,6 +221,7 @@ public class GameManager : MonoBehaviour
 
     private void RankingSort()
     {
+        
         for (int i = 0; i < players.Count; i++)
         {
             List<GameObject> list = new List<GameObject>();

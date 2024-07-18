@@ -251,7 +251,7 @@ MonoBehaviour:
   _maxAngleX: 60
   _minAngleX: -10
   _camera: {fileID: 3964511027813473215}
-  _cameraMoveSpeed: 1
+  _cameraMoveSpeed: 4
   _axisPos: {x: 0, y: 0, z: 0}
   _axisRot: {x: 16, y: 0, z: 0}
 --- !u!1 &8485751881736039202
@@ -688,7 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a9b70bec094f74e8f90331554d8e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 2
   _state: 0
   _moveSpeed: 0.1
   _upForce: 5

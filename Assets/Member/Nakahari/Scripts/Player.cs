@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _moveSpeed;
 
-    bool _isJump;
+    bool _isJump = true;
 
     Rigidbody _rb;
 
