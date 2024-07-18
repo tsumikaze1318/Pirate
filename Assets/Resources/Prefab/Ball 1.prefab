@@ -234,4 +234,4 @@ MonoBehaviour:
   explosionForce: 20
   explosionRadius: 10
   _target: {fileID: 5332952923271739734}
-  _cycle: 0.2
+  _cycle: 0.4
