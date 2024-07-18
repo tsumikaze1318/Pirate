@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
 {
     #region êÈåæ
 
-    //[SerializeField]
-    //private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
+    [SerializeField]
+    private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
 
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
@@ -145,6 +145,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    void SkipMovie()
+    {
+        if (_inputs._movieSkip)
+        {
+            GameManager.Instance.FinishMovie();
+            Debug.Log("aaa");
+        }
+    }
+
     void ColliderEnabled()
     {
         _collider.enabled = true;
@@ -212,9 +221,11 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.CameraChanged && !uiObject.activeInHierarchy)
             uiObject.SetActive(true);
-
+        
+        CursorLook();
+        CursorNone();
         if (!GameManager.Instance.GameStart) return;
-        if(GameManager.Instance.GameEnd) return;
+        if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Jump();
@@ -223,8 +234,6 @@ public class Player : MonoBehaviour
             LeftGrab();
             RightGrab();
         }
-        CursorLook();
-        CursorNone();
     }
 
     private void FixedUpdate()
@@ -233,6 +242,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
+            if (_respawn) return;
             Move();
         }
     }

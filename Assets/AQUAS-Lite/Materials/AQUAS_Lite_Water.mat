@@ -78,11 +78,11 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _Density: 0.25
+    - _Density: 0
     - _DepthTransparency: 1
     - _DetailNormalMapScale: 1
     - _DistanceFade: 0.5
-    - _Distortion: 0.119
+    - _Distortion: 0
     - _DstBlend: 0
     - _EnableCustomFog: 0
     - _EnableProbeRelfections: 1
@@ -99,7 +99,7 @@ Material:
     - _FogDistance: 1000
     - _FogFade: 1
     - _FullTransparency: 0
-    - _Gloss: 0.7
+    - _Gloss: 0.5
     - _Glossiness: 0.5
     - _LightWrapping: 2
     - _MediumTilingDistance: 100
@@ -110,16 +110,16 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ProbeReflectionIntensity: 0.578
-    - _RealtimeReflectionIntensity: 1
+    - _RealtimeReflectionIntensity: 0.5
     - _ReflectionIntensity: 0.385
-    - _Refraction: 0.21
+    - _Refraction: 1
     - _RefractionDistance: 10
     - _RefractionFalloff: 1
     - _ShoreFade: 0.56
     - _ShoreTransparency: 0.5
     - _Specular: 1
     - _SrcBlend: 1
-    - _TransparencyFade: 1
+    - _TransparencyFade: -5
     - _UVSec: 0
     - _UnderwaterMode: 0
     - _UnderwaterTranspDist: 13.56
@@ -129,10 +129,10 @@ Material:
     - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DeepWaterColor: {r: 0.38813722, g: 0.7539792, b: 0.98742133, a: 1}
+    - _DeepWaterColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamColor: {r: 1, g: 0.9103774, b: 0.9103774, a: 1}
     - _FogColor: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 0.4745098, g: 1, b: 0.80784315, a: 1}
+    - _MainColor: {r: 0, g: 0.7793102, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

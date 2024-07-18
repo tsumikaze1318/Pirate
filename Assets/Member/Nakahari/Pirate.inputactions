@@ -87,13 +87,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
-                    "type": "Button",
+                    "name": "LongPress",
+                    "type": "Value",
                     "id": "2ab786b4-a68a-41ee-8e56-a43ffde491bc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -430,11 +430,22 @@
                 {
                     "name": "",
                     "id": "39e4bfe5-045e-4aca-bc2b-69f30a08fa2f",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Hold(duration=0.7)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LongPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93dced06-5b84-4c5c-bfe3-e0139dd96dfb",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Test",
+                    "action": "LongPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

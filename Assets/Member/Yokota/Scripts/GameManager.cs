@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public bool FiftySecondsLeft => fiftySecondsLeft;
 
     // 各プレイヤーの宝箱獲得数
-    private int[] scores = { 0, 0, 0, 0 };
+    [SerializeField] private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
     public int[] Scores => scores;
 
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < attendance; i++)
         {
-            playerPrefab.Add((GameObject)Resources.Load($"Object/Character_D{i + 1}/Character_D{i + 1}"));
+            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Character_D{i + 1}"));
         }
         
 
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
         if (gameStart) return;
         if (SceneFadeManager.IsFade) return;
-        if (Input.GetKeyDown(KeyCode.Escape)) FinishMovie();
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button1) && Input.GetKeyDown(KeyCode.Joystick1Button2)) FinishMovie();
 #endif
     }
 
