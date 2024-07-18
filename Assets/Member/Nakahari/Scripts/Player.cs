@@ -10,9 +10,6 @@ public class Player : MonoBehaviour
     #region êÈåæ
 
     [SerializeField]
-    private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
-
-    [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
     PlayerInputs _inputs;

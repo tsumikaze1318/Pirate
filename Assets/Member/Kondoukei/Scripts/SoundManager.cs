@@ -8,6 +8,7 @@ public enum BGMType
     BGM2, 
     BGM3, 
     BGM4,
+    Null
 }
 //シリアライズ化
 [System.Serializable]
@@ -79,6 +80,7 @@ public class SoundManager : MonoBehaviour
     //BGM再生
     public void PlayBgm(BGMType type)
     {
+        if(type == BGMType.Null) return;
         var bgm = bgmDataList[(int)type];
         bgmSource.clip = bgm.Clip;
         bgmSource.volume = bgm.Volume;

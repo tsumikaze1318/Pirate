@@ -521,7 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a9b70bec094f74e8f90331554d8e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 0
   _state: 0
   _moveSpeed: 0.1
   _upForce: 5
@@ -625,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
     - target: {fileID: 2900935632268627849, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_TargetDisplay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3100567248816255603, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: _unitType

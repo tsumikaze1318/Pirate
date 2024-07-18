@@ -162,7 +162,8 @@ public class GameManager : MonoBehaviour
     public void PlayersReady()
     {
         SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SoundManager.Instance.PlayBgm(BGMType.Null);
     }
 
     /// <summary>
@@ -171,7 +172,8 @@ public class GameManager : MonoBehaviour
     public void FinishMovie()
     {
         SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SoundManager.Instance.PlayBgm(BGMType.BGM2);
         _movieController.MovieEnd();
     }
 
