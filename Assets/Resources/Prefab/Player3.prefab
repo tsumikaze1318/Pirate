@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5173320452986617334
+--- !u!1 &965710148076788578
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4217390587366038265}
-  - component: {fileID: 7119365899244369970}
-  - component: {fileID: 4146290335055593549}
+  - component: {fileID: 1322331009457054345}
+  - component: {fileID: 3807050160095348288}
+  - component: {fileID: 7998054991922218079}
   m_Layer: 8
-  m_Name: Cube (1)
+  m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4217390587366038265
+--- !u!4 &1322331009457054345
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5173320452986617334}
+  m_GameObject: {fileID: 965710148076788578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 25, z: 0}
-  m_LocalScale: {x: 2, y: 0.5, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6965356050958139359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7119365899244369970
+--- !u!33 &3807050160095348288
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5173320452986617334}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4146290335055593549
+  m_GameObject: {fileID: 965710148076788578}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &7998054991922218079
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5173320452986617334}
+  m_GameObject: {fileID: 965710148076788578}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -587,10 +587,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2552731579749319096}
+      addedObject: {fileID: 1322331009457054345}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4217390587366038265}
+      addedObject: {fileID: 2552731579749319096}
     - targetCorrespondingSourceObject: {fileID: -5877902062524505566, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3061255366094326115}
