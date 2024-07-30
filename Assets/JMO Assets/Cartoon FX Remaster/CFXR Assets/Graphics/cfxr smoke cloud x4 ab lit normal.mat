@@ -17,12 +17,13 @@ Material:
   - _CFXR_LIGHTING_ALL
   - _CFXR_LIGHTING_BACK
   - _CFXR_LIGHTING_WPOS_OFFSET
-  - _CFXR_SINGLE_CHANNEL
   - _FADING_ON
   - _NORMALMAP
   m_InvalidKeywords:
   - _CFXR_OVERLAYBLEND_RGBA
   - _CFXR_OVERLAYTEX_OFF
+  - _CFXR_SINGLE_CHANNEL
+  - _SINGLECHANNEL_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -84,7 +85,7 @@ Material:
     - _EdgeFadePow: 1
     - _FadeAlongU: 0
     - _HdrBoost: 0
-    - _HdrMultiply: 3
+    - _HdrMultiply: 0
     - _IndirectLightingMix: 1
     - _InvertDissolveTex: 0
     - _LightingWorldPosStrength: 1
