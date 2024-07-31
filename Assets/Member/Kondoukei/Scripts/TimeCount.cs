@@ -30,9 +30,14 @@ public class TimeCount : MonoBehaviour
         timerText.text = ((int)Timer).ToString();
         //timerText.text = string.Format("{0:#}", Timer);
 
-        if (Timer < 50)
+        //if (Timer < 50)
+        //{
+        //    GameManager.Instance.InvokeKraken();
+        //}
+
+        if (Timer < 3 && Timer > 2)
         {
-            GameManager.Instance.InvokeKraken();
+            GameManager.Instance.GameEndCount();
         }
 
         if (Timer < 0)

@@ -12,7 +12,7 @@ public class GameStartCountDown : MonoBehaviour
 
     private bool isContDown = false;
 
-    private bool callOneTime = false;
+    private bool _gameStart = false;
 
     private float countDown = 3;
 
@@ -20,12 +20,12 @@ public class GameStartCountDown : MonoBehaviour
     {
         //if (Input.GetMouseButtonUp(0)) isContDown = true;
 
+        CountDown();
+    }
+
+    private void CountDown()
+    {
         if (!isContDown) return;
-        if (!callOneTime) 
-        {
-            SoundManager.Instance.PlaySe(SEType.SE5);
-            callOneTime = true;
-        }
 
         float preIntSecond = Mathf.Ceil(countDown);
 
@@ -40,10 +40,9 @@ public class GameStartCountDown : MonoBehaviour
             countDownText.enabled = false;
             mask.enabled = false;
 
-            GameManager.Instance.SetGameStart();
+            if (_gameStart) GameManager.Instance.SetGameStart();
 
             isContDown = false;
-            callOneTime = false;
         }
 
         float nowIntSecond = Mathf.Ceil(countDown);
@@ -56,5 +55,15 @@ public class GameStartCountDown : MonoBehaviour
         countDownText.text = nowIntSecond.ToString("0");
     }
 
-    public void CountDown() { isContDown = true; }
+    public void StartCountDown(bool gameStart) 
+    {
+        if (isContDown) return;
+
+        _gameStart = gameStart;
+        countDown = 3;
+        countDownText.enabled = gameStart;
+        isContDown = true;
+
+        SoundManager.Instance.PlaySe(SEType.SE5);
+    }
 }
