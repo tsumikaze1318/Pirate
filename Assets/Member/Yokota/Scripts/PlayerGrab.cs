@@ -78,13 +78,16 @@ public class PlayerGrab : MonoBehaviour
             offset = grabObject.transform.position - playerObj.transform.position;
             preRot = playerObj.transform.localEulerAngles;
             preRotY = playerObj.transform.localEulerAngles.y;
+            // ’†’£’Ç‹L
+            Physics.IgnoreCollision(grabObject.GetComponent<Collider>(), player._playerCollider, true);
         }
     }
 
     public void Release()
     {
         if (grabObject == null) return;
-
+        // ’†’£’Ç‹L
+        Physics.IgnoreCollision(grabObject.GetComponent<Collider>(), player._playerCollider, false);
         grabObject.transform.parent = null;
         grabObject = null;
     }

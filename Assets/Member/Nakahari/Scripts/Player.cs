@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
     private BoxCollider _swordCollider;
 
-    private CapsuleCollider _playerCollider;
+    public CapsuleCollider _playerCollider;
 
     [SerializeField]
     private GameObject uiObject;
@@ -112,11 +112,9 @@ public class Player : MonoBehaviour
             // 他のオブジェクトは子オブジェクトにする
             // 6/28　追記しました　横田
             _playerGrab.Grab();
-            Physics.IgnoreCollision(_playerGrab.GrabObject.GetComponent<Collider>(), _playerCollider, true);
         }
         else
         {
-            Physics.IgnoreCollision(_playerGrab.GrabObject.GetComponent<Collider>(), _playerCollider, false);
             _playerGrab.Release();
         }
         
