@@ -25,25 +25,36 @@ public class Ranking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeRank();
+        UpdatePoint();
+        //ChangeRank();
         //Debug.Log($"{points[0]},{points[1]},{points[2]}");
     }
 
-    private void ChangeRank()
+    //private void ChangeRank()
+    //{
+    //    var list = new List<int>();
+    //    // listの要素を更新
+    //    for (int i = 0; i < GameManager.Instance.Scores.Length; i++)
+    //    {
+    //        //list[i] = testList[i].Point;
+    //        list.Add(GameManager.Instance.Scores[i]);
+    //    }
+    //    // listをラムダ式でソート
+    //    list.Sort((a, b) => b - a);
+    //    for (int i = 0; i < list.Count; i++)
+    //    {
+    //        points[i] = list[i];
+    //        rankTexts[i].text = $"{i + 1} : {points[i]}";
+    //    }
+    //}
+
+    // 7/31 仕様変更につき追加しました 横田
+    private void UpdatePoint()
     {
-        var list = new List<int>();
-        // listの要素を更新
         for (int i = 0; i < GameManager.Instance.Scores.Length; i++)
         {
-            //list[i] = testList[i].Point;
-            list.Add(GameManager.Instance.Scores[i]);
-        }
-        // listをラムダ式でソート
-        list.Sort((a, b) => b - a);
-        for (int i = 0; i < list.Count; i++)
-        {
-            points[i] = list[i];
-            rankTexts[i].text = $"{i + 1} : {points[i]}";
+            points[i] = GameManager.Instance.Scores[i];
+            rankTexts[i].text = $"{points[i]}";
         }
     }
 }
