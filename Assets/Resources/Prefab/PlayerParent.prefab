@@ -109,3 +109,4 @@ MonoBehaviour:
   - {x: -1.25, y: -2, z: -17}
   - {x: -3.5, y: -2, z: -17}
   _respwanTimer: 2
+  _respawnPrefab: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}

@@ -211,89 +211,6 @@ Transform:
   - {fileID: 977706108918704797}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3898702104168084319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 40170983288328927}
-  - component: {fileID: 293203649206909884}
-  - component: {fileID: 2923587823135244101}
-  m_Layer: 8
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &40170983288328927
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3898702104168084319}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 25, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 6330903159391789647}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &293203649206909884
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3898702104168084319}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2923587823135244101
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3898702104168084319}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 86dbcc634bc71054686b53a8210f4b5a, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7546057224369429602
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +271,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9096185666638686086}
     m_Modifications:
+    - target: {fileID: 4210338677189750634, guid: 18b19941fadeba449893d29cd05d9b0b, type: 3}
+      propertyPath: _particlePrefab
+      value: 
+      objectReference: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
     - target: {fileID: 7368686005171870726, guid: 18b19941fadeba449893d29cd05d9b0b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.107
@@ -478,9 +399,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 40170983288328927}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 9153377399228011738}
     - targetCorrespondingSourceObject: {fileID: -5877902062524505566, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
       insertIndex: -1
@@ -526,10 +444,12 @@ MonoBehaviour:
   _upForce: 5
   _camera: {fileID: 2945663354650730962}
   _animator: {fileID: 0}
-  _obj: {fileID: 5329835145513199439}
+  _swordObj: {fileID: 5329835145513199439}
   _respawn: 0
   uiObject: {fileID: 32247620796258109}
   _playerGrab: {fileID: 0}
+  _splashPrefab: {fileID: 8205706795460263316, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
+  _ripplesPrefab: {fileID: 5291275307717659108, guid: 5a8d99fb95262ea458a7b580f2a1611c, type: 3}
 --- !u!114 &1441757919755563612
 MonoBehaviour:
   m_ObjectHideFlags: 0

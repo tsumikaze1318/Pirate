@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    [SerializeField]
+    ParticleSystem _particlePrefab;
+
+    Vector3 _hitPos;
+
     public BoxCollider _collider;
     private void Start()
     {
@@ -21,11 +26,14 @@ public class Attack : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            foreach(ContactPoint point in other.contacts)
+            {
+                _hitPos = point.point;
+            }
+            ParticleSystem attackPs = Instantiate(_particlePrefab, _hitPos, Quaternion.identity);
             SubCount(other);
             _collider.enabled = false;
+            Destroy(attackPs.gameObject, attackPs.main.duration);
         }
-
-        Debug.Log("‘ŠŽè‚Ìƒ^ƒO:"+other.gameObject.tag);
-        Debug.Log("‘ŠŽè‚Ì–¼‘O"+other.gameObject.name);
     }
 }

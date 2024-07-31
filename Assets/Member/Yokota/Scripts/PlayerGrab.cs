@@ -8,6 +8,8 @@ public class PlayerGrab : MonoBehaviour
 
     private GameObject grabObject = null;
 
+    public GameObject GrabObject => grabObject;
+
     [SerializeField]
     private GameObject player = null;
 

@@ -18,15 +18,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _moveSpeed;
 
-    bool _isJump = true;
+    bool _isJump = false;
 
     Rigidbody _rb;
 
     [SerializeField]
     float _upForce;
-
-    private Vector3 _prevPosition;
-    private Transform _transform;
 
     [SerializeField]
     Camera _camera;
@@ -34,11 +31,13 @@ public class Player : MonoBehaviour
     public Animator _animator;
 
     [SerializeField]
-    private GameObject _obj;
+    private GameObject _swordObj;
 
     public bool _respawn = false;
 
-    private BoxCollider _collider;
+    private BoxCollider _swordCollider;
+
+    private CapsuleCollider _playerCollider;
 
     [SerializeField]
     private GameObject uiObject;
@@ -48,6 +47,15 @@ public class Player : MonoBehaviour
     private PlayerGrab _playerGrab;
 
     bool lastFire = false;
+
+    private Vector3 _fallPos;
+
+    [SerializeField]
+    ParticleSystem _splashPrefab;
+
+    [SerializeField]
+    ParticleSystem _ripplesPrefab;
+
     #endregion
 
     void Move()
@@ -69,10 +77,10 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        if (_isJump && _inputs._jump)
+        if (!_isJump && _inputs._jump)
         {
             _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
-            _isJump = false;
+            _isJump = true;
         }
     }
 
@@ -104,9 +112,11 @@ public class Player : MonoBehaviour
             // 他のオブジェクトは子オブジェクトにする
             // 6/28　追記しました　横田
             _playerGrab.Grab();
+            Physics.IgnoreCollision(_playerGrab.GrabObject.GetComponent<Collider>(), _playerCollider, true);
         }
         else
         {
+            Physics.IgnoreCollision(_playerGrab.GrabObject.GetComponent<Collider>(), _playerCollider, false);
             _playerGrab.Release();
         }
         
@@ -143,6 +153,7 @@ public class Player : MonoBehaviour
 
     void SkipMovie()
     {
+        // 作りかけ
         if (_inputs._movieSkip)
         {
             GameManager.Instance.FinishMovie();
@@ -152,12 +163,12 @@ public class Player : MonoBehaviour
 
     void ColliderEnabled()
     {
-        _collider.enabled = true;
+        _swordCollider.enabled = true;
     }
 
     void ColliderDisabled()
     {
-        _collider.enabled = false;
+        _swordCollider.enabled = false;
     }
 
     void SubCount(Collision other)
@@ -172,7 +183,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (other.gameObject.CompareTag("Ground") || other.gameObject.layer == 6)
         {
-            _isJump = true;
+            _isJump = false;
         }
         if (other.gameObject.CompareTag("Treasure"))
         {
@@ -181,10 +192,10 @@ public class Player : MonoBehaviour
             treasure.GetTreasure(_playerInput.user.index);
         }
 
-        if (_collider ==  other.gameObject.CompareTag("Player"))
+        if (_swordCollider ==  other.gameObject.CompareTag("Player"))
         {
             SubCount(other);
-            _collider.enabled = false;
+            _swordCollider.enabled = false;
         }
     }
 
@@ -192,9 +203,20 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("UnderGround"))
         {
+            _respawn = true;
+            _fallPos = other.ClosestPointOnBounds(this.transform.position);
+            ParticleSystem splashPs = Instantiate(_splashPrefab, _fallPos, Quaternion.identity);
+            Destroy(splashPs.gameObject, splashPs.main.duration);
             GameManager.Instance.SubScore(_playerInput.user.index);
             _rb.velocity = Vector3.zero;
-            _respawn = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("UnderGround"))
+        {
+            ParticleSystem fallPs = Instantiate(_ripplesPrefab, _fallPos, Quaternion.Euler(-90, 0, 0));
+            Destroy(fallPs.gameObject, fallPs.main.duration);
         }
     }
 
@@ -205,11 +227,9 @@ public class Player : MonoBehaviour
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
-        _collider = _obj.GetComponent<BoxCollider>();
-        _collider.enabled = false;
-
-        _transform = transform;
-        _prevPosition = _transform.position;
+        _swordCollider = _swordObj.GetComponent<BoxCollider>();
+        _playerCollider = GetComponent<CapsuleCollider>();
+        _swordCollider.enabled = false;
     }
 
     // Update is called once per frame

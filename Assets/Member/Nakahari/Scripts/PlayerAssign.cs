@@ -20,6 +20,10 @@ public class PlayerAssign : MonoBehaviour
     private float _respwanTimer;
     private float _timer;
 
+    [SerializeField]
+    ParticleSystem _respawnPrefab;
+
+
     void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -60,26 +64,48 @@ public class PlayerAssign : MonoBehaviour
             {
                 case 0:
                     _player.transform.position = _spawnPos[_playerIndex];
+                    RespawnEffect(Color.cyan);
                     _player._respawn = false;
                     _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 1:
                     _player.transform.position = _spawnPos[_playerIndex];
+                    RespawnEffect(Color.red);
                     _player._respawn = false;
                     _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 2:
                     _player.transform.position = _spawnPos[_playerIndex];
+                    RespawnEffect(Color.green);
                     _player._respawn = false;
                     _player._state = CommonParam.UnitState.Normal;
                     break;
                 case 3:
                     _player.transform.position = _spawnPos[_playerIndex];
+                    RespawnEffect(Color.yellow);
                     _player._respawn = false;
                     _player._state = CommonParam.UnitState.Normal;
                     break;
             }
             _timer = 0;
         }
+        
+    }
+    IEnumerator EffectDestroy(ParticleSystem ps)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(ps.gameObject,ps.main.duration);
+    }
+
+    void RespawnEffect(Color color)
+    {
+        _player._animator.SetTrigger("Respawn");
+        ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[_playerIndex] + new Vector3(0, -1.5f, 0), Quaternion.identity);
+        foreach(ParticleSystem ps in playerPs.GetComponentsInChildren<ParticleSystem>())
+        {
+            var particleMain = ps.main;
+            particleMain.startColor = color;
+        }
+        StartCoroutine(EffectDestroy(playerPs));
     }
 }
