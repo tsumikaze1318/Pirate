@@ -86,89 +86,6 @@ MonoBehaviour:
   _cameraMoveSpeed: 4
   _axisPos: {x: 0, y: 0, z: 0}
   _axisRot: {x: 16, y: 0, z: 0}
---- !u!1 &3828645762068781067
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7379465275571495300}
-  - component: {fileID: 5470513485757237310}
-  - component: {fileID: 3371381063019954602}
-  m_Layer: 8
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7379465275571495300
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828645762068781067}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 25, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 8038344987119256931}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5470513485757237310
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828645762068781067}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &3371381063019954602
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828645762068781067}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: f7f64d2b98b2a3541b4ad59f33128e39, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4111903802772037671
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d770f283906cae948aa5c4056d9878b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7261527191261372377}
 --- !u!1 &5647852754277502405
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +270,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5073927747525705898}
     m_Modifications:
+    - target: {fileID: 4210338677189750634, guid: 18b19941fadeba449893d29cd05d9b0b, type: 3}
+      propertyPath: _particlePrefab
+      value: 
+      objectReference: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
     - target: {fileID: 7368686005171870726, guid: 18b19941fadeba449893d29cd05d9b0b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.107
@@ -478,9 +398,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 862bfe97fd636fb4499c181deaba6ead, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7379465275571495300}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 862bfe97fd636fb4499c181deaba6ead, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7076170262118280917}
     - targetCorrespondingSourceObject: {fileID: -5877902062524505566, guid: 862bfe97fd636fb4499c181deaba6ead, type: 3}
       insertIndex: -1
@@ -576,10 +493,13 @@ MonoBehaviour:
   _upForce: 5
   _camera: {fileID: 8011213383464760869}
   _animator: {fileID: 0}
-  _obj: {fileID: 7533756527646952616}
+  _swordObj: {fileID: 7533756527646952616}
   _respawn: 0
+  _playerCollider: {fileID: 0}
   uiObject: {fileID: 510649115303262494}
   _playerGrab: {fileID: 0}
+  _splashPrefab: {fileID: 8205706795460263316, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
+  _ripplesPrefab: {fileID: 5291275307717659108, guid: 5a8d99fb95262ea458a7b580f2a1611c, type: 3}
 --- !u!114 &4571760243895792230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,10 +530,34 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 269709376415656066, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 269709376415656066, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 269709376415656066, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2083257257075739357, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 2083257257075739357, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083257257075739357, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2083257257075739357, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2132140562693238898, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_Text
       value: 
@@ -622,6 +566,18 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 2132140562693238898, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132140562693238898, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132140562693238898, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 2645765738996067390, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: orthographic size
       value: 20
@@ -638,6 +594,18 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 3301007044790849128, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301007044790849128, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3301007044790849128, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3502868667393088507, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_Camera
       value: 
@@ -662,6 +630,18 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 8183146502184138186, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183146502184138186, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183146502184138186, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 8535787797953696772, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_IsActive
       value: 1

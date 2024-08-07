@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishMovie()
     {
-        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,GameStartCount, null, null);
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
         SoundManager.Instance.PlayBgm(BGMType.BGM2);
         _movieController.MovieEnd();
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void CountStart()
+    private void GameStartCount()
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -252,7 +252,15 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < gameStartCountDowns.Count; i++)
         {
-            gameStartCountDowns[i].CountDown();
+            gameStartCountDowns[i].StartCountDown(true);
+        }
+    }
+
+    public void GameEndCount()
+    {
+        for (int i = 0; i < gameStartCountDowns.Count; i++)
+        {
+            gameStartCountDowns[i].StartCountDown(false);
         }
     }
 
