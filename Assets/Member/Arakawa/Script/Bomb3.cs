@@ -82,7 +82,7 @@ public class Bomb3 : MonoBehaviour
             Vector3 explosionDirection = targetCollider.transform.position - transform.position;
             float distance = explosionDirection.magnitude;
             float normalizedDistance = distance / explosionRadius;
-            float force = Mathf.Lerp(explosionForce, 0f, normalizedDistance);
+            float force = Mathf.Lerp(explosionForce, 5f, normalizedDistance);
 
             // —Í‚ð‰Á‚¦‚é
             targetRigidbody.AddForce(explosionDirection.normalized * force, ForceMode.Impulse);

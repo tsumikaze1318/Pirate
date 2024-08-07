@@ -7,6 +7,9 @@ using System;
 public class FireBullet : MonoBehaviour
 {
     [SerializeField]
+    private ParticleSystem explosionParticleSystemPrefab;
+
+    [SerializeField]
     //弾の発射場所
     private GameObject firingPoint;
 
@@ -64,7 +67,6 @@ public class FireBullet : MonoBehaviour
             Vector3 direction = newBullet.transform.up;
 
 
-
             //指定された方向に力をたまに加える
             newBullet.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
 
@@ -78,6 +80,14 @@ public class FireBullet : MonoBehaviour
             _timeElapsed = 0;
 
             canonController.CollectBullet(newBullet);
+
+            // パーティクルシステムを生成して爆発エフェクトを再生
+            ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlaySe(SEType.SE2);
+            explosionParticleSystem.Play();
+
+            // パーティクル再生時間が終了したらパーティクルシステムを破棄
+            Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
 
             //増やす
             //count++;
