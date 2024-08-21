@@ -26,17 +26,17 @@ public class Bomb3 : MonoBehaviour
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !hasDetonated && !_isGrounded) _isGrounded = true;
-        // 衝突した相手にPlayerタグが付いているとき
-        else if (collision.gameObject.CompareTag("Player") && !hasDetonated && _isGrounded)
+        //衝突した相手にPlayerタグが付いているとき
+        if (collision.gameObject.CompareTag("Player") && !hasDetonated && _isGrounded)
         {
             hasDetonated = true;
             Invoke(nameof(Detonate), 2f);
             //Detonate();
-            Destroy(gameObject,2f);
+            Destroy(gameObject, 2f);
 
 
         }
-        else if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
+        if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
         {
             hasDetonated = true;
             Detonate();

@@ -2520,6 +2520,10 @@ PrefabInstance:
       propertyPath: canonController
       value: 
       objectReference: {fileID: 1902208248}
+    - target: {fileID: 8138405908993710388, guid: 41c8db9e37aa4b34a9b3fe74f84fe3c5, type: 3}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8706267827783436476, guid: 41c8db9e37aa4b34a9b3fe74f84fe3c5, type: 3}
       propertyPath: m_Layer
       value: 6
