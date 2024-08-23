@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Bomb3 : MonoBehaviour
@@ -30,16 +31,14 @@ public class Bomb3 : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !hasDetonated && _isGrounded)
         {
             hasDetonated = true;
-            Invoke(nameof(Detonate), 2f);
+            Detonate(_isGrounded, 2000);
+            //Invoke(nameof(Detonate), 2f);
             //Detonate();
-            Destroy(gameObject, 2f);
-
-
         }
         if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
         {
             hasDetonated = true;
-            Detonate();
+            Detonate(_isGrounded, 0);
             Destroy(gameObject);
         }
     }
@@ -49,8 +48,10 @@ public class Bomb3 : MonoBehaviour
         //Invoke(nameof(Detonate), 5f);
     }
 
-    void Detonate()
+    async void Detonate(bool isGrounded, int waitSecond)
     {
+        await Task.Delay(waitSecond);
+
         // パーティクルシステムを生成して爆発エフェクトを再生
         ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
         SoundManager.Instance.PlaySe(SEType.SE2);
@@ -63,13 +64,13 @@ public class Bomb3 : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider collider in colliders)
         {
-            ApplyExplosionForce(collider);
+            ApplyExplosionForce(collider, isGrounded);
         }
 
     }
     
     // 吹き飛ばしの処理
-    void ApplyExplosionForce(Collider targetCollider)
+    void ApplyExplosionForce(Collider targetCollider, bool isGrounded)
     {
         Rigidbody targetRigidbody = targetCollider.GetComponent<Rigidbody>();
         HitCount hitCount = targetCollider.GetComponent<HitCount>();
@@ -79,13 +80,19 @@ public class Bomb3 : MonoBehaviour
         if (targetRigidbody != null)
         {
             // 爆心からの距離に応じて力を計算
-            Vector3 explosionDirection = targetCollider.transform.position - transform.position;
+            Vector3 explosionDirection
+                = new Vector3(targetCollider.transform.position.x - transform.position.x
+                            , 0f
+                            , targetCollider.transform.position.z - transform.position.z);
             float distance = explosionDirection.magnitude;
             float normalizedDistance = distance / explosionRadius;
             float force = Mathf.Lerp(explosionForce, 5f, normalizedDistance);
 
+            if (!isGrounded) { explosionDirection = explosionDirection.normalized + new Vector3(0f, 1f, 0f); }
+
             // 力を加える
             targetRigidbody.AddForce(explosionDirection.normalized * force, ForceMode.Impulse);
+            Destroy(gameObject);
         }
     }
 
@@ -105,6 +112,8 @@ public class Bomb3 : MonoBehaviour
 
             //    _target.enabled = repeatValue >= _cycle * 0.2f;
             //}
+
+            if (_time > 3) { Destroy(gameObject); }
 
             hasDetonated = true;
 

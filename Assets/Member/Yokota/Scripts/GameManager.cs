@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Video;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,9 +47,9 @@ public class GameManager : MonoBehaviour
     // 近藤追記
     public int[] Scores => scores;
 
-    private static Dictionary<int, List<GameObject>> scoreToPlayer 
-        = new Dictionary<int, List<GameObject>>();
-    public static Dictionary<int, List<GameObject>> ScoreToPlayer => scoreToPlayer;
+    private static Dictionary<int, int> scoreToPlayerNum 
+        = new Dictionary<int, int>();
+    public static Dictionary<int, int> ScoreToPlayerNum => scoreToPlayerNum;
 
     [SerializeField, Header("プレイヤーのプレハブ")]
     private List<GameObject> playerPrefab = new List<GameObject>();
@@ -150,7 +147,7 @@ public class GameManager : MonoBehaviour
 
         await Task.Delay(3000);
 
-        scoreToPlayer.Clear();
+        scoreToPlayerNum.Clear();
 
         RankingSort();
 
@@ -222,24 +219,34 @@ public class GameManager : MonoBehaviour
     private void RankingSort()
     {
         
+        //for (int i = 0; i < players.Count; i++)
+        //{
+        //    List<GameObject> list = new List<GameObject>();
+        //    list.Add(playerPrefab[i]);
+
+        //    bool sameKey = false;
+
+        //    foreach (var dic in scoreToPlayer)
+        //    {
+        //        if (scores[i] == dic.Key)
+        //        {
+        //            scoreToPlayer[scores[i]].Add(playerPrefab[i]);
+        //            sameKey = true;
+        //        }
+        //    }
+
+        //    if (!sameKey) scoreToPlayer.Add(scores[i], list);
+        //}
+
         for (int i = 0; i < players.Count; i++)
         {
-            List<GameObject> list = new List<GameObject>();
-            list.Add(playerPrefab[i]);
-
-            bool sameKey = false;
-
-            foreach (var dic in scoreToPlayer)
-            {
-                if (scores[i] == dic.Key)
-                {
-                    scoreToPlayer[scores[i]].Add(playerPrefab[i]);
-                    sameKey = true;
-                }
-            }
-
-            if (!sameKey) scoreToPlayer.Add(scores[i], list);
+            scoreToPlayerNum.Add(scores[i], i + 1);
         }
+
+        // Key : スコア、Value : プレイヤー番号、要素番号 : 順位
+        scoreToPlayerNum = scoreToPlayerNum
+                        .OrderByDescending(x => x.Key)
+                        .ToDictionary(x => x.Key, x => x.Value);
     }
 
     private void GameStartCount()
