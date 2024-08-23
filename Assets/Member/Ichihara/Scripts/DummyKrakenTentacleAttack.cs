@@ -44,16 +44,16 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
         // 触手が海から飛び出るアニメーションを挿入
 
         var KrakenTentacleManagement = transform.parent.GetComponentInParent<KrakenTentacleManagement>();
-        var centerObject = KrakenTentacleManagement.GenerateMarker(playerTransform);
+        //var centerObject = KrakenTentacleManagement.GenerateMarker(playerTransform);
         // 要待機時間調整
         await Task.Delay(500);
-        Vector3 explosionCenter = centerObject.transform.position;
-        Destroy(centerObject);
+        //Vector3 explosionCenter = centerObject.transform.position;
+        //Destroy(centerObject);
         // 触手を振り降ろすアニメーションを挿入
         // 要待機時間調整
         await Task.Yield();
         // center を中心にヒットしたコライダーを格納する
-        Collider[] hitColliders = Physics.OverlapSphere(explosionCenter, hitColliderRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, hitColliderRadius);
         for (int i = 0; i < hitColliders.Length; i++)
         {
             var rb = hitColliders[i].GetComponent<Rigidbody>();
@@ -61,7 +61,7 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
             {
                 // 周囲のオブジェクトに爆風の影響を与える
                 rb.AddExplosionForce(explosionForce
-                                   , explosionCenter
+                                   , playerTransform.position
                                    , explosionRadius
                                    , explosionUpwards
                                    , ForceMode.Impulse);
