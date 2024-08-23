@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2057103484026115807}
   m_Layer: 0
-  m_Name: TentacleSpawnPoint_Front
+  m_Name: TentacleSpawnPoint_FrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 467191232984711037}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.4, y: -11.73, z: 14.2}
+  m_LocalPosition: {x: 31, y: -19, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,38 @@ Transform:
   m_GameObject: {fileID: 710453553714027059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.1, y: -11.73, z: 0}
+  m_LocalPosition: {x: -31, y: -20, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 217700466569944252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1278500655577342343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8935823700258255351}
+  m_Layer: 0
+  m_Name: TentacleSpawnPoint_BackRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8935823700258255351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278500655577342343}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31, y: -16, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,9 +125,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2057103484026115807}
+  - {fileID: 6047762748218776562}
   - {fileID: 3646086934637971101}
   - {fileID: 5542586049123496267}
-  - {fileID: 6047762748218776562}
+  - {fileID: 8935823700258255351}
+  - {fileID: 7136780558564016836}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1104693159834779470
@@ -111,15 +144,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86076e0aeedf9f7438eb86d065e477f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _krakenTentacle: {fileID: 2104638017851293652, guid: 00dba9f415f72ff4699821cf4fb471dc, type: 3}
+  _krakenTentacle: {fileID: 1629218278614647896, guid: 6807561f6bcf7aa409169c7e238d79eb, type: 3}
   _tentacleAndShipPartsTable:
   - TentacleSpawnPoint: {fileID: 2057103484026115807}
+    BreakShipParts: {fileID: 0}
+  - TentacleSpawnPoint: {fileID: 6047762748218776562}
     BreakShipParts: {fileID: 0}
   - TentacleSpawnPoint: {fileID: 3646086934637971101}
     BreakShipParts: {fileID: 0}
   - TentacleSpawnPoint: {fileID: 5542586049123496267}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 6047762748218776562}
+  - TentacleSpawnPoint: {fileID: 7136780558564016836}
+    BreakShipParts: {fileID: 0}
+  - TentacleSpawnPoint: {fileID: 8935823700258255351}
     BreakShipParts: {fileID: 0}
   _targetPlayer: {fileID: 0}
   _marker: {fileID: 8821988214770949544, guid: b58bfaa1068292c4cafe28c0e82262c9, type: 3}
@@ -147,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6047762748218776562}
   m_Layer: 0
-  m_Name: TentacleSpawnPoint_Back
+  m_Name: TentacleSpawnPoint_FrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +199,38 @@ Transform:
   m_GameObject: {fileID: 4211661069977312850}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.8, y: -11.73, z: -20.1}
+  m_LocalPosition: {x: -31, y: -19, z: 12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 217700466569944252}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6132425488070972864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7136780558564016836}
+  m_Layer: 0
+  m_Name: TentacleSpawnPoint_BackLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7136780558564016836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132425488070972864}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 31, y: -16, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -193,7 +261,7 @@ Transform:
   m_GameObject: {fileID: 7450122067590966282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.4, y: -11.73, z: 0}
+  m_LocalPosition: {x: 31, y: -20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
