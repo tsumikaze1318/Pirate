@@ -11,12 +11,20 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
 
     private float hitColliderRadius = 5f;
 
+    private Animator _krakenAnimation = null;
+
     [SerializeField, Header("爆風半径")]
     private float explosionRadius = 10f;
     [SerializeField, Header("爆風の強さ")]
     private float explosionForce = 10f;
     [SerializeField, Header("爆風の上ベクトルの力")]
     private float explosionUpwards = 0f;
+
+    private void Start()
+    {
+        if(_krakenAnimation == null)
+            _krakenAnimation = GetComponent<Animator>();
+    }
 
     /// <summary>
     /// 触手を振り下ろす座標にマーカーUIを表示
@@ -43,15 +51,16 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
     {
         // 触手が海から飛び出るアニメーションを挿入
 
-        var KrakenTentacleManagement = transform.parent.GetComponentInParent<KrakenTentacleManagement>();
+        //var KrakenTentacleManagement = transform.parent.GetComponentInParent<KrakenTentacleManagement>();
         //var centerObject = KrakenTentacleManagement.GenerateMarker(playerTransform);
         // 要待機時間調整
         await Task.Delay(500);
         //Vector3 explosionCenter = centerObject.transform.position;
         //Destroy(centerObject);
         // 触手を振り降ろすアニメーションを挿入
+        _krakenAnimation.SetTrigger("Attack");
         // 要待機時間調整
-        await Task.Yield();
+        await Task.Delay(1000);
         // center を中心にヒットしたコライダーを格納する
         Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, hitColliderRadius);
         for (int i = 0; i < hitColliders.Length; i++)
