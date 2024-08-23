@@ -185,6 +185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8130031375856028594}
+  - component: {fileID: 1980082627998700130}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -210,6 +211,18 @@ Transform:
   - {fileID: 3529519948816188218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980082627998700130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375928799555258873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b9a02567c31e045bc77d30d103d9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7546057224369429602
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,6 +579,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5837171880515922740}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7130734638548174192}
   m_SourcePrefab: {fileID: 100100000, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
 --- !u!4 &6330903159391789647 stripped
 Transform:
@@ -664,6 +680,18 @@ CapsuleCollider:
   m_Height: 1.8344494
   m_Direction: 1
   m_Center: {x: 0.0044008493, y: 0.8660304, z: -0.0146920085}
+--- !u!114 &7130734638548174192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669886354836584693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b9a02567c31e045bc77d30d103d9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9096185666638686086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5877902062524505566, guid: 68a9ae54bce5097489c01565832c80f3, type: 3}
