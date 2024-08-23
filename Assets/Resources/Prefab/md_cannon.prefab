@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e5d3eda75016542b91d676f70b595d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionParticleSystemPrefab: {fileID: 725748389856807712, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
   firingPoint: {fileID: 7996032416528077559}
   bullet: {fileID: 8203982315971495952, guid: 23b23752ee68fc94185c2d5caa3c1326, type: 3}
   speed: 15

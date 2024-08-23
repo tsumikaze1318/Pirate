@@ -80,6 +80,8 @@ public class Player : MonoBehaviour
         if (!_isJump && _inputs._jump)
         {
             _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
+            _animator.SetTrigger("Jump");
+            _animator.ResetTrigger("Ground");
             _isJump = true;
         }
     }
@@ -182,6 +184,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Ground") || other.gameObject.layer == 6)
         {
             _isJump = false;
+            _animator.SetTrigger("Ground");
         }
         if (other.gameObject.CompareTag("Treasure"))
         {
