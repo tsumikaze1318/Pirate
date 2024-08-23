@@ -4,19 +4,20 @@ public class Bomb3 : MonoBehaviour
 {
     [SerializeField] 
     private ParticleSystem explosionParticleSystemPrefab;
+
     [SerializeField]
     private float explosionForce;
+
     [SerializeField]
     private float explosionRadius;
+
     [SerializeField]
     private Renderer _target;
+
     [SerializeField]
     private float _cycle = 1;
 
     private double _time;
-
-
-
 
     private bool _isGrounded = false;
 
@@ -32,6 +33,8 @@ public class Bomb3 : MonoBehaviour
             Invoke(nameof(Detonate), 2f);
             //Detonate();
             Destroy(gameObject,2f);
+
+
         }
         else if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
         {
@@ -44,12 +47,6 @@ public class Bomb3 : MonoBehaviour
     private void Start()
     {
         //Invoke(nameof(Detonate), 5f);
-
-        //_time += Time.deltaTime;
-
-        //var repeatValuse = Mathf.Repeat((float)_time, _cycle);
-
-        //_target.enabled = repeatValuse >= _cycle * 0.5f;
     }
 
     void Detonate()
@@ -70,7 +67,7 @@ public class Bomb3 : MonoBehaviour
         }
 
     }
-
+    
     // ‚«”ò‚Î‚µ‚Ìˆ—
     void ApplyExplosionForce(Collider targetCollider)
     {
@@ -90,5 +87,31 @@ public class Bomb3 : MonoBehaviour
             // —Í‚ð‰Á‚¦‚é
             targetRigidbody.AddForce(explosionDirection.normalized * force, ForceMode.Impulse);
         }
+    }
+
+    private void Update()
+    {
+        if (hasDetonated)
+        {
+            _time += Time.deltaTime;
+
+            var repeatValue = Mathf.Repeat((float)_time, _cycle);
+
+            _target.enabled = repeatValue >= _cycle * 0.5f;
+
+            //if(hasDetonated)
+            //{
+            //    _time++;
+
+            //    _target.enabled = repeatValue >= _cycle * 0.2f;
+            //}
+
+            hasDetonated = true;
+
+            
+
+        }
+
+
     }
 }

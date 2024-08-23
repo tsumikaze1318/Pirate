@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CanonController : MonoBehaviour
@@ -56,7 +55,7 @@ public class CanonController : MonoBehaviour
     }
     public void CollectBullet(GameObject bullet)
     {
-        if (_bullets.Count >= 6)
+        if (_bullets.Count >= 10)
         {
             Destroy(_bullets[0]);
             _bullets.RemoveAt(0);

@@ -40,4 +40,12 @@ public class MovieController : MonoBehaviour
         
         GameManager.Instance.FinishMovie();
     }
+
+    public void MovieEnd()
+    {
+        foreach(var video in _videoPlayer)
+        {
+            video.Pause();
+        }
+    }
 }

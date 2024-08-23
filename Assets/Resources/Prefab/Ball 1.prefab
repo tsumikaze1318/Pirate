@@ -233,5 +233,5 @@ MonoBehaviour:
   explosionParticleSystemPrefab: {fileID: 198499209413112314, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
   explosionForce: 20
   explosionRadius: 10
-  _target: {fileID: 0}
-  _cycle: 1
+  _target: {fileID: 5332952923271739734}
+  _cycle: 0.4

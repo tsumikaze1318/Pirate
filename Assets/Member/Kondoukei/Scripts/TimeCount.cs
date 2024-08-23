@@ -27,12 +27,17 @@ public class TimeCount : MonoBehaviour
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
         Timer -= Time.deltaTime;
-        //timerText.text = ((int)Timer).ToString();
-        timerText.text = string.Format("{0:#}", Timer);
+        timerText.text = ((int)Timer).ToString();
+        //timerText.text = string.Format("{0:#}", Timer);
 
-        if (Timer < 50)
+        //if (Timer < 50)
+        //{
+        //    GameManager.Instance.InvokeKraken();
+        //}
+
+        if (Timer < 3 && Timer > 2)
         {
-            GameManager.Instance.InvokeKraken();
+            GameManager.Instance.GameEndCount();
         }
 
         if (Timer < 0)

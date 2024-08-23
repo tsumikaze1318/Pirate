@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class HitCount : MonoBehaviour
 {
+    [SerializeField]
     public int _count = 3;
 
     Player _player;
@@ -37,7 +38,6 @@ public class HitCount : MonoBehaviour
             }
         }
         HitCountor();
-        //Debug.Log(_count);
     }
 
     public void HitCountor()

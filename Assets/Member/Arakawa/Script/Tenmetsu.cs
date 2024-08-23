@@ -16,9 +16,9 @@ public class Tenmetsu : MonoBehaviour
     {
         _time += Time.deltaTime;
 
-
         var repeatValue = Mathf.Repeat((float)_time, _cycle);
-
+        
         _target.enabled = repeatValue >= _cycle * 0.5f;
+
     }
 }

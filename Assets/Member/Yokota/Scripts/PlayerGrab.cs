@@ -8,29 +8,35 @@ public class PlayerGrab : MonoBehaviour
 
     private GameObject grabObject = null;
 
-    [SerializeField]
-    private GameObject player = null;
+    private GameObject playerObj = null;
+
+    private Player player = null;
 
     private float preRotY;
 
     private Vector3 preRot;
 
-    private float rotYOffset;
-
     private Vector3 offset = Vector3.zero;
+
+    private MeshCollider grabCollider;
 
     private void Start()
     {
-        player = GetComponentInParent<Player>().gameObject;
+        playerObj ??= GetComponentInParent<Player>().gameObject;
+        player ??= GetComponentInParent<Player>();
+        grabCollider ??= GetComponent<MeshCollider>();
     }
 
     private void Update()
     {
+        if (player._respawn) grabCollider.enabled = false;
+        else grabCollider.enabled = true;
+
         if (grabObject == null) return;
 
-        float nowRotY = player.transform.localEulerAngles.y;
+        float nowRotY = playerObj.transform.localEulerAngles.y;
 
-        Vector3 nowRot = player.transform.localEulerAngles;
+        Vector3 nowRot = playerObj.transform.localEulerAngles;
 
         float rad = (nowRotY - preRotY) * Mathf.Deg2Rad;
 
@@ -40,7 +46,7 @@ public class PlayerGrab : MonoBehaviour
 
         offset = new Vector3(x, y, z);
 
-        grabObject.transform.position = player.transform.position + offset;
+        grabObject.transform.position = playerObj.transform.position + offset;
         grabObject.transform.localEulerAngles += nowRot - preRot;
 
         preRot = nowRot;
@@ -69,16 +75,19 @@ public class PlayerGrab : MonoBehaviour
         if (grabObject != null)
         {
             canGrabObjects.Clear();
-            offset = grabObject.transform.position - player.transform.position;
-            preRot = player.transform.localEulerAngles;
-            preRotY = player.transform.localEulerAngles.y;
+            offset = grabObject.transform.position - playerObj.transform.position;
+            preRot = playerObj.transform.localEulerAngles;
+            preRotY = playerObj.transform.localEulerAngles.y;
+            // ’†’£’Ç‹L
+            Physics.IgnoreCollision(grabObject.GetComponent<Collider>(), player._playerCollider, true);
         }
     }
 
     public void Release()
     {
         if (grabObject == null) return;
-
+        // ’†’£’Ç‹L
+        Physics.IgnoreCollision(grabObject.GetComponent<Collider>(), player._playerCollider, false);
         grabObject.transform.parent = null;
         grabObject = null;
     }

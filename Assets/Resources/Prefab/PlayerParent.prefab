@@ -85,6 +85,7 @@ MonoBehaviour:
   _rightGrab: 0
   _cursorNone: 0
   _cursorLock: 0
+  _movieSkip: 0
 --- !u!114 &3966576244390709725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,12 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerList:
-  - {fileID: 886118938816421512, guid: 9ceb86f0f3a1a764aa0443a5a10f5d53, type: 3}
   - {fileID: 3375928799555258873, guid: 0bce4d611b9045c4fbec8c9fc4dff185, type: 3}
-  - {fileID: 1690717111080600581, guid: d8fd7a0ae7a8070408a3b25784dbc38f, type: 3}
-  - {fileID: 6589526696265778038, guid: 4adec0d902860184e8e8127b6e8c7f53, type: 3}
+  - {fileID: 886118938816421512, guid: 9ceb86f0f3a1a764aa0443a5a10f5d53, type: 3}
+  - {fileID: 6589526696265778038, guid: d8fd7a0ae7a8070408a3b25784dbc38f, type: 3}
+  - {fileID: 1690717111080600581, guid: 4adec0d902860184e8e8127b6e8c7f53, type: 3}
   _spawnPos:
   - {x: 3.5, y: -2, z: -17}
-  - {x: 1.75, y: -2, z: -17}
-  - {x: -1.75, y: -2, z: -17}
-  - {x: 3.5, y: -2, z: -17}
+  - {x: 1.25, y: -2, z: -17}
+  - {x: -1.25, y: -2, z: -17}
+  - {x: -3.5, y: -2, z: -17}
+  _respwanTimer: 2
+  _respawnPrefab: {fileID: 3280519133390621004, guid: a71be3e7990efb040a07565c43cbb198, type: 3}

@@ -8,9 +8,6 @@ public class Player : MonoBehaviour
 {
     #region êÈåæ
 
-    //[SerializeField]
-    //private CommonParam.UnitType _unitType = CommonParam.UnitType.Player1;
-
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
@@ -21,25 +18,26 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _moveSpeed;
 
-    bool _isJump;
+    bool _isJump = false;
 
     Rigidbody _rb;
 
     [SerializeField]
     float _upForce;
 
-    private Vector3 _prevPosition;
-    private Transform _transform;
-
     [SerializeField]
     Camera _camera;
 
-    private Animator _animator;
+    public Animator _animator;
 
-    private AnimatorClipInfo[] _animatorClip;
-    public float _stateTime;
+    [SerializeField]
+    private GameObject _swordObj;
 
     public bool _respawn = false;
+
+    private BoxCollider _swordCollider;
+
+    public CapsuleCollider _playerCollider;
 
     [SerializeField]
     private GameObject uiObject;
@@ -48,6 +46,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerGrab _playerGrab;
 
+    bool lastFire = false;
+
+    private Vector3 _fallPos;
+
+    [SerializeField]
+    ParticleSystem _splashPrefab;
+
+    [SerializeField]
+    ParticleSystem _ripplesPrefab;
 
     #endregion
 
@@ -70,22 +77,21 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        if (_isJump && _inputs._jump)
+        if (!_isJump && _inputs._jump)
         {
             _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
-            _isJump = false;
+            _isJump = true;
         }
     }
 
     void Fire()
     {
-        if(_inputs._fire)
+        if(_inputs._fire != lastFire)
         {
             // AnimationÇÃçƒê∂
-            //_animatorClip = _animator.GetCurrentAnimatorClipInfo(0);
-            //_stateTime = _animatorClip.Length;
-            _animator.SetTrigger("Attack");
-            Debug.Log("çUåÇ");
+            _animator.SetBool("Attack", _inputs._fire);
+
+            lastFire = _inputs._fire;
         }
     }
 
@@ -143,13 +149,39 @@ public class Player : MonoBehaviour
         }
     }
 
+    void SkipMovie()
+    {
+        // çÏÇËÇ©ÇØ
+        if (_inputs._movieSkip)
+        {
+            GameManager.Instance.FinishMovie();
+            Debug.Log("aaa");
+        }
+    }
+
+    void ColliderEnabled()
+    {
+        _swordCollider.enabled = true;
+    }
+
+    void ColliderDisabled()
+    {
+        _swordCollider.enabled = false;
+    }
+
+    void SubCount(Collision other)
+    {
+        HitCount hitCount = other.gameObject.GetComponent<HitCount>();
+        hitCount._count--;
+    }
+
     public void OnCollisionEnter(UnityEngine.Collision other)
     {
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
         if (other.gameObject.CompareTag("Ground") || other.gameObject.layer == 6)
         {
-            _isJump = true;
+            _isJump = false;
         }
         if (other.gameObject.CompareTag("Treasure"))
         {
@@ -157,15 +189,32 @@ public class Player : MonoBehaviour
             TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
             treasure.GetTreasure(_playerInput.user.index);
         }
+
+        if (_swordCollider ==  other.gameObject.CompareTag("Player"))
+        {
+            SubCount(other);
+            _swordCollider.enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("UnderGround"))
         {
+            _respawn = true;
+            _fallPos = other.ClosestPointOnBounds(this.transform.position);
+            ParticleSystem splashPs = Instantiate(_splashPrefab, _fallPos, Quaternion.identity);
+            Destroy(splashPs.gameObject, splashPs.main.duration);
             GameManager.Instance.SubScore(_playerInput.user.index);
             _rb.velocity = Vector3.zero;
-            _respawn = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("UnderGround"))
+        {
+            ParticleSystem fallPs = Instantiate(_ripplesPrefab, _fallPos, Quaternion.Euler(-90, 0, 0));
+            Destroy(fallPs.gameObject, fallPs.main.duration);
         }
     }
 
@@ -176,9 +225,9 @@ public class Player : MonoBehaviour
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
-
-        _transform = transform;
-        _prevPosition = _transform.position;
+        _swordCollider = _swordObj.GetComponent<BoxCollider>();
+        _playerCollider = GetComponent<CapsuleCollider>();
+        _swordCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -186,9 +235,11 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.CameraChanged && !uiObject.activeInHierarchy)
             uiObject.SetActive(true);
-
+        
+        CursorLook();
+        CursorNone();
         if (!GameManager.Instance.GameStart) return;
-        if(GameManager.Instance.GameEnd) return;
+        if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
             Jump();
@@ -197,10 +248,6 @@ public class Player : MonoBehaviour
             LeftGrab();
             RightGrab();
         }
-        CursorLook();
-        CursorNone();
-
-        //Debug.Log(_state);
     }
 
     private void FixedUpdate()
@@ -209,6 +256,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
+            if (_respawn) return;
             Move();
         }
     }

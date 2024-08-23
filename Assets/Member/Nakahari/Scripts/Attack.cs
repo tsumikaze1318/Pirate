@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    private Player _player;
+    [SerializeField]
+    ParticleSystem _particlePrefab;
+
+    Vector3 _hitPos;
+
+    public BoxCollider _collider;
     private void Start()
     {
-        _player = GetComponentInParent<Player>();
+        this._collider = GetComponent<BoxCollider>();
+        _collider.enabled = false;
     }
 
-    void SubCount(UnityEngine.Collision other)
+    void SubCount(Collision other)
     {
         HitCount hitCount = other.gameObject.GetComponent<HitCount>();
         hitCount._count--;
     }
 
-    private void OnCollisionEnter(UnityEngine.Collision other)
+    private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Player") && _player._stateTime >= 1)
+        if(other.gameObject.CompareTag("Player"))
         {
+            foreach(ContactPoint point in other.contacts)
+            {
+                _hitPos = point.point;
+            }
+            ParticleSystem attackPs = Instantiate(_particlePrefab, _hitPos, Quaternion.identity);
             SubCount(other);
+            _collider.enabled = false;
+            Destroy(attackPs.gameObject, attackPs.main.duration);
         }
     }
 }

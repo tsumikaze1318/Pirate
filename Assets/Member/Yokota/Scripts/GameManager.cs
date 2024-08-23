@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public bool FiftySecondsLeft => fiftySecondsLeft;
 
     // 各プレイヤーの宝箱獲得数
-    private int[] scores = { 0, 0, 0, 0 };
+    [SerializeField] private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
     public int[] Scores => scores;
 
@@ -93,13 +93,21 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < attendance; i++)
         {
-            playerPrefab.Add((GameObject)Resources.Load($"Object/Character_D{i + 1}/Character_D{i + 1}"));
+            playerPrefab.Add((GameObject)Resources.Load($"Prefab/Character_D{i + 1}"));
         }
         
 
         _movieController ??= _videoPlayersObj.GetComponent<MovieController>();
 
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
+    }
+
+    private void Update()
+    {
+        if (gameStart) return;
+        if (SceneFadeManager.IsFade) return;
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
+
     }
 
     #region 外部参照関数
@@ -142,6 +150,8 @@ public class GameManager : MonoBehaviour
 
         await Task.Delay(3000);
 
+        scoreToPlayer.Clear();
+
         RankingSort();
 
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result, BGMType.BGM1);
@@ -153,7 +163,8 @@ public class GameManager : MonoBehaviour
     public void PlayersReady()
     {
         SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SoundManager.Instance.PlayBgm(BGMType.Null);
     }
 
     /// <summary>
@@ -161,8 +172,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishMovie()
     {
-        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,CountStart, null, null);
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.BGM1);
+        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,GameStartCount, null, null);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SoundManager.Instance.PlayBgm(BGMType.BGM2);
+        _movieController.MovieEnd();
     }
 
     /// <summary>
@@ -208,6 +221,7 @@ public class GameManager : MonoBehaviour
 
     private void RankingSort()
     {
+        
         for (int i = 0; i < players.Count; i++)
         {
             List<GameObject> list = new List<GameObject>();
@@ -228,7 +242,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void CountStart()
+    private void GameStartCount()
     {
         for (int i = 0; i < players.Count; i++)
         {
@@ -238,14 +252,20 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < gameStartCountDowns.Count; i++)
         {
-            gameStartCountDowns[i].CountDown();
+            gameStartCountDowns[i].StartCountDown(true);
+        }
+    }
+
+    public void GameEndCount()
+    {
+        for (int i = 0; i < gameStartCountDowns.Count; i++)
+        {
+            gameStartCountDowns[i].StartCountDown(false);
         }
     }
 
     private void ChangeCamera()
     {
-        Debug.Log("ChangeCamera");
-
         foreach (var camera in attendCameras)
         {
             camera.enabled = false;
@@ -257,7 +277,6 @@ public class GameManager : MonoBehaviour
     private void MovieStart()
     {
         _movieController.StartMovie();
-        
     }
 
     private void MovieSet()

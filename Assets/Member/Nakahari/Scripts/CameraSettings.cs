@@ -13,7 +13,7 @@ public class CameraSettings : MonoBehaviour
     //private Transform _targetTransfrom;
 
     [SerializeField]
-    GameObject _player;
+    GameObject _playerObj;
 
     Vector3 _currentPos;
     Vector3 _pastPos;
@@ -45,20 +45,28 @@ public class CameraSettings : MonoBehaviour
     [SerializeField]
     Vector3 _axisRot;
 
+    private Player _player;
+
+    Quaternion _cameraRot;
+
     // Start is called before the first frame update
     void Start()
     {
         if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if (_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
+        if (_player == null) _player = _playerObj.GetComponent<Player>();
         _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
         _camera.transform.localPosition = new Vector3(0, 2, -5);
         _camera.transform.localRotation = transform.rotation;
+        _cameraRot = _camera.transform.localRotation;
         transform.eulerAngles = _axisRot;
     }
 
     private void CameraControl()
     {
+        _camera.transform.localRotation = _cameraRot;
+
         transform.position = _player.transform.position + _axisPos;
         
         if (!GameManager.Instance.GameStart) return;
@@ -70,11 +78,22 @@ public class CameraSettings : MonoBehaviour
         if(angleX >= 180) { angleX = angleX - 360; }
 
         transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
+    }
 
+    void StopCameraControl()
+    {
+        _camera.transform.LookAt(_playerObj.transform);
     }
 
     private void Update()
     {
-        CameraControl();
+        if (_player._respawn)
+        {
+            StopCameraControl();
+        }
+        else
+        {
+            CameraControl();
+        }
     }
 }

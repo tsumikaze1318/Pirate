@@ -10,7 +10,7 @@ public class SceneFadeInput : MonoBehaviour
         if (!context.performed) return;
         if (SceneFadeManager.IsFade) return;
         SoundManager.Instance.PlaySe(SEType.SE1);
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game, BGMType.BGM2);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Game, BGMType.BGM1);
     }
 
     public void GoTitleScene(InputAction.CallbackContext context)
