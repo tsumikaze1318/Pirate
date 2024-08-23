@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.DualShock;
 
 public class PlayerAssign : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerAssign : MonoBehaviour
 
     Player _player;
 
-    int _playerIndex;
+    public static int _playerIndex;
     [SerializeField]
     private float _respwanTimer;
     private float _timer;
@@ -39,15 +40,19 @@ public class PlayerAssign : MonoBehaviour
         {
             case 0:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                break;
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
+                    break;
             case 1:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.red);
                 break;
             case 2:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.green);
                 break;
             case 3:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.yellow);
                 break;
         }
     }
