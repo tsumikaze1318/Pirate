@@ -7,7 +7,7 @@ public class TestDictionary : MonoBehaviour
 {
     private static Dictionary<int, int> keyValuePairs = new Dictionary<int, int>();
 
-    public static Dictionary<int, int> KeyValuePairs { get { return keyValuePairs; } }
+    public static Dictionary<int, int> KeyValuePairs => keyValuePairs;
 
     private int[] ints = { 10, 5, 15, 0 };
 
@@ -24,6 +24,7 @@ public class TestDictionary : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             Debug.Log(keyValuePairs.ElementAt(i).Key);
+            Debug.Log(KeyValuePairs.ElementAt(i).Value);
         }
     }
 }
