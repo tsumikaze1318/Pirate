@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ImageColor : MonoBehaviour
 {
     [SerializeField]
-    public List<Image> images = new List<Image>();
+    public static List<Image> images = new List<Image>();
 
     private int num = 0;
 
