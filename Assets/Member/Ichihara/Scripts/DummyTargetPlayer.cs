@@ -49,7 +49,6 @@ public class DummyTargetPlayer : MonoBehaviour
     /// <returns>クラーケンのターゲットになったプレイヤーとの距離</returns>
     public Transform GetPlayerPositionTransform()
     {
-        //return distanceBetweenKrakenAndPlayerposition;
         return playerTransform;
     }
 

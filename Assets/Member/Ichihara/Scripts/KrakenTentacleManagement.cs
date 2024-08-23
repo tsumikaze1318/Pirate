@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -17,18 +18,22 @@ public struct TentacleAndShipPartsTable
 [RequireComponent(typeof(DummyTargetPlayer))]
 public class KrakenTentacleManagement : MonoBehaviour
 {
+    // 触手のゲームオブジェクト
     [SerializeField]
     private GameObject _krakenTentacle = null;
+    // 触手が出現する座標によって、船が壊れる箇所が異なる為、座標と破損個所を関連付けた構造体を作成し、リスト化
     [SerializeField]
     private List<TentacleAndShipPartsTable> _tentacleAndShipPartsTable = new List<TentacleAndShipPartsTable>();
     [SerializeField]
     private DummyTargetPlayer _targetPlayer = null;
-    [SerializeField]
-    private GameObject _marker = null;
+    //[SerializeField]
+    //private GameObject _marker = null;
 
-    [SerializeField]
+    [SerializeField, Header("同時に出現する触手の数")]
+    private int _krakenSpawnCount = 2;
+    [SerializeField, Header("触手が出現するインターバル")]
     private float _krakenSpawnDuration = 30f;
-    [SerializeField]
+    [SerializeField, Header("船が修復するまでのインターバル")]
     private float _repairShipDuration = 5f;
 
     // Start is called before the first frame update
@@ -47,6 +52,9 @@ public class KrakenTentacleManagement : MonoBehaviour
     {
         float krakenSpawnCount = 0f;
         float repairShipCount = 0f;
+        TentacleAndShipPartsTable[] tables = new TentacleAndShipPartsTable[_krakenSpawnCount];
+        DummyKrakenTentacleAttack[] tentacles = new DummyKrakenTentacleAttack[_krakenSpawnCount];
+        int[] randomNumbers = new int[_krakenSpawnCount];
         do
         {
             await Task.Yield();
@@ -58,22 +66,29 @@ public class KrakenTentacleManagement : MonoBehaviour
             repairShipCount += Time.deltaTime;
             if (krakenSpawnCount >= _krakenSpawnDuration)
             {
-                // クラーケンの足を出す座標を選定
-                int randomNumber = Random.Range(0, _tentacleAndShipPartsTable.Count);
-                TentacleAndShipPartsTable table = _tentacleAndShipPartsTable[randomNumber];
-                DummyKrakenTentacleAttack tentacle = table.TentacleSpawnPoint.GetChild(0).GetComponent<DummyKrakenTentacleAttack>();
+                // クラーケンの触手を出す座標を2ヵ所選定
+                // 触手の出現座標が被らないようにする
+                do
+                {
+                    randomNumbers[0] = Random.Range(0, _tentacleAndShipPartsTable.Count);
+                    randomNumbers[1] = Random.Range(0, _tentacleAndShipPartsTable.Count);
+                } while (randomNumbers[0] == randomNumbers[_krakenSpawnCount - 1]);
+                // 触手が出現、攻撃
+                for (int i = 0; i < _krakenSpawnCount; i++)
+                {
+                    await Task.Yield();
+                    tables[i] = _tentacleAndShipPartsTable[randomNumbers[i]];
+                    tentacles[i] = tables[i].TentacleSpawnPoint.GetChild(0).GetComponent<DummyKrakenTentacleAttack>();
+                }
 
-                tentacle.gameObject.SetActive(true);
-                await Task.Yield();
-                Transform playerTransform = _targetPlayer.GetPlayerPositionTransform();
-                // 触手の攻撃処理を呼び出す
-                await tentacle.AttackTentacle(playerTransform);
-                // 船が破壊されたテクスチャを表示
-                table.BreakShipParts.SetActive(false);
+                await Task.WhenAll(PreparationForAttackTentacle(tentacles[0], tables[0])
+                                 , PreparationForAttackTentacle(tentacles[_krakenSpawnCount - 1], tables[_krakenSpawnCount - 1]));
+
                 // カウントダウンのリセット
                 krakenSpawnCount = 0f;
                 repairShipCount = 0f;
             }
+            // 船が修復される
             if (repairShipCount > _repairShipDuration)
             {
                 foreach (TentacleAndShipPartsTable table in _tentacleAndShipPartsTable)
@@ -88,6 +103,18 @@ public class KrakenTentacleManagement : MonoBehaviour
         while (GameManager.Instance.GameEnd == false);
     }
 
+    private async Task PreparationForAttackTentacle(DummyKrakenTentacleAttack dummyKrakenTentacleAttack
+                                                   , TentacleAndShipPartsTable table)
+    {
+        dummyKrakenTentacleAttack.gameObject.SetActive(true);
+        Transform playerTransform = _targetPlayer.GetPlayerPositionTransform();
+        // 触手の攻撃処理を呼び出す
+        await dummyKrakenTentacleAttack.AttackTentacle(playerTransform);
+        // 船が破壊されたテクスチャを表示
+        table.BreakShipParts.SetActive(false);
+    }
+
+    /*
     /// <summary>
     /// 触手を振り下ろす座標にマーカーUIを表示
     /// </summary>
@@ -100,4 +127,5 @@ public class KrakenTentacleManagement : MonoBehaviour
                                             , Quaternion.identity);
         return markerObject;
     }
+    */
 }
