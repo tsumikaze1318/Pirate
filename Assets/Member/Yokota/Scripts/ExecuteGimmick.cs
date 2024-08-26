@@ -10,8 +10,8 @@ public class ExecuteGimmick : MonoBehaviour
     private List<GameObject> _gimmicks = new List<GameObject>();
 
     private ExecuteCannon _executeCannon;
-    private ExecuteShark _executeShark;
-    private DummyKrakenTentacleAttack _attackTentacleAttack;
+    private ExecuteSharkShoot _executeShark;
+    private ExecuteKraken _executeKraken;
 
     private int[] _posX = new int[4];
 
@@ -21,7 +21,7 @@ public class ExecuteGimmick : MonoBehaviour
     {
         for (int i = 0; i < _posX.Length; i++)
         {
-            _posX[i] = TestDictionary.KeyValuePairs.ElementAt(TestDictionary.KeyValuePairs.Count - 1 - i).Value;
+            _posX[i] = GameManager.ScoreToPlayerNum.ElementAt(TestDictionary.KeyValuePairs.Count - 1 - i).Value;
             Debug.Log(_posX[i]);
         }
 
@@ -31,8 +31,8 @@ public class ExecuteGimmick : MonoBehaviour
         //}
 
         _executeCannon = GetComponentInChildren<ExecuteCannon>();
-        _executeShark = GetComponentInChildren<ExecuteShark>();
-        _attackTentacleAttack = GetComponentInChildren<DummyKrakenTentacleAttack>();
+        _executeShark = GetComponentInChildren<ExecuteSharkShoot>();
+        _executeKraken = GetComponentInChildren<ExecuteKraken>();
 
         AnimationCannon();
     }
@@ -73,7 +73,7 @@ public class ExecuteGimmick : MonoBehaviour
     {
         _gimmicks[_phase].transform.position
             = _gimmicks[_phase].transform.position
-            + new Vector3(3 - (_posX[_phase] * 2) - 1.35f, 0, 0);
+            + new Vector3(3 - (_posX[_phase] * 2) -1.35f, 0, 0);
 
         _executeShark.ThrowingBall();
 
@@ -86,9 +86,11 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void AnimationKraken()
     {
-        _gimmicks[_phase].transform.position
-            = _gimmicks[_phase].transform.position
-            + new Vector3(3 - (_posX[_phase] * 2), 0, 0);
+        //_gimmicks[_phase].transform.position
+        //    = _gimmicks[_phase].transform.position
+        //    + new Vector3(3 - (_posX[_phase] * 2), 0, 0);
+
+        Debug.Log((3 - (_posX[_phase] * 2)));
 
         float initialYPos = _gimmicks[_phase].transform.position.y;
         float targetYPos = -16f;
@@ -103,11 +105,32 @@ public class ExecuteGimmick : MonoBehaviour
             deltaDistance = Time.deltaTime * distance / 3;
             totalDistance += deltaDistance;
 
-            _gimmicks[_phase].transform.position += new Vector3(0, deltaDistance, 0);
+            _gimmicks[_phase].transform.position 
+                += new Vector3(0, deltaDistance, 0);
+
+            await Task.Yield();
+        }
+
+        await Task.Delay(500);
+
+        deltaDistance = 0f;
+        totalDistance = 0f;
+
+        distance = _gimmicks[_phase].transform.position.x 
+                 - (3 - (_posX[_phase] * 2));
+
+        while (Mathf.Abs(totalDistance) < Mathf.Abs(distance))
+        {
+            deltaDistance = Time.deltaTime * distance / 0.2f;
+            totalDistance += deltaDistance;
+
+            _gimmicks[_phase].transform.position
+                -= new Vector3(deltaDistance, 0, 0);
 
             await Task.Yield();
         }
 
         // ƒNƒ‰[ƒPƒ“UŒ‚
+        _executeKraken.Attack();
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExecuteShark : MonoBehaviour
+public class ExecuteSharkShoot : MonoBehaviour
 {
     [SerializeField]
     private GameObject ThrowingObjectPrefab;
@@ -56,3 +56,4 @@ public class ExecuteShark : MonoBehaviour
         }
     }
 }
+
