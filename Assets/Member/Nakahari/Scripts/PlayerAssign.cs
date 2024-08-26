@@ -37,22 +37,27 @@ public class PlayerAssign : MonoBehaviour
 
     void Assign()
     {
+        var ctrl = Input.GetJoystickNames();
         switch (_playerIndex)
         {
             case 0:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                if (ctrl.Length == 0) return;
                 ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
                     break;
             case 1:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                if (ctrl.Length == 0) return;
                 ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.red);
                 break;
             case 2:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                if (ctrl.Length == 0) return;
                 ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.green);
                 break;
             case 3:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                if (ctrl.Length == 0) return;
                 ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.yellow);
                 break;
         }

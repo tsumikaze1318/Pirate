@@ -1,20 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ImageColor : MonoBehaviour
 {
+    private static ImageColor instance;
+    public static ImageColor Instance
+    {
+        get
+        {
+            if (instance == null) instance = FindObjectOfType<ImageColor>();
+            return instance;
+        }
+    }
+
     [SerializeField]
-    public static List<Image> images = new List<Image>();
+    public List<Image> _images = new List<Image>();
 
     private int num = 0;
 
     void Update()
     {
-        if(num != GameManager.Instance.Players.Count)
+        if (num != GameManager.Instance.Players.Count)
         {
-            images[num].enabled = true;
+            _images[num].enabled = true;
             num = GameManager.Instance.Players.Count;
         }
     }

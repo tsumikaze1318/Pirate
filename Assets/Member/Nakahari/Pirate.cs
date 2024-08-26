@@ -116,6 +116,15 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""UiButton"",
+                    ""type"": ""Value"",
+                    ""id"": ""7f5208ec-e977-4b3c-8b5f-f2bd4188b048"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -468,6 +477,61 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""LongPress"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab755264-c744-4461-84aa-e93dcf711594"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UiButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f107e76-1c63-4421-8fed-142fc539944a"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""UiButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c659a63-c116-4f52-8c09-2f79ca1fd309"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""UiButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6af4f8c-c6a5-4b4c-9b7e-f5fe4d89ca18"",
+                    ""path"": ""<Joystick>/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""UiButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3dceb9bb-25bf-42e6-9df1-eea79e288730"",
+                    ""path"": ""<XRController>/{PrimaryAction}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""XR"",
+                    ""action"": ""UiButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1143,6 +1207,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         m_Player_CursorLock = m_Player.FindAction("CursorLock", throwIfNotFound: true);
         m_Player_CursorNone = m_Player.FindAction("CursorNone", throwIfNotFound: true);
         m_Player_LongPress = m_Player.FindAction("LongPress", throwIfNotFound: true);
+        m_Player_UiButton = m_Player.FindAction("UiButton", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1232,6 +1297,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CursorLock;
     private readonly InputAction m_Player_CursorNone;
     private readonly InputAction m_Player_LongPress;
+    private readonly InputAction m_Player_UiButton;
     public struct PlayerActions
     {
         private @Pirate m_Wrapper;
@@ -1246,6 +1312,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         public InputAction @CursorLock => m_Wrapper.m_Player_CursorLock;
         public InputAction @CursorNone => m_Wrapper.m_Player_CursorNone;
         public InputAction @LongPress => m_Wrapper.m_Player_LongPress;
+        public InputAction @UiButton => m_Wrapper.m_Player_UiButton;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1285,6 +1352,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @LongPress.started += instance.OnLongPress;
             @LongPress.performed += instance.OnLongPress;
             @LongPress.canceled += instance.OnLongPress;
+            @UiButton.started += instance.OnUiButton;
+            @UiButton.performed += instance.OnUiButton;
+            @UiButton.canceled += instance.OnUiButton;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1319,6 +1389,9 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
             @LongPress.started -= instance.OnLongPress;
             @LongPress.performed -= instance.OnLongPress;
             @LongPress.canceled -= instance.OnLongPress;
+            @UiButton.started -= instance.OnUiButton;
+            @UiButton.performed -= instance.OnUiButton;
+            @UiButton.canceled -= instance.OnUiButton;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1603,6 +1676,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
         void OnCursorLock(InputAction.CallbackContext context);
         void OnCursorNone(InputAction.CallbackContext context);
         void OnLongPress(InputAction.CallbackContext context);
+        void OnUiButton(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
