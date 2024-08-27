@@ -166,27 +166,29 @@ public class Player : MonoBehaviour
     IEnumerator Ui()
     {
         _button = true;
-        var vecX = 0f;
-        var vecY = 0f;
-        var vecZ = 0f;
+        var vecX = 1f;
+        var vecY = 1f;
+        var vecZ = 1f;
         while (Vector3.SqrMagnitude(new Vector3(1.25f,1.25f,1.25f) - ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale) > 0.001)
         {
-            vecX += Time.deltaTime;
-            vecY += Time.deltaTime;
-            vecZ += Time.deltaTime;
+            vecX += 0.01f;
+            vecY += 0.01f;
+            vecZ += 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
             ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            yield return new WaitForFixedUpdate();
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         while (Vector3.SqrMagnitude(ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale - new Vector3(1f, 1f, 1f)) > 0.001)
         {
-            vecX -= Time.deltaTime;
-            vecZ -= Time.deltaTime;
-            vecY -= Time.deltaTime;
+            vecX -= 0.01f;
+            vecZ -= 0.01f;
+            vecY -= 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
             ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            yield return new WaitForFixedUpdate();
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         _button = false;
     }
 
