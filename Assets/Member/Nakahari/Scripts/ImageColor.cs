@@ -24,9 +24,10 @@ public class ImageColor : MonoBehaviour
     void Update()
     {
         var ctrl = Input.GetJoystickNames();
-        _images[ctrl.Length].enabled = true;
+        
         if (num != GameManager.Instance.Players.Count)
         {
+            //_images[ctrl.Length].enabled = true;
             _images[num].enabled = true;
             num = GameManager.Instance.Players.Count;
         }

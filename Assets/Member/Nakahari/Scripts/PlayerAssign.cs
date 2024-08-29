@@ -40,46 +40,85 @@ public class PlayerAssign : MonoBehaviour
 
     void Assign()
     {
-        if (_playerInput.currentControlScheme == "Keyboard&Mouse")
-        {
-            Switching(_playerIndex);
-        }
-        else
-        {
-            var ctrl = Input.GetJoystickNames();
-            Switching(ctrl.Length);
-        }
+        Switching(_playerIndex);
 
+       /* var ctrl = Input.GetJoystickNames();
 
-        /*switch (ctrl.Length)
+        switch (_playerIndex)
         {
             case 0:
-                Instantiate(_playerList[ctrl.Length], _spawnPos[ctrl.Length], Quaternion.identity, transform);
-                if (ctrl.Length > 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[ctrl.Length]).SetLightBarColor(Color.cyan);
-                    break;
-            case 1:
-                Instantiate(_playerList[ctrl.Length], _spawnPos[ctrl.Length], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[ctrl.Length]).SetLightBarColor(Color.red);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
+                break;
+            case 1:
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
+                if (ctrl.Length == 0) return;
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.red);
                 break;
             case 2:
-                Instantiate(_playerList[ctrl.Length], _spawnPos[ctrl.Length], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[ctrl.Length]).SetLightBarColor(Color.green);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.green);
                 break;
             case 3:
-                Instantiate(_playerList[ctrl.Length], _spawnPos[ctrl.Length], Quaternion.identity, transform);
+                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[ctrl.Length]).SetLightBarColor(Color.yellow);
+                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.yellow);
                 break;
         }*/
     }
 
     private void Switching(int num)
     {
+        var gamepads = DualShock4GamepadHID.all;
         var ctrl = Input.GetJoystickNames();
-        if (ctrl.Length == 0)
+        if (_playerInput.currentControlScheme == "Keyboard&Mouse")
+        {
+            switch (num)
+            {
+                case 0:
+                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
+                    break;
+                case 1:
+                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
+                    break;
+                case 2:
+                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
+                    break;
+                case 3:
+                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
+                    break;
+            }
+        }
+        else
+        {
+            foreach(var gamepad in gamepads)
+            {
+                Debug.Log(gamepad.deviceId);
+                switch (gamepad.deviceId)
+                {
+                    case 0:
+                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
+                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.cyan);
+                        break;
+                    case 1:
+                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
+                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.red);
+                        break;
+                    case 2:
+                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
+                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.green);
+                        break;
+                    case 3:
+                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
+                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.yellow);
+                        break;
+                }
+            }
+        }
+        
+        /*if (ctrl.Length == 0)
         {
             switch (num)
             {
@@ -118,7 +157,7 @@ public class PlayerAssign : MonoBehaviour
                     ((DualShockGamepad)DualShock4GamepadHID.all[num]).SetLightBarColor(Color.yellow);
                     break;
             }
-        }
+        }*/
         
     }
 
