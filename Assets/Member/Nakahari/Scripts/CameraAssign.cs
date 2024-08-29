@@ -15,7 +15,17 @@ public class CameraAssign : MonoBehaviour
     {
         if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if (_camera == null) _camera = GetComponent<Camera>();
-        _camera.targetDisplay = _playerInput.user.index;
+
+        if (_playerInput.currentControlScheme == "Keyboard&Mouse")
+        {
+            _camera.targetDisplay = _playerInput.user.index;
+        }
+        else
+        {
+            var ctrl = Input.GetJoystickNames();
+            _camera.targetDisplay = ctrl.Length;
+        }
+        
     }
 
 }

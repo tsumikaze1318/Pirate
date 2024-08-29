@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.DualShock;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.Utilities;
 
-public class DeviceManager : MonoBehaviour
+public class DeviceManagerTest : MonoBehaviour
 {
 
     [SerializeField]

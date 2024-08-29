@@ -86,6 +86,7 @@ MonoBehaviour:
   _cursorNone: 0
   _cursorLock: 0
   _movieSkip: 0
+  _uiButton: 0
 --- !u!114 &3966576244390709725
 MonoBehaviour:
   m_ObjectHideFlags: 0
