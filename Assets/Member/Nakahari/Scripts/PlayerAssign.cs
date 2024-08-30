@@ -43,7 +43,7 @@ public class PlayerAssign : MonoBehaviour
             case 0:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
                 if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
+                //((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
                     break;
             case 1:
                 Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);

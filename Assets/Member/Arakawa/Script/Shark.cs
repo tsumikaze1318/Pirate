@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shark : MonoBehaviour
 {
+    internal static int Length;
     [SerializeField]
     private GameObject ThrowingObjectPrefab;
 
@@ -22,13 +23,13 @@ public class Shark : MonoBehaviour
     [SerializeField]
     private float ThroeingAngle; 
 
-    public void ThrowingBall(float pos)
+    public void ThrowingBall()
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
             //オブジェクトの生成
             GameObject Shark = Instantiate(ThrowingObjectPrefab, 
-            new Vector3(transform.position.x,transform.position.y, pos),Quaternion.Euler(0f, -180f, -30f));
+                transform.position, Quaternion.Euler(0f, -180f, -30f));
             //標的の座標
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
             //射出角度
