@@ -4,26 +4,22 @@ using UnityEngine;
 
 public class DummyKrakenTentacleAttack : MonoBehaviour
 {
-    //[SerializeField]
-    //private GameObject Marker = null;
-    [SerializeField]
-    private float distance = 200.0f;
-
-    private float hitColliderRadius = 5f;
-
-    private Animator _krakenAnimation = null;
-
-    [SerializeField, Header("爆風半径")]
+    [SerializeField, Header("爆風の半径")]
     private float explosionRadius = 10f;
     [SerializeField, Header("爆風の強さ")]
     private float explosionForce = 10f;
     [SerializeField, Header("爆風の上ベクトルの力")]
     private float explosionUpwards = 0f;
 
+    // 爆風の影響を受けるオブジェクトを取得する範囲
+    private float hitColliderRadius = 2f;
+    // クラーケンのアニメーション管理
+    private Animator krakenAnimation = null;
+
     private void Start()
     {
-        if(_krakenAnimation == null)
-            _krakenAnimation = GetComponent<Animator>();
+        if (krakenAnimation == null)
+            krakenAnimation = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -45,39 +41,46 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
     /// <summary>
     /// クラーケンの触手が振り降ろされた後に周辺プレイヤーが吹っ飛ばされる
     /// </summary>
-    /// <param name="playerTransform">一番近いプレイヤーのトランスフォーム</param>
+    /// <param name="playerTransform">攻撃対象のプレイヤーの座標</param>
     /// <returns></returns>
     public async Task AttackTentacle(Transform playerTransform)
     {
-        // 触手が海から飛び出るアニメーションを挿入
+        // 攻撃の範囲にプレイヤーがいない場合はアニメーションの再生、攻撃の処理をしない
+        if (playerTransform == null) return;
+        Vector3 playerPosition = playerTransform.position;
 
         //var KrakenTentacleManagement = transform.parent.GetComponentInParent<KrakenTentacleManagement>();
         //var centerObject = KrakenTentacleManagement.GenerateMarker(playerTransform);
         // 要待機時間調整
-        await Task.Delay(500);
         //Vector3 explosionCenter = centerObject.transform.position;
         //Destroy(centerObject);
+        await Task.Yield();
         // 触手を振り降ろすアニメーションを挿入
-        _krakenAnimation.SetTrigger("Attack");
+        krakenAnimation.SetTrigger("Attack");
         // 要待機時間調整
-        await Task.Delay(1000);
+        await Task.Delay(4000);
         // center を中心にヒットしたコライダーを格納する
-        Collider[] hitColliders = Physics.OverlapSphere(playerTransform.position, hitColliderRadius);
-        for (int i = 0; i < hitColliders.Length; i++)
+        Collider[] hitColliders = Physics.OverlapSphere(playerPosition, hitColliderRadius);
+        if (hitColliders.Length > 0)
         {
-            var rb = hitColliders[i].GetComponent<Rigidbody>();
-            if (rb)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                // 周囲のオブジェクトに爆風の影響を与える
-                rb.AddExplosionForce(explosionForce
-                                   , playerTransform.position
-                                   , explosionRadius
-                                   , explosionUpwards
-                                   , ForceMode.Impulse);
+                var rb = hitColliders[i].GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    // 周囲のオブジェクトに爆風の影響を与える
+                    rb.AddExplosionForce(explosionForce
+                                       , playerPosition
+                                       , explosionRadius
+                                       , explosionUpwards
+                                       , ForceMode.Impulse);
+                }
             }
         }
+        await Task.Delay(4000);
+        // 待機アニメーションに切り替え
+        krakenAnimation.SetTrigger("Attack");
 
-        // 触手が海に戻るアニメーションを挿入
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 }
