@@ -32,6 +32,8 @@ public class ExecuteSharkShoot : MonoBehaviour
             Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
             //éÀèo
             Rigidbody rid = Shark.GetComponent<Rigidbody>();
+            // SEçƒê∂
+            SoundManager.Instance.PlaySe(SEType.SE4);
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
 
         }

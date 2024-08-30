@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModelFly : MonoBehaviour
+public class PlayerModelVanish : MonoBehaviour
 {
     private Rigidbody _rigidbody;
 
@@ -23,7 +23,7 @@ public class PlayerModelFly : MonoBehaviour
     {
         if (other.gameObject.tag != "Ground")
         {
-            _rigidbody.AddForce(new Vector3(0, 5, 10), ForceMode.Impulse);
+            _rigidbody.AddForce(new Vector3(0, 5, 20), ForceMode.Impulse);
         }
     }
 }
