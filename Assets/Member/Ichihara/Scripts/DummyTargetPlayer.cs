@@ -39,7 +39,6 @@ public class DummyTargetPlayer : MonoBehaviour
                 distanceBetweenKrakenAndPlayerposition = distance;
                 playerTransform = obj.transform;
             }
-            Debug.Log(distanceBetweenKrakenAndPlayerposition);
         }
     }
 
