@@ -1,16 +1,10 @@
-using System.Threading.Tasks;
+ï»¿using System.Threading.Tasks;
 using UnityEngine;
 
 public class ExecuteBomb : MonoBehaviour
 {
     [SerializeField] 
     private ParticleSystem explosionParticleSystemPrefab;
-
-    [SerializeField]
-    private float explosionForce;
-
-    [SerializeField]
-    private float explosionRadius;
 
     [SerializeField]
     private Renderer _target;
@@ -27,32 +21,32 @@ public class ExecuteBomb : MonoBehaviour
     void OnCollisionEnter(UnityEngine.Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !hasDetonated && !_isGrounded) _isGrounded = true;
-        //Õ“Ë‚µ‚½‘Šè‚ÉPlayerƒ^ƒO‚ª•t‚¢‚Ä‚¢‚é‚Æ‚«
+        //è¡çªã—ãŸç›¸æ‰‹ã«Playerã‚¿ã‚°ãŒä»˜ã„ã¦ã„ã‚‹ã¨ã
         if (collision.gameObject.CompareTag("Player") && !hasDetonated && _isGrounded)
         {
             hasDetonated = true;
-            Detonate(_isGrounded, 2000);
+            Detonate(2000);
             //Invoke(nameof(Detonate), 2f);
             //Detonate();
         }
         if (collision.gameObject.CompareTag("Player") && !hasDetonated && !_isGrounded)
         {
             hasDetonated = true;
-            Detonate(_isGrounded, 0);
+            Detonate(0);
             Destroy(gameObject);
         }
     }
 
-    async void Detonate(bool isGrounded, int waitSecond)
+    async void Detonate(int waitSecond)
     {
         await Task.Delay(waitSecond);
 
-        // ƒp[ƒeƒBƒNƒ‹ƒVƒXƒeƒ€‚ğ¶¬‚µ‚Ä”š”­ƒGƒtƒFƒNƒg‚ğÄ¶
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã‚’ç”Ÿæˆã—ã¦çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å†ç”Ÿ
         ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
         SoundManager.Instance.PlaySe(SEType.SE2);
         explosionParticleSystem.Play();
 
-        // ƒp[ƒeƒBƒNƒ‹Ä¶ŠÔ‚ªI—¹‚µ‚½‚çƒp[ƒeƒBƒNƒ‹ƒVƒXƒeƒ€‚ğ”jŠü
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿæ™‚é–“ãŒçµ‚äº†ã—ãŸã‚‰ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã‚’ç ´æ£„
         Destroy(explosionParticleSystem.gameObject, explosionParticleSystem.main.duration);
     }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ExecuteSharkShoot : MonoBehaviour
 {
@@ -11,28 +11,22 @@ public class ExecuteSharkShoot : MonoBehaviour
     [SerializeField]
     private float ThroeingAngle;
 
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.K)) ThrowingBall();
-    }
-
     public void ThrowingBall()
     {
         if (ThrowingObjectPrefab != null && TargetObjectPrefab != null)
         {
-            //ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+            //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
             GameObject Shark = Instantiate(ThrowingObjectPrefab,
             new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.Euler(0f, 90, -30f));
-            //•W“I‚ÌÀ•W
+            //æ¨™çš„ã®åº§æ¨™
             Vector3 targetPrefabPosition = TargetObjectPrefab.transform.position;
-            //ËoŠp“x
+            //å°„å‡ºè§’åº¦
             float angle = ThroeingAngle;
-            //Ëo‘¬“x‚ğYo
+            //å°„å‡ºé€Ÿåº¦ã‚’ç”£å‡º
             Vector3 velocity = CalculateVelocity(this.transform.position, targetPrefabPosition, angle);
-            //Ëo
+            //å°„å‡º
             Rigidbody rid = Shark.GetComponent<Rigidbody>();
-            // SEÄ¶
+            // SEå†ç”Ÿ
             SoundManager.Instance.PlaySe(SEType.SE4);
             rid.AddForce(velocity * rid.mass, ForceMode.Impulse);
 
