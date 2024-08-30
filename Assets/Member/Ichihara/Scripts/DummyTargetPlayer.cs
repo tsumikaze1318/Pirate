@@ -46,7 +46,7 @@ public class DummyTargetPlayer : MonoBehaviour
     /// <summary>
     /// クラーケンのターゲットになったプレイヤーの値を返す
     /// </summary>
-    /// <returns>クラーケンのターゲットになったプレイヤーとの距離</returns>
+    /// <returns>クラーケンのターゲットになったプレイヤーのTransform</returns>
     public Transform GetPlayerPositionTransform()
     {
         return playerTransform;
