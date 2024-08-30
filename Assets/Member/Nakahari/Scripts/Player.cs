@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
 
     private bool _button;
 
+    private PlayerAssign _playerAssign;
+
     #endregion
 
     void Move()
@@ -251,6 +253,7 @@ public class Player : MonoBehaviour
             Destroy(splashPs.gameObject, splashPs.main.duration);
             GameManager.Instance.SubScore(_playerInput.user.index);
             _rb.velocity = Vector3.zero;
+            _playerAssign.SetRespawnPlayer(gameObject.transform.parent.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -272,6 +275,7 @@ public class Player : MonoBehaviour
         _swordCollider = _swordObj.GetComponent<BoxCollider>();
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
+        _playerAssign = GetComponentInParent<PlayerAssign>();
     }
 
     // Update is called once per frame

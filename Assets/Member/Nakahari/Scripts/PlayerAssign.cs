@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,7 +20,11 @@ public class PlayerAssign : MonoBehaviour
 
     Player _player;
 
+    private Player[] _players;
+
     public static int _playerIndex;
+
+    private int _playerNum;
     [SerializeField]
     private float _respwanTimer;
     private float _timer;
@@ -26,13 +32,17 @@ public class PlayerAssign : MonoBehaviour
     [SerializeField]
     ParticleSystem _respawnPrefab;
 
-    private List<PlayerInput> _players = new List<PlayerInput>();
+    private List<PlayerInput> _playerInputs = new List<PlayerInput>();
+
+    private Dictionary<int, GameObject> _numToPlayerObj = new Dictionary<int, GameObject>();
 
 
     void Start()
     {
         Assign();
         _player = GetComponentInChildren<Player>();
+
+        _players = GetComponentsInChildren<Player>();
     }
 
 
@@ -43,7 +53,9 @@ public class PlayerAssign : MonoBehaviour
         {
             var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
             GameManager.Instance.AddPlayer(player);
-            _players.Add(player.GetComponentInChildren<PlayerInput>());
+            _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
+            _numToPlayerObj.Add(key, player);
+            Debug.Log(_numToPlayerObj.Count);
         }
     }
 
@@ -53,35 +65,36 @@ public class PlayerAssign : MonoBehaviour
     {
         if (!GameManager.Instance.GameStart) return;
 
-        if (_player._respawn)
-        {
-            _timer += Time.deltaTime;
-            if (_respwanTimer >= _timer) return;
-            switch ( _playerIndex)
-            {
-                case 0:
-                    Respawn(_playerIndex, Color.cyan);
-                    break;
-                case 1:
-                    Respawn( _playerIndex, Color.red);
-                    break;
-                case 2:
-                    Respawn(_playerIndex, Color.green);
-                    break;
-                case 3:
-                    Respawn(_playerIndex, Color.yellow);
-                    break;
-            }
-            _timer = 0;
-        }
+        //if (_player._respawn)
+        //{
+        //    _timer += Time.deltaTime;
+        //    if (_respwanTimer >= _timer) return;
+        //    switch ( _playerIndex)
+        //    {
+        //        case 0:
+        //            Respawn(_playerIndex, Color.cyan);
+        //            break;
+        //        case 1:
+        //            Respawn( _playerIndex, Color.red);
+        //            break;
+        //        case 2:
+        //            Respawn(_playerIndex, Color.green);
+        //            break;
+        //        case 3:
+        //            Respawn(_playerIndex, Color.yellow);
+        //            break;
+        //    }
+        //    _timer = 0;
+        //}
         
     }
     
     void Respawn(int num, Color color)
     {
-        _player.transform.position = _spawnPos[num];
+        _players[num].transform.position = _spawnPos[num];
         RespawnEffect(num,color);
-        _player._state = CommonParam.UnitState.Normal;
+        _players[num]._state = CommonParam.UnitState.Normal;
+        _players[num]._respawn = false;
     }
 
     IEnumerator EffectDestroy(ParticleSystem ps)
@@ -100,5 +113,28 @@ public class PlayerAssign : MonoBehaviour
             particleMain.startColor = color;
         }
         StartCoroutine(EffectDestroy(playerPs));
+    }
+
+    public async void SetRespawnPlayer(GameObject plObj)
+    {
+        await Task.Delay((int)_respwanTimer * 1000);
+
+        _playerNum = _numToPlayerObj.FirstOrDefault(x => x.Value == plObj).Key - 1;
+
+        switch (_playerNum)
+        {
+            case 0:
+                Respawn(_playerNum, Color.cyan);
+                break;
+            case 1:
+                Respawn(_playerNum, Color.red);
+                break;
+            case 2:
+                Respawn(_playerNum, Color.green);
+                break;
+            case 3:
+                Respawn(_playerNum, Color.yellow);
+                break;
+        }
     }
 }
