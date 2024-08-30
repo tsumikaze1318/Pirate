@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Notification : MonoBehaviour
 {
-
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         print($"プレイヤー#{playerInput.user.index}が入室！");

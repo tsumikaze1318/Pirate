@@ -26,140 +26,28 @@ public class PlayerAssign : MonoBehaviour
     [SerializeField]
     ParticleSystem _respawnPrefab;
 
+    private List<PlayerInput> _players = new List<PlayerInput>();
+
 
     void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _playerIndex = this._playerInput.user.index;
         Assign();
         _player = GetComponentInChildren<Player>();
-        GameManager.Instance.AddPlayer(gameObject);
     }
 
 
 
     void Assign()
     {
-        Switching(_playerIndex);
-
-       /* var ctrl = Input.GetJoystickNames();
-
-        switch (_playerIndex)
+        foreach (int key in DeviceManager.Instance.Gamepads.Keys)
         {
-            case 0:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
-                break;
-            case 1:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.red);
-                break;
-            case 2:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.green);
-                break;
-            case 3:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.yellow);
-                break;
-        }*/
+            var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
+            GameManager.Instance.AddPlayer(player);
+            _players.Add(player.GetComponentInChildren<PlayerInput>());
+        }
     }
 
-    private void Switching(int num)
-    {
-        var gamepads = DualShock4GamepadHID.all;
-        var ctrl = Input.GetJoystickNames();
-        if (_playerInput.currentControlScheme == "Keyboard&Mouse")
-        {
-            switch (num)
-            {
-                case 0:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 1:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 2:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 3:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-            }
-        }
-        else
-        {
-            foreach(var gamepad in gamepads)
-            {
-                Debug.Log(gamepad.deviceId);
-                switch (gamepad.deviceId)
-                {
-                    case 0:
-                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
-                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.cyan);
-                        break;
-                    case 1:
-                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
-                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.red);
-                        break;
-                    case 2:
-                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
-                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.green);
-                        break;
-                    case 3:
-                        Instantiate(_playerList[gamepad.deviceId], _spawnPos[gamepad.deviceId], Quaternion.identity, transform);
-                        ((DualShockGamepad)DualShock4GamepadHID.all[gamepad.deviceId]).SetLightBarColor(Color.yellow);
-                        break;
-                }
-            }
-        }
-        
-        /*if (ctrl.Length == 0)
-        {
-            switch (num)
-            {
-                case 0:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 1:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 2:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-                case 3:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    break;
-            }
-        }
-        else
-        {
-            switch (num)
-            {
-                case 0:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    ((DualShockGamepad)DualShock4GamepadHID.all[num]).SetLightBarColor(Color.cyan);
-                    break;
-                case 1:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    ((DualShockGamepad)DualShock4GamepadHID.all[num]).SetLightBarColor(Color.red);
-                    break;
-                case 2:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    ((DualShockGamepad)DualShock4GamepadHID.all[num]).SetLightBarColor(Color.green);
-                    break;
-                case 3:
-                    Instantiate(_playerList[num], _spawnPos[num], Quaternion.identity, transform);
-                    ((DualShockGamepad)DualShock4GamepadHID.all[num]).SetLightBarColor(Color.yellow);
-                    break;
-            }
-        }*/
-        
-    }
+   
 
     private void Update()
     {
@@ -172,44 +60,40 @@ public class PlayerAssign : MonoBehaviour
             switch ( _playerIndex)
             {
                 case 0:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.cyan);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
+                    Respawn(_playerIndex, Color.cyan);
                     break;
                 case 1:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.red);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
+                    Respawn( _playerIndex, Color.red);
                     break;
                 case 2:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.green);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
+                    Respawn(_playerIndex, Color.green);
                     break;
                 case 3:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.yellow);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
+                    Respawn(_playerIndex, Color.yellow);
                     break;
             }
             _timer = 0;
         }
         
     }
+    
+    void Respawn(int num, Color color)
+    {
+        _player.transform.position = _spawnPos[num];
+        RespawnEffect(num,color);
+        _player._state = CommonParam.UnitState.Normal;
+    }
+
     IEnumerator EffectDestroy(ParticleSystem ps)
     {
         yield return new WaitForSeconds(1f);
         Destroy(ps.gameObject,ps.main.duration);
     }
 
-    void RespawnEffect(Color color)
+    void RespawnEffect(int num,Color color)
     {
         _player._animator.SetTrigger("Respawn");
-        ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[_playerIndex] + new Vector3(0, -1.5f, 0), Quaternion.identity);
+        ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[num] + new Vector3(0, -1.5f, 0), Quaternion.identity);
         foreach(ParticleSystem ps in playerPs.GetComponentsInChildren<ParticleSystem>())
         {
             var particleMain = ps.main;
