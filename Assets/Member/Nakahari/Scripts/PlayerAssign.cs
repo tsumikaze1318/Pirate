@@ -41,7 +41,6 @@ public class PlayerAssign : MonoBehaviour
     {
         Assign();
         _player = GetComponentInChildren<Player>();
-
         _players = GetComponentsInChildren<Player>();
     }
 
@@ -52,7 +51,6 @@ public class PlayerAssign : MonoBehaviour
         foreach (int key in DeviceManager.Instance.Gamepads.Keys)
         {
             var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
-            GameManager.Instance.AddPlayer(player);
             _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
             _numToPlayerObj.Add(key, player);
             Debug.Log(_numToPlayerObj.Count);

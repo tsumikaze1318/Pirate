@@ -23,9 +23,13 @@ public class DeviceManager : MonoBehaviour
 
     public static DeviceManager Instance => instance;
 
-    private Gamepad[] _gamepad;
+    private Gamepad[] _gamepad = new Gamepad[0];
 
     public Dictionary<int, Gamepad> Gamepads;
+
+    public string[] JoystickNames = new string[0];
+
+    private int CurrentConnectionCount = 0;
 
 
     // Start is called before the first frame update
@@ -33,7 +37,6 @@ public class DeviceManager : MonoBehaviour
     {
         Gamepads = new Dictionary<int,Gamepad>();
         UpdateConnectedGamepads();
-        ChengeColor();
     }
 
     // Update is called once per frame
@@ -55,12 +58,20 @@ public class DeviceManager : MonoBehaviour
             // valueÇÉNÉâÉXÇ…ïœçX
             //Debug.Log($"Gamepad {i + 1}: {_gamepad[i].deviceId}");
         }
+        ChengeColor();
     }
 
     void ChengeColor()
     {
-        var ctrlJoystick = Input.GetJoystickNames();
-        switch (ctrlJoystick.Length)
+        JoystickNames = Input.GetJoystickNames();
+        for(int i = 0; i < JoystickNames.Length; i++)
+        {
+            if (JoystickNames[i] != "")
+            {
+                CurrentConnectionCount++;
+            }
+        }
+        switch (CurrentConnectionCount)
         {
             case 1:
                 ((DualShockGamepad)DualShock4GamepadHID.all[0]).SetLightBarColor(Color.cyan);
