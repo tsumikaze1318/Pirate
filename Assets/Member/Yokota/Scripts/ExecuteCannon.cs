@@ -25,7 +25,7 @@ public class ExecuteCannon : MonoBehaviour
 
         //ŒvZ‚³‚ê‚½ˆÊ’u‚É’e‚ğ¶¬‚·‚é
         GameObject newBullet = Instantiate(bullet, bulletPosition, transform.rotation);
-        //SoundManager.Instance.PlaySe(SEType.SE3);
+        SoundManager.Instance.PlaySe(SEType.SE3);
         //Debug.Log("‚¤‚²‚¢‚Ä‚é‚©‚PH");
 
         //’e‚Ì•ûŒü‚ğæ“¾‚·‚é

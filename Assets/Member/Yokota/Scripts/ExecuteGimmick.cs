@@ -1,4 +1,4 @@
-using System.Collections;
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,8 +10,12 @@ public class ExecuteGimmick : MonoBehaviour
     private List<GameObject> _gimmicks = new List<GameObject>();
 
     private ExecuteCannon _executeCannon;
-    private ExecuteShark _executeShark;
-    private DummyKrakenTentacleAttack _attackTentacleAttack;
+    private ExecuteSharkShoot _executeShark;
+    private ExecuteKraken _executeKraken;
+
+    private Camera[] _cameras = new Camera[4];
+
+    private ParticleSystem _confetti;
 
     private int[] _posX = new int[4];
 
@@ -25,89 +29,126 @@ public class ExecuteGimmick : MonoBehaviour
             Debug.Log(_posX[i]);
         }
 
-        //for (int i = 0; i < _posX.Length; i++)
-        //{
-        //    _gimmicks[i].transform.position = _gimmicks[i].transform.position + new Vector3(_posX[i] * 2 - 3, 0, 0);
-        //}
-
         _executeCannon = GetComponentInChildren<ExecuteCannon>();
-        _executeShark = GetComponentInChildren<ExecuteShark>();
-        _attackTentacleAttack = GetComponentInChildren<DummyKrakenTentacleAttack>();
+        _executeShark = GetComponentInChildren<ExecuteSharkShoot>();
+        _executeKraken = GetComponentInChildren<ExecuteKraken>();
+
+        _cameras = GetComponentsInChildren<Camera>();
+        _confetti = GetComponentInChildren<ParticleSystem>();
+
+        _confetti.Pause();
 
         AnimationCannon();
     }
 
-    private async void AnimationCannon()
+    private void AnimationCannon()
     {
-        float deltaDistance = 0f;
-        float totalDistance = 0f;
-
         int cannonTarget = 3 - (_posX[_phase] * 2);
 
-        while (Mathf.Abs(totalDistance) < Mathf.Abs(cannonTarget))
-        {
-            deltaDistance = Time.deltaTime * Mathf.Abs(cannonTarget);
-            totalDistance += deltaDistance;
-            
-            if (cannonTarget < 0) _gimmicks[_phase].transform.position -= new Vector3(deltaDistance, 0, 0);
-            else _gimmicks[_phase].transform.position += new Vector3(deltaDistance, 0, 0);
+        _gimmicks[_phase].transform
+            .DOMoveX(cannonTarget, 1)
+            .OnComplete(async () =>
+            {
+                _phase++;
+                _executeCannon.Fire();
 
-            await Task.Yield();
-        }
+                await Task.Delay(3000);
 
-        _gimmicks[_phase].transform.position
-            = new Vector3(cannonTarget
-            , _gimmicks[_phase].transform.position.y
-            , _gimmicks[_phase].transform.position.z);
-
-        _phase++;
-
-        _executeCannon.Fire();
-
-        await Task.Delay(5000);
-
-        AnimationShark();
+                AnimationShark();
+            });
     }
 
     private async void AnimationShark()
     {
         _gimmicks[_phase].transform.position
             = _gimmicks[_phase].transform.position
-            + new Vector3(3 - (_posX[_phase] * 2) - 1.35f, 0, 0);
+            + new Vector3(3 - (_posX[_phase] * 2) -1.35f, 0, 0);
 
         _executeShark.ThrowingBall();
 
         _phase++;
 
-        await Task.Delay(5000);
+        await Task.Delay(3000);
 
         AnimationKraken();
     }
 
     private async void AnimationKraken()
     {
-        _gimmicks[_phase].transform.position
-            = _gimmicks[_phase].transform.position
-            + new Vector3(3 - (_posX[_phase] * 2), 0, 0);
+        float appearYPos = -16f;
 
-        float initialYPos = _gimmicks[_phase].transform.position.y;
-        float targetYPos = -16f;
+        _gimmicks[_phase].transform
+                .DOMoveY(appearYPos, 3f);
 
-        float distance = targetYPos - initialYPos;
+        await Task.Delay(3000);
 
-        float deltaDistance = 0f;
-        float totalDistance = 0f;
+        float targetXPos = 3 - (_posX[_phase] * 2);
+        float fakeTargetXPos = 3 - (_posX[_phase + 1] * 2);
 
-        while (totalDistance < distance)
+        float moveTime = 1f;
+        int moveMillionTime = (int)moveTime * 1000;
+
+        if (Random.Range(0, 2) == 0) 
         {
-            deltaDistance = Time.deltaTime * distance / 3;
-            totalDistance += deltaDistance;
-
-            _gimmicks[_phase].transform.position += new Vector3(0, deltaDistance, 0);
-
-            await Task.Yield();
+            FocusTarget(moveTime, targetXPos);
+            await Task.Delay(moveMillionTime);
+            FocusFakeTarget(moveTime, fakeTargetXPos);
+            await Task.Delay(moveMillionTime);
+            FocusTarget(moveTime, targetXPos);
+            await Task.Delay(moveMillionTime);
+        }
+        else
+        {
+            FocusFakeTarget(moveTime, fakeTargetXPos);
+            await Task.Delay(moveMillionTime);
+            FocusTarget(moveTime, targetXPos);
+            await Task.Delay(moveMillionTime);
+            FocusFakeTarget(moveTime, fakeTargetXPos);
+            await Task.Delay(moveMillionTime);
         }
 
-        // ƒNƒ‰[ƒPƒ“UŒ‚
+        _gimmicks[_phase].transform
+            .DOMoveX(0, 3)
+            .SetEase(Ease.InOutQuad);
+        await Task.Delay(3000);
+
+        _executeKraken.Attack();
+        await Task.Delay(3000);
+
+        _gimmicks[_phase].transform
+            .DOMoveX(targetXPos, moveTime);
+        await Task.Delay(moveMillionTime);
+
+        _phase++;
+
+        await Task.Delay(6000);
+
+        AnimationCamera();
+    }
+
+    private void FocusTarget(float moveTime, float targetXPos)
+    {
+        _gimmicks[_phase].transform
+                .DOMoveX(targetXPos * 3, moveTime)
+                .SetEase(Ease.InOutQuad);
+    }
+
+    private void FocusFakeTarget(float moveTime, float fakeTargetXPos)
+    {
+        _gimmicks[_phase].transform
+                .DOMoveX(fakeTargetXPos * 3, moveTime)
+                .SetEase(Ease.InOutQuad);
+    }
+
+    private async void AnimationCamera()
+    {
+        foreach (var cam in _cameras)
+        {
+            cam.transform.DOMove(new Vector3(3 - (_posX[_phase] * 2), -2, -12), 1);
+        }
+
+        await Task.Delay(1000);
+
+        _confetti.Play();
     }
 }

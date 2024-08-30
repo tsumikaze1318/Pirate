@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Header("参加可能人数")]
     private int attendance;
+    public int Attendance => attendance;
 
     [SerializeField]
     private TreasureInstance treasureInstance;
@@ -182,15 +183,9 @@ public class GameManager : MonoBehaviour
     public void AddPlayer(GameObject player)
     {
         players.Add(player);
-        SoundManager.Instance.PlaySe(SEType.SE1);
-
-        if (players.Count == attendance)
-        {
-            StandbyPlayersReady();
-        }
     }
 
-    private async void StandbyPlayersReady()
+    public async void StandbyPlayersReady()
     {
         if (SceneFadeManager.IsFade)
         {
@@ -203,8 +198,6 @@ public class GameManager : MonoBehaviour
             PlayersReady();
         }
     }
-
-    
 
     public void SetGameStart() { gameStart = true; }
 
