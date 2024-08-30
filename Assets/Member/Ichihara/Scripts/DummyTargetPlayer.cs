@@ -28,6 +28,7 @@ public class DummyTargetPlayer : MonoBehaviour
         // プレイヤーオブジェクトをすべて検索
         var playerObjs = GameObject.FindGameObjectsWithTag(playerTag);
         Vector3 KrakenPosition = kraken.transform.position;
+        // 常に一番近いプレイヤーの情報を更新、保持する
         for (int i = 0; i < playerObjs.Length; i++)
         {
             var obj = playerObjs[i];
