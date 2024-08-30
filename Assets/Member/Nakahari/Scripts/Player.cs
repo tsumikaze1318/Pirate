@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
 
     private bool _button;
 
+    private PlayerAssign _playerAssign;
+
     #endregion
 
     void Move()
@@ -166,27 +168,29 @@ public class Player : MonoBehaviour
     IEnumerator Ui()
     {
         _button = true;
-        var vecX = 0f;
-        var vecY = 0f;
-        var vecZ = 0f;
+        var vecX = 1f;
+        var vecY = 1f;
+        var vecZ = 1f;
         while (Vector3.SqrMagnitude(new Vector3(1.25f,1.25f,1.25f) - ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale) > 0.001)
         {
-            vecX += Time.deltaTime;
-            vecY += Time.deltaTime;
-            vecZ += Time.deltaTime;
+            vecX += 0.01f;
+            vecY += 0.01f;
+            vecZ += 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
             ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            yield return new WaitForFixedUpdate();
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         while (Vector3.SqrMagnitude(ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale - new Vector3(1f, 1f, 1f)) > 0.001)
         {
-            vecX -= Time.deltaTime;
-            vecZ -= Time.deltaTime;
-            vecY -= Time.deltaTime;
+            vecX -= 0.01f;
+            vecZ -= 0.01f;
+            vecY -= 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
             ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            yield return new WaitForFixedUpdate();
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         _button = false;
     }
 
@@ -249,6 +253,7 @@ public class Player : MonoBehaviour
             Destroy(splashPs.gameObject, splashPs.main.duration);
             GameManager.Instance.SubScore(_playerInput.user.index);
             _rb.velocity = Vector3.zero;
+            _playerAssign.SetRespawnPlayer(gameObject.transform.parent.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -262,6 +267,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.AddPlayer(gameObject);
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
@@ -270,6 +276,7 @@ public class Player : MonoBehaviour
         _swordCollider = _swordObj.GetComponent<BoxCollider>();
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
+        _playerAssign = GetComponentInParent<PlayerAssign>();
     }
 
     // Update is called once per frame

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,14 +21,23 @@ public class ImageColor : MonoBehaviour
     [SerializeField]
     public List<Image> _images = new List<Image>();
 
-    private int num = 0;
+    private int _count = 0;
+
+    public bool Ready = false;
 
     void Update()
     {
-        if (num != GameManager.Instance.Players.Count)
+        foreach(var input in DeviceManager.Instance.Gamepads)
         {
-            _images[num].enabled = true;
-            num = GameManager.Instance.Players.Count;
+            if (!_images[input.Key-1].enabled && input.Value.aButton.isPressed)
+            {
+                _images[input.Key - 1].enabled = input.Value.aButton.isPressed;
+                SoundManager.Instance.PlaySe(SEType.SE1);
+                _count++;
+            }
         }
+        Debug.Log(_count);
+
+        if (_count == GameManager.Instance.Attendance) Ready = true;
     }
 }
