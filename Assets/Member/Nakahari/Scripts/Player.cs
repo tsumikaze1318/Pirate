@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     ParticleSystem _ripplesPrefab;
 
+    private bool _button;
+
     #endregion
 
     void Move()
@@ -151,6 +153,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    void UiButton()
+    {
+        
+        if (_inputs._uiButton)
+        {
+            if (_button) return;
+            StartCoroutine(Ui());
+        }
+    }
+
+    IEnumerator Ui()
+    {
+        _button = true;
+        var vecX = 0f;
+        var vecY = 0f;
+        var vecZ = 0f;
+        while (Vector3.SqrMagnitude(new Vector3(1.25f,1.25f,1.25f) - ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale) > 0.001)
+        {
+            vecX += Time.deltaTime;
+            vecY += Time.deltaTime;
+            vecZ += Time.deltaTime;
+            Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
+            ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+        }
+        yield return new WaitForSeconds(0.5f);
+        while (Vector3.SqrMagnitude(ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale - new Vector3(1f, 1f, 1f)) > 0.001)
+        {
+            vecX -= Time.deltaTime;
+            vecZ -= Time.deltaTime;
+            vecY -= Time.deltaTime;
+            Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
+            ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+        }
+        yield return new WaitForSeconds(0.5f);
+        _button = false;
+    }
+
     void SkipMovie()
     {
         // çÏÇËÇ©ÇØ
@@ -241,6 +280,8 @@ public class Player : MonoBehaviour
         
         CursorLook();
         CursorNone();
+        UiButton();
+        
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
