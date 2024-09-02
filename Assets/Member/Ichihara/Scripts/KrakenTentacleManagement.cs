@@ -29,35 +29,67 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     private int _krakenSpawnCount = 2;
     [SerializeField, Header("触手が出現するインターバル")]
     private float _krakenSpawnDuration = 30f;
-    [SerializeField, Header("船が修復するまでのインターバル")]
+    [SerializeField, Header("船が修復するまでのインターバル"), Space(3)]
     private float _repairShipDuration = 5f;
+    [SerializeField]
+    private float _krakenAttackMaxRagge = 35f, _krakenAttackMinRange = 30f, _tentacleSpawnCount = 50f;
 
-    // Start is called before the first frame update
-    async void Start()
+    new private void Awake()
     {
+        base.Awake();
         for (int i = 0; i < _tentacleAndShipPartsTables.Count; i++)
         {
             var obj = Instantiate(_krakenTentacle, _tentacleAndShipPartsTables[i].TentacleSpawnPoint);
             obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
             // 触手を海賊船の方向に向ける
             obj.transform.Rotate(Vector3.up);
-            //obj.SetActive(false);
+            obj.SetActive(false);
         }
+    }
+
+    // Start is called before the first frame update
+    async void Start()
+    {
         await UpdateTask();
     }
 
     private async Task UpdateTask()
     {
+        bool doOnce = false;
+        // クラーケンの出現、攻撃間隔　// 船が修復されるまでのインターバル
         float krakenSpawnCount = 0f, repairShipCount = 0f;
         TentacleAndShipPartsTable[] tables = new TentacleAndShipPartsTable[_krakenSpawnCount];
         DummyKrakenTentacleAttack[] tentacles = new DummyKrakenTentacleAttack[_krakenSpawnCount];
+        // クラーケンの触手の出現箇所をランダムに決め、その値を格納する
         int[] randomNumbers = new int[_krakenSpawnCount];
+        TimeCount timeCount = null;
         do
         {
             await Task.Yield();
             // ゲームが始まらない限り、後の処理が走らないようにする
-            if (GameManager.Instance.GameStart == false)
+            if (GameManager.Instance.GameStart == false) continue;
+            // TODO: 要参照先を変更
+            if (timeCount == null)
+            {
+                var prefab = GameManager.Instance.Players[0];
+                timeCount = prefab.GetComponentInChildren<TimeCount>();
+            }
+
+            if (timeCount == null) continue;
+
+            // 残り時間が50秒を切ったらクラーケンを出現、攻撃させる
+            if (timeCount.Timer < _tentacleSpawnCount && doOnce == false)
+            {
+                foreach (var table in _tentacleAndShipPartsTables)
+                {
+                    var tentacle = table.TentacleSpawnPoint.GetChild(0);
+                    tentacle.gameObject.SetActive(true);
+                }
+                doOnce = true;
+            }
+            else if (timeCount.Timer > _tentacleSpawnCount)
                 continue;
+
 
             krakenSpawnCount += Time.deltaTime;
             repairShipCount += Time.deltaTime;
@@ -115,7 +147,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         float distance = Vector3.Distance(table.TentacleSpawnPoint.position, playerTransform.position);
         Debug.Log(distance);
         // クラーケンが監督している箇所にプレイヤーがいない場合は攻撃しない;
-        if (distance > 35f) return;
+        if (distance > _krakenAttackMaxRagge || distance < _krakenAttackMinRange) return;
         // 触手の攻撃処理を呼び出す
         await dummyKrakenTentacleAttack.AttackTentacle(playerTransform);
         // 船が破壊されたテクスチャを表示
