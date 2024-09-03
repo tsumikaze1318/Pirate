@@ -18,7 +18,7 @@ public class CameraAssign : MonoBehaviour
 
         foreach(var displayIndex in DeviceManager.Instance.Gamepads)
         {
-            _camera.targetDisplay = displayIndex.Key;
+            _camera.targetDisplay = displayIndex.Key - 1;
         }
     }
 
