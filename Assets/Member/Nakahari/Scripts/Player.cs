@@ -267,7 +267,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.AddPlayer(gameObject);
+        GameManager.Instance.AddPlayer(transform.parent.gameObject);
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();

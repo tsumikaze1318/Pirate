@@ -38,6 +38,10 @@ public class ImageColor : MonoBehaviour
         }
         Debug.Log(_count);
 
-        if (_count == GameManager.Instance.Attendance) Ready = true;
+        if (_count == GameManager.Instance.Attendance && !Ready)
+        {
+            Ready = true;
+            GameManager.Instance.PlayersReady();
+        }
     }
 }
