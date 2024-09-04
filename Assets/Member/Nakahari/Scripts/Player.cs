@@ -285,7 +285,7 @@ public class Player : MonoBehaviour
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
-        _swordCollider = _swordObj.GetComponent<BoxCollider>();
+        _swordCollider = _swordObj.GetComponentInChildren<BoxCollider>();
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
         _playerAssign = GetComponentInParent<PlayerAssign>();
