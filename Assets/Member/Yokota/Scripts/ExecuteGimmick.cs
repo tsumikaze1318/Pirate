@@ -21,11 +21,11 @@ public class ExecuteGimmick : MonoBehaviour
 
     private int _phase = 0;
 
-    private void Start()
+    private async void Start()
     {
         for (int i = 0; i < _posX.Length; i++)
         {
-            _posX[i] = TestDictionary.KeyValuePairs.ElementAt(TestDictionary.KeyValuePairs.Count - 1 - i).Value;
+            _posX[i] = GameManager.ScoreToPlayerNum.ElementAt(GameManager.ScoreToPlayerNum.Count - 1 - i).Key;
             Debug.Log(_posX[i]);
         }
 
@@ -37,6 +37,8 @@ public class ExecuteGimmick : MonoBehaviour
         _confetti = GetComponentInChildren<ParticleSystem>();
 
         _confetti.Pause();
+
+        await Task.Delay(5000);
 
         AnimationCannon();
     }
