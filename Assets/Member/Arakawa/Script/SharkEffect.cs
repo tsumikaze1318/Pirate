@@ -44,8 +44,8 @@ public class SharkEffect : MonoBehaviour
 
     void Detonate()
     {
-        // パーティクルシステムを生成して爆発エフェクトを再生
-        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(150f, -90f, 1f));
+        // パーティクルシステムを生成して水しぶきエフェクトを再生
+        ParticleSystem explosionParticleSystem = Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.Euler(150f, -100f, 10f));
         explosionParticleSystem.Play();
     }
 
