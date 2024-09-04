@@ -22,8 +22,8 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     // 触手が出現する座標によって、船が壊れる箇所が異なる為、座標と破損個所を関連付けた構造体を作成し、リスト化
     [SerializeField]
     private List<TentacleAndShipPartsTable> _tentacleAndShipPartsTables = new List<TentacleAndShipPartsTable>();
-    //[SerializeField]
-    //private GameObject _marker = null;
+
+    private List<DummyKrakenTentacleAttack> _dummyKrakenTentacleAttacks = new List<DummyKrakenTentacleAttack>();
 
     [SerializeField, Header("同時に出現する触手の数")]
     private int _krakenSpawnCount = 2;
@@ -31,33 +31,79 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     private float _krakenSpawnDuration = 30f;
     [SerializeField, Header("船が修復するまでのインターバル")]
     private float _repairShipDuration = 5f;
+    [SerializeField, Range(0f, 50f), Header("クラーケンの攻撃範囲の上限、下限")]
+    private float _krakenAttackMaxRagge = 35f, _krakenAttackMinRange = 30f;
+    [SerializeField, Header("触手が出現する残り時間")]
+    private float _tentacleSpawnCount = 50f;
+    [SerializeField, Header("クラーケンが海中から出現する時間")]
+    private float _krakenAwakeTime = 5f;
+    [SerializeField, Header("クラーケンの初期位置\n（親オブジェクトからY軸がどれだけ離れているか）（海から上がってくる表現）")]
+    private float _krakenStartPoint = 5f;
+
+    new private void Awake()
+    {
+        base.Awake();
+        for (int i = 0; i < _tentacleAndShipPartsTables.Count; i++)
+        {
+            var obj = Instantiate(_krakenTentacle, _tentacleAndShipPartsTables[i].TentacleSpawnPoint);
+            obj.transform.position += Vector3.down * _krakenStartPoint;
+            obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
+            // 触手を海賊船の方向に向ける
+            obj.transform.Rotate(Vector3.up);
+            _dummyKrakenTentacleAttacks.Add(obj.GetComponent<DummyKrakenTentacleAttack>());
+            obj.SetActive(false);
+        }
+    }
 
     // Start is called before the first frame update
     async void Start()
     {
-        for (int i = 0; i < _tentacleAndShipPartsTables.Count; i++)
-        {
-            var obj = Instantiate(_krakenTentacle, _tentacleAndShipPartsTables[i].TentacleSpawnPoint);
-            obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
-            // 触手を海賊船の方向に向ける
-            obj.transform.Rotate(Vector3.up);
-            //obj.SetActive(false);
-        }
         await UpdateTask();
     }
 
     private async Task UpdateTask()
     {
+        bool doOnce = false;
+        // クラーケンの出現、攻撃間隔　// 船が修復されるまでのインターバル
         float krakenSpawnCount = 0f, repairShipCount = 0f;
         TentacleAndShipPartsTable[] tables = new TentacleAndShipPartsTable[_krakenSpawnCount];
         DummyKrakenTentacleAttack[] tentacles = new DummyKrakenTentacleAttack[_krakenSpawnCount];
+        // クラーケンの触手の出現箇所をランダムに決め、その値を格納する
         int[] randomNumbers = new int[_krakenSpawnCount];
+        TimeCount timeCount = null;
         do
         {
             await Task.Yield();
             // ゲームが始まらない限り、後の処理が走らないようにする
-            if (GameManager.Instance.GameStart == false)
+            if (GameManager.Instance.GameStart == false) continue;
+            // TODO: 要参照先を変更
+            if (timeCount == null)
+            {
+                var prefab = GameManager.Instance.Players[0];
+                timeCount = prefab.GetComponentInChildren<TimeCount>();
+            }
+            if (timeCount == null) continue;
+            // 残り時間が50秒を切ったらクラーケンを出現、攻撃させる
+            if (timeCount.Timer < _tentacleSpawnCount + _krakenAwakeTime && doOnce == false)
+            {
+                foreach (var table in _tentacleAndShipPartsTables)
+                {
+                    var tentacle = table.TentacleSpawnPoint.GetChild(0);
+                    tentacle.gameObject.SetActive(true);
+                }
+                // クラーケンの触手が海から出てくる演出
+                await Task.WhenAll(AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[0])
+                                 , AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[1])
+                                 , AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[2])
+                                 , AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[3])
+                                 , AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[4])
+                                 , AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[5]));
+
+                doOnce = true;
+            }
+            else if (timeCount.Timer > _tentacleSpawnCount)
                 continue;
+
 
             krakenSpawnCount += Time.deltaTime;
             repairShipCount += Time.deltaTime;
@@ -90,13 +136,23 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                 foreach (TentacleAndShipPartsTable table in _tentacleAndShipPartsTables)
                 {
                     if (table.BreakShipParts.activeSelf == false)
-                    {
                         table.BreakShipParts.SetActive(true);
-                    }
                 }
             }
         }
         while (GameManager.Instance.GameEnd == false);
+    }
+
+    private async Task AwakeKrakenTentacle(DummyKrakenTentacleAttack dummyKrakenTentacleAttack)
+    {
+        var krakenTransform = dummyKrakenTentacleAttack.transform;
+        var spawnPoint = dummyKrakenTentacleAttack.transform.parent;
+        float awakeTime = _krakenStartPoint;
+        do
+        {
+            await Task.Yield();
+            krakenTransform.position += Vector3.up * awakeTime / _krakenAwakeTime * Time.deltaTime;
+        } while (krakenTransform.position.y <= spawnPoint.position.y);
     }
 
     /// <summary>
@@ -115,7 +171,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         float distance = Vector3.Distance(table.TentacleSpawnPoint.position, playerTransform.position);
         Debug.Log(distance);
         // クラーケンが監督している箇所にプレイヤーがいない場合は攻撃しない;
-        if (distance > 35f) return;
+        if (distance > _krakenAttackMaxRagge || distance < _krakenAttackMinRange) return;
         // 触手の攻撃処理を呼び出す
         await dummyKrakenTentacleAttack.AttackTentacle(playerTransform);
         // 船が破壊されたテクスチャを表示
