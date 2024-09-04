@@ -56,9 +56,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     ParticleSystem _ripplesPrefab;
 
+    [SerializeField]
+    ParticleSystem _particlePrefab;
+
     private bool _button;
 
     private PlayerAssign _playerAssign;
+
+    Vector3 _hitPos;
 
     #endregion
 
@@ -238,8 +243,14 @@ public class Player : MonoBehaviour
 
         if (_swordCollider ==  other.gameObject.CompareTag("Player"))
         {
+            foreach (ContactPoint point in other.contacts)
+            {
+                _hitPos = point.point;
+            }
+            ParticleSystem attackPs = Instantiate(_particlePrefab, _hitPos, Quaternion.identity);
             SubCount(other);
             _swordCollider.enabled = false;
+            Destroy(attackPs.gameObject, attackPs.main.duration);
         }
     }
 
@@ -248,6 +259,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("UnderGround"))
         {
             _respawn = true;
+            _playerCollider.isTrigger = true;
             _fallPos = other.ClosestPointOnBounds(this.transform.position);
             ParticleSystem splashPs = Instantiate(_splashPrefab, _fallPos, Quaternion.identity);
             Destroy(splashPs.gameObject, splashPs.main.duration);

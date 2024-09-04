@@ -104,6 +104,7 @@ public class PlayerAssign : MonoBehaviour
     void RespawnEffect(int num,Color color)
     {
         _player._animator.SetTrigger("Respawn");
+        _player._playerCollider.isTrigger = false;
         ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[num] + new Vector3(0, -1.5f, 0), Quaternion.identity);
         foreach(ParticleSystem ps in playerPs.GetComponentsInChildren<ParticleSystem>())
         {
