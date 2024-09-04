@@ -15,7 +15,11 @@ public class CameraAssign : MonoBehaviour
     {
         if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if (_camera == null) _camera = GetComponent<Camera>();
-        _camera.targetDisplay = _playerInput.user.index;
+
+        foreach(var displayIndex in DeviceManager.Instance.Gamepads)
+        {
+            _camera.targetDisplay = displayIndex.Key - 1;
+        }
     }
 
 }

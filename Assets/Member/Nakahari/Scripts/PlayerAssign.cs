@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -17,7 +20,11 @@ public class PlayerAssign : MonoBehaviour
 
     Player _player;
 
+    private Player[] _players;
+
     public static int _playerIndex;
+
+    private int _playerNum;
     [SerializeField]
     private float _respwanTimer;
     private float _timer;
@@ -25,98 +32,107 @@ public class PlayerAssign : MonoBehaviour
     [SerializeField]
     ParticleSystem _respawnPrefab;
 
+    private List<PlayerInput> _playerInputs = new List<PlayerInput>();
+
+    private Dictionary<int, GameObject> _numToPlayerObj = new Dictionary<int, GameObject>();
+
 
     void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _playerIndex = this._playerInput.user.index;
         Assign();
         _player = GetComponentInChildren<Player>();
-        GameManager.Instance.AddPlayer(gameObject);
+        _players = GetComponentsInChildren<Player>();
     }
+
+
 
     void Assign()
     {
-        var ctrl = Input.GetJoystickNames();
-        switch (_playerIndex)
+        foreach (int key in DeviceManager.Instance.Gamepads.Keys)
         {
-            case 0:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.cyan);
-                    break;
-            case 1:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.red);
-                break;
-            case 2:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.green);
-                break;
-            case 3:
-                Instantiate(_playerList[_playerIndex], _spawnPos[_playerIndex], Quaternion.identity, transform);
-                if (ctrl.Length == 0) return;
-                ((DualShockGamepad)DualShock4GamepadHID.all[_playerIndex]).SetLightBarColor(Color.yellow);
-                break;
+            var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
+            _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
+            _numToPlayerObj.Add(key, player);
+            Debug.Log(_numToPlayerObj.Count);
         }
     }
+
+   
 
     private void Update()
     {
         if (!GameManager.Instance.GameStart) return;
 
-        if (_player._respawn)
-        {
-            _timer += Time.deltaTime;
-            if (_respwanTimer >= _timer) return;
-            switch ( _playerIndex)
-            {
-                case 0:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.cyan);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
-                    break;
-                case 1:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.red);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
-                    break;
-                case 2:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.green);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
-                    break;
-                case 3:
-                    _player.transform.position = _spawnPos[_playerIndex];
-                    RespawnEffect(Color.yellow);
-                    _player._respawn = false;
-                    _player._state = CommonParam.UnitState.Normal;
-                    break;
-            }
-            _timer = 0;
-        }
+        //if (_player._respawn)
+        //{
+        //    _timer += Time.deltaTime;
+        //    if (_respwanTimer >= _timer) return;
+        //    switch ( _playerIndex)
+        //    {
+        //        case 0:
+        //            Respawn(_playerIndex, Color.cyan);
+        //            break;
+        //        case 1:
+        //            Respawn( _playerIndex, Color.red);
+        //            break;
+        //        case 2:
+        //            Respawn(_playerIndex, Color.green);
+        //            break;
+        //        case 3:
+        //            Respawn(_playerIndex, Color.yellow);
+        //            break;
+        //    }
+        //    _timer = 0;
+        //}
         
     }
+    
+    void Respawn(int num, Color color)
+    {
+        _players[num].transform.position = _spawnPos[num];
+        RespawnEffect(num,color);
+        _players[num]._state = CommonParam.UnitState.Normal;
+        _players[num]._respawn = false;
+    }
+
     IEnumerator EffectDestroy(ParticleSystem ps)
     {
         yield return new WaitForSeconds(1f);
         Destroy(ps.gameObject,ps.main.duration);
     }
 
-    void RespawnEffect(Color color)
+    void RespawnEffect(int num,Color color)
     {
         _player._animator.SetTrigger("Respawn");
-        ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[_playerIndex] + new Vector3(0, -1.5f, 0), Quaternion.identity);
+        ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[num] + new Vector3(0, -1.5f, 0), Quaternion.identity);
         foreach(ParticleSystem ps in playerPs.GetComponentsInChildren<ParticleSystem>())
         {
             var particleMain = ps.main;
             particleMain.startColor = color;
         }
         StartCoroutine(EffectDestroy(playerPs));
+    }
+
+    public async void SetRespawnPlayer(GameObject plObj)
+    {
+        await Task.Delay((int)_respwanTimer * 1000);
+
+        _playerNum = _numToPlayerObj.FirstOrDefault(x => x.Value == plObj).Key - 1;
+
+        switch (_playerNum)
+        {
+            case 0:
+                Respawn(_playerNum, Color.cyan);
+                break;
+            case 1:
+                Respawn(_playerNum, Color.red);
+                break;
+            case 2:
+                Respawn(_playerNum, Color.green);
+                break;
+            case 3:
+                Respawn(_playerNum, Color.yellow);
+                break;
+        }
     }
 }

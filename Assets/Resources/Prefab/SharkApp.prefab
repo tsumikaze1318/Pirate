@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7374176424226289180}
   - component: {fileID: 7638543940008546717}
   - component: {fileID: 6749936636115391818}
-  - component: {fileID: 341280713411957084}
+  - component: {fileID: 128839916646104378}
   m_Layer: 0
   m_Name: SharkApp
   m_TagString: Untagged
@@ -102,7 +102,7 @@ MonoBehaviour:
   shark: {fileID: 7446339820378233328, guid: 629ab3d2f1a383449998a0d51c5a2f4d, type: 3}
   taget: {fileID: 0}
   ThroeingAngle: 20
---- !u!114 &341280713411957084
+--- !u!114 &128839916646104378
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +115,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shark: {fileID: 6749936636115391818}
-  Ranges:
-  - {fileID: 0}
-  - {fileID: 0}
+  Ranges: []
