@@ -70,7 +70,7 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.1
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8
@@ -118,11 +118,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: toroman SDF
+  m_Name: toroman SDF OutLine
   m_EditorClassIdentifier: 
-  hashCode: -184724427
+  hashCode: -1585455211
   material: {fileID: -337535444751793093}
-  materialHashCode: 850096629
+  materialHashCode: -185059307
   m_Version: 1.1.0
   m_SourceFontFileGUID: 337df4d5e9db2c749a9cf01b73604d8b
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 337df4d5e9db2c749a9cf01b73604d8b, type: 3}

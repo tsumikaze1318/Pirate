@@ -213,7 +213,8 @@ PrefabInstance:
       value: Diamond_Effect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7114762061112272427, guid: 65006da0e77bc9748a5d4c12655e454e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65006da0e77bc9748a5d4c12655e454e, type: 3}

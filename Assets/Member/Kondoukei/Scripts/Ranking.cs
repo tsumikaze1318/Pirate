@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class Ranking : MonoBehaviour
     //プレイヤーの得点を格納するリスト
     private int[] points = { };
     [SerializeField]
-    private List<Text> rankTexts = new List<Text>();
+    private List<TMP_Text> rankTexts = new List<TMP_Text>();
 
     // Start is called before the first frame update
     void Start()

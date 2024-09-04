@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +10,13 @@ public class TimeCount : MonoBehaviour
     public float Timer = 99;
     //private Text timerText;
     [SerializeField]
-    private Text timerText;
+    private TMP_Text timerText;
     // Start is called before the first frame update
     private void Start()
     {
         if(timerText == null) 
         {
-            timerText = GetComponent<Text>();
+            timerText = GetComponent<TMP_Text>();
             // timerText に Text コンポーネントを代入する
         }
     }
