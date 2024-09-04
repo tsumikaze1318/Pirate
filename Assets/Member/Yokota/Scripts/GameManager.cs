@@ -233,12 +233,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            scoreToPlayerNum.Add(scores[i], i + 1);
+            scoreToPlayerNum.Add(i + 1, scores[i]);
         }
 
-        // Key : スコア、Value : プレイヤー番号、要素番号 : 順位
+        // Key : プレイヤー番号、Value : スコア、要素番号 : 順位
         scoreToPlayerNum = scoreToPlayerNum
-                        .OrderByDescending(x => x.Key)
+                        .OrderByDescending(x => x.Value)
                         .ToDictionary(x => x.Key, x => x.Value);
     }
 

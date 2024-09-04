@@ -14,6 +14,8 @@ public class TestDictionary : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        keyValuePairs.Clear();
+
         for (int i = 0; i < 4; i++) 
         {
             keyValuePairs.Add(ints[i], i);
