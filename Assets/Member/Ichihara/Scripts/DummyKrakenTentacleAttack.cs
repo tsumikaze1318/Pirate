@@ -57,7 +57,7 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
             }
         }
         // クラーケン攻撃時のSE再生
-        //SoundManager.Instance.PlaySe();
+        SoundManager.Instance.PlaySe(SEType.SE7);
         await Task.Delay(4000);
         // 待機アニメーションに切り替え
         krakenAnimation.SetTrigger("Attack");

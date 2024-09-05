@@ -25,9 +25,6 @@ public class SceneFadeManager : MonoBehaviour
     public static bool IsFade => isFade;
 
     [SerializeField]
-    private SoundManager soundManager;
-
-    [SerializeField]
     private List<FadeCanvas> canvasList = new List<FadeCanvas>();
 
     private BGMType _bgmType;
@@ -87,7 +84,7 @@ public class SceneFadeManager : MonoBehaviour
 
     private void SceneChanged(Scene scene, LoadSceneMode mode)
     {
-        soundManager.StopBgm();
-        soundManager.PlayBgm(_bgmType);
+        SoundManager.Instance.StopBgm();
+        SoundManager.Instance.PlayBgm(_bgmType);
     }
 }

@@ -483,7 +483,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ab755264-c744-4461-84aa-e93dcf711594"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -494,7 +494,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6f107e76-1c63-4421-8fed-142fc539944a"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

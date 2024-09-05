@@ -27,7 +27,8 @@ public enum SEType
     SE3,
     SE4,
     SE5,
-    SE6
+    SE6,
+    SE7
 }
 //シリアライズ化
 [System.Serializable]
