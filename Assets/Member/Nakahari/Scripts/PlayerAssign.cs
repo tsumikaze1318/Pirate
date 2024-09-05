@@ -16,10 +16,6 @@ public class PlayerAssign : MonoBehaviour
     [SerializeField]
     List<Vector3> _spawnPos = new List<Vector3>();
 
-    PlayerInput _playerInput;
-
-    Player _player;
-
     private Player[] _players;
 
     public static int _playerIndex;
@@ -40,7 +36,6 @@ public class PlayerAssign : MonoBehaviour
     void Start()
     {
         Assign();
-        _player = GetComponentInChildren<Player>();
         _players = GetComponentsInChildren<Player>();
     }
 
@@ -103,8 +98,8 @@ public class PlayerAssign : MonoBehaviour
 
     void RespawnEffect(int num,Color color)
     {
-        _player._animator.SetTrigger("Respawn");
-        _player._playerCollider.isTrigger = false;
+        _players[num]._animator.SetTrigger("Respawn");
+        _players[num]._playerCollider.isTrigger = false;
         ParticleSystem playerPs = Instantiate(_respawnPrefab, _spawnPos[num] + new Vector3(0, -1.5f, 0), Quaternion.identity);
         foreach(ParticleSystem ps in playerPs.GetComponentsInChildren<ParticleSystem>())
         {
