@@ -211,30 +211,14 @@ public class GameManager : MonoBehaviour
 
     private void RankingSort()
     {
-        
-        //for (int i = 0; i < players.Count; i++)
-        //{
-        //    List<GameObject> list = new List<GameObject>();
-        //    list.Add(playerPrefab[i]);
-
-        //    bool sameKey = false;
-
-        //    foreach (var dic in scoreToPlayer)
-        //    {
-        //        if (scores[i] == dic.Key)
-        //        {
-        //            scoreToPlayer[scores[i]].Add(playerPrefab[i]);
-        //            sameKey = true;
-        //        }
-        //    }
-
-        //    if (!sameKey) scoreToPlayer.Add(scores[i], list);
-        //}
+        Debug.Log(players.Count);
 
         for (int i = 0; i < players.Count; i++)
         {
             scoreToPlayerNum.Add(i + 1, scores[i]);
         }
+
+        Debug.Log(scoreToPlayerNum.Count);
 
         // Key : プレイヤー番号、Value : スコア、要素番号 : 順位
         scoreToPlayerNum = scoreToPlayerNum
