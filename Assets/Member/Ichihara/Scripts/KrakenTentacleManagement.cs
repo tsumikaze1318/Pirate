@@ -45,12 +45,28 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         base.Awake();
         for (int i = 0; i < _tentacleAndShipPartsTables.Count; i++)
         {
-            var obj = Instantiate(_krakenTentacle, _tentacleAndShipPartsTables[i].TentacleSpawnPoint);
+            var spawnPoint = _tentacleAndShipPartsTables[i].TentacleSpawnPoint;
+            var obj = Instantiate(_krakenTentacle, spawnPoint);
             obj.transform.position += Vector3.down * _krakenStartPoint;
-            // 触手を海賊船の方向に向ける
-            obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
-            // y軸方向のみを操作する
-            obj.transform.eulerAngles = new Vector3(0f, obj.transform.eulerAngles.y, 0f) ;
+            // 触手が生成される親オブジェクトの名前で分類する
+            string name = spawnPoint.name;
+            if (name.Contains("Left") == true)
+                // 触手を海賊船の方向に向ける
+                obj.transform.eulerAngles = Vector3.up * -90f;
+            if (name.Contains("Right") == true)
+                // 触手を海賊船の方向に向ける
+                obj.transform.eulerAngles = Vector3.up * 90f;
+
+            /*
+            if (i % 2 == 0)
+                obj.transform.eulerAngles = Vector3.up * -90f;
+            else if (i % 2 == 1)
+                obj.transform.eulerAngles = Vector3.up * 90f;
+            */
+
+            //obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
+            //// y軸方向のみを操作する
+            //obj.transform.eulerAngles = new Vector3(0f, obj.transform.eulerAngles.y, 0f);
             _dummyKrakenTentacleAttacks.Add(obj.GetComponent<DummyKrakenTentacleAttack>());
             obj.SetActive(false);
         }
