@@ -13,19 +13,31 @@ public class ExecuteGimmick : MonoBehaviour
     private ExecuteSharkShoot _executeShark;
     private ExecuteKraken _executeKraken;
 
-    private Camera[] _cameras = new Camera[4];
+    private Camera[] _cameras;
 
     private ParticleSystem _confetti;
 
-    private int[] _posX = new int[4];
+    [SerializeField]
+    private SceneFadeInput _fadeInput;
+
+    private int[] _posX;
 
     private int _phase = 0;
+    private int _callGimmickCount = 0;
 
     private async void Start()
     {
-        for (int i = 0; i < _posX.Length; i++)
+        _callGimmickCount = GameManager.ScoreToPlayerNum.Count;
+
+        _cameras = new Camera[_callGimmickCount];
+        _posX = new int[_callGimmickCount];
+
+        for (int i = 0; i < _callGimmickCount; i++)
         {
-            _posX[i] = GameManager.ScoreToPlayerNum.ElementAt(GameManager.ScoreToPlayerNum.Count - 1 - i).Key;
+            _posX[i] = GameManager
+                .ScoreToPlayerNum
+                .ElementAt(_callGimmickCount - 1 - i).Key - 1;
+
             Debug.Log(_posX[i]);
         }
 
@@ -40,14 +52,28 @@ public class ExecuteGimmick : MonoBehaviour
 
         await Task.Delay(5000);
 
-        AnimationCannon();
+        switch (_posX.Length)
+        {
+            case 2:
+                AnimationKraken();
+                break;
+            case 3:
+                AnimationShark();
+                break;
+            case 4:
+                AnimationCannon();
+                break;
+            default:
+                Debug.Log("Error");
+                return;
+        }
     }
 
     private void AnimationCannon()
     {
         int cannonTarget = 3 - (_posX[_phase] * 2);
 
-        _gimmicks[_phase].transform
+        _gimmicks[0].transform
             .DOMoveX(cannonTarget, 1)
             .OnComplete(async () =>
             {
@@ -62,8 +88,8 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void AnimationShark()
     {
-        _gimmicks[_phase].transform.position
-            = _gimmicks[_phase].transform.position
+        _gimmicks[1].transform.position
+            = _gimmicks[1].transform.position
             + new Vector3(3 - (_posX[_phase] * 2) -1.35f, 0, 0);
 
         _executeShark.ThrowingBall();
@@ -79,7 +105,7 @@ public class ExecuteGimmick : MonoBehaviour
     {
         float appearYPos = -16f;
 
-        _gimmicks[_phase].transform
+        _gimmicks[2].transform
                 .DOMoveY(appearYPos, 3f);
 
         await Task.Delay(3000);
@@ -109,7 +135,7 @@ public class ExecuteGimmick : MonoBehaviour
             await Task.Delay(moveMillionTime);
         }
 
-        _gimmicks[_phase].transform
+        _gimmicks[2].transform
             .DOMoveX(0, 3)
             .SetEase(Ease.InOutQuad);
         await Task.Delay(3000);
@@ -117,11 +143,13 @@ public class ExecuteGimmick : MonoBehaviour
         _executeKraken.Attack();
         await Task.Delay(3000);
 
-        _gimmicks[_phase].transform
+        _gimmicks[2].transform
             .DOMoveX(targetXPos, moveTime);
         await Task.Delay(moveMillionTime);
 
         _phase++;
+        Debug.Log(_phase);
+        Debug.Log(_posX[_phase]);
 
         await Task.Delay(6000);
 
@@ -130,14 +158,14 @@ public class ExecuteGimmick : MonoBehaviour
 
     private void FocusTarget(float moveTime, float targetXPos)
     {
-        _gimmicks[_phase].transform
+        _gimmicks[2].transform
                 .DOMoveX(targetXPos * 3, moveTime)
                 .SetEase(Ease.InOutQuad);
     }
 
     private void FocusFakeTarget(float moveTime, float fakeTargetXPos)
     {
-        _gimmicks[_phase].transform
+        _gimmicks[2].transform
                 .DOMoveX(fakeTargetXPos * 3, moveTime)
                 .SetEase(Ease.InOutQuad);
     }
@@ -152,5 +180,6 @@ public class ExecuteGimmick : MonoBehaviour
         await Task.Delay(1000);
 
         _confetti.Play();
+        _fadeInput.SetAcceptInput(true);
     }
 }

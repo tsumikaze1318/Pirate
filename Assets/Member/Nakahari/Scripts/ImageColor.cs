@@ -41,7 +41,7 @@ public class ImageColor : MonoBehaviour
         if (_count == GameManager.Instance.Attendance && !Ready)
         {
             Ready = true;
-            GameManager.Instance.PlayersReady();
+            GameManager.Instance.StandbyPlayersReady();
         }
     }
 }
