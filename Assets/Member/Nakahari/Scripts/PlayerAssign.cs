@@ -119,6 +119,7 @@ public class PlayerAssign : MonoBehaviour
         await Task.Delay((int)_respwanTimer * 1000);
 
         _playerNum = _numToPlayerObj.FirstOrDefault(x => x.Value == plObj).Key - 1;
+        Debug.Log(_playerNum);
 
         switch (_playerNum)
         {

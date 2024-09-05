@@ -671,7 +671,7 @@ MonoBehaviour:
   _upForce: 5
   _camera: {fileID: 5399278142194359788}
   _animator: {fileID: 0}
-  _swordObj: {fileID: 0}
+  _swordObj: {fileID: 6726164225966409051}
   _respawn: 0
   _playerCollider: {fileID: 0}
   uiObject: {fileID: 8187225357291218554}
@@ -778,5 +778,10 @@ PrefabInstance:
 --- !u!4 &6202567290657660897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4511982771509220865, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
+  m_PrefabInstance: {fileID: 7534023523629926880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6726164225966409051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3879315343059782843, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
   m_PrefabInstance: {fileID: 7534023523629926880}
   m_PrefabAsset: {fileID: 0}

@@ -374,6 +374,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
+--- !u!1 &3958626290455123246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3879315343059782843, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
+  m_PrefabInstance: {fileID: 232433886722038165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4441689493449854868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4511982771509220865, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
@@ -716,7 +721,7 @@ MonoBehaviour:
   _upForce: 5
   _camera: {fileID: 3964511027813473215}
   _animator: {fileID: 0}
-  _swordObj: {fileID: 0}
+  _swordObj: {fileID: 3958626290455123246}
   _respawn: 0
   _playerCollider: {fileID: 0}
   uiObject: {fileID: 7564977258134529531}

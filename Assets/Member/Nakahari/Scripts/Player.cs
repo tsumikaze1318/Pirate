@@ -289,6 +289,7 @@ public class Player : MonoBehaviour
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
         _playerAssign = GetComponentInParent<PlayerAssign>();
+        Debug.Log(_playerAssign);
     }
 
     // Update is called once per frame
