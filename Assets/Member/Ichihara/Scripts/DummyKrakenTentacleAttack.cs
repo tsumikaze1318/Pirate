@@ -12,7 +12,7 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
     private float explosionUpwards = 0f;
 
     // 爆風の影響を受けるオブジェクトを取得する範囲
-    private float hitColliderRadius = 2f;
+    private float hitColliderRadius = 5f;
     // クラーケンのアニメーション管理
     private Animator krakenAnimation = null;
 
