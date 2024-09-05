@@ -5,11 +5,11 @@ using UnityEngine;
 public class DummyTargetPlayer : MonoBehaviour
 {
     private readonly string playerTag = "Player";
-
+    // クラーケンの触手のオブジェクト
     private GameObject kraken = null;
-
+    // 攻撃のターゲットになったプレイヤーの座標を取得する為
     private Transform playerTransform = null;
-
+    // 触手とプレイヤーの距離を外部に渡す為
     private float distanceBetweenKrakenAndPlayerposition = 0f;
 
     // Start is called before the first frame update
@@ -23,6 +23,9 @@ public class DummyTargetPlayer : MonoBehaviour
         SetPlayerPosition();
     }
 
+    /// <summary>
+    /// 触手から一番近いプレイヤーの距離を計る
+    /// </summary>
     private void SetPlayerPosition()
     {
         // プレイヤーオブジェクトをすべて検索
