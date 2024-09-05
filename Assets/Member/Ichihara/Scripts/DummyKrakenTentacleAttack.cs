@@ -23,22 +23,6 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
     }
 
     /// <summary>
-    /// 触手を振り下ろす座標にマーカーUIを表示
-    /// </summary>
-    /// <returns></returns>
-    //private GameObject GenerateMarker(Transform transform)
-    //{
-    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //RaycastHit hit;
-    //GameObject markerObject = null;
-    //if (Physics.Raycast(ray, out hit, distance))
-    //{
-    //    markerObject = Instantiate(Marker, hit.point, Quaternion.identity);
-    //}
-
-    //}
-
-    /// <summary>
     /// クラーケンの触手が振り降ろされた後に周辺プレイヤーが吹っ飛ばされる
     /// </summary>
     /// <param name="playerTransform">攻撃対象のプレイヤーの座標</param>
@@ -49,11 +33,6 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
         if (playerTransform == null) return;
         Vector3 playerPosition = playerTransform.position;
 
-        //var KrakenTentacleManagement = transform.parent.GetComponentInParent<KrakenTentacleManagement>();
-        //var centerObject = KrakenTentacleManagement.GenerateMarker(playerTransform);
-        // 要待機時間調整
-        //Vector3 explosionCenter = centerObject.transform.position;
-        //Destroy(centerObject);
         await Task.Yield();
         // 触手を振り降ろすアニメーションを挿入
         krakenAnimation.SetTrigger("Attack");
@@ -77,10 +56,28 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
                 }
             }
         }
+        // クラーケン攻撃時のSE再生
+        //SoundManager.Instance.PlaySe();
         await Task.Delay(4000);
         // 待機アニメーションに切り替え
         krakenAnimation.SetTrigger("Attack");
-
+        // TODO: β版後適用
         //gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// 触手を振り下ろす座標にマーカーUIを表示
+    /// </summary>
+    /// <returns></returns>
+    //private GameObject GenerateMarker(Transform transform)
+    //{
+    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //RaycastHit hit;
+    //GameObject markerObject = null;
+    //if (Physics.Raycast(ray, out hit, distance))
+    //{
+    //    markerObject = Instantiate(Marker, hit.point, Quaternion.identity);
+    //}
+
+    //}
 }
