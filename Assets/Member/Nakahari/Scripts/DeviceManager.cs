@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,7 @@ public class DeviceManager : MonoBehaviour
 
     void UpdateConnectedGamepads()
     {
+        Array.Resize(ref _gamepad, 0);
         _gamepad = Gamepad.all.ToArray();
         for(int i = 0; i < _gamepad.Length; i++)
         {

@@ -21,7 +21,7 @@ public class ImageColor : MonoBehaviour
     [SerializeField]
     public List<Image> _images = new List<Image>();
 
-    private int _count = 0;
+    public int _count = 0;
 
     public bool Ready = false;
 
@@ -37,11 +37,5 @@ public class ImageColor : MonoBehaviour
             }
         }
         Debug.Log(_count);
-
-        if (_count == GameManager.Instance.Attendance && !Ready)
-        {
-            Ready = true;
-            GameManager.Instance.StandbyPlayersReady();
-        }
     }
 }

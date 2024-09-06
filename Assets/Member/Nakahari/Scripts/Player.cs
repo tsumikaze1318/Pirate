@@ -65,6 +65,8 @@ public class Player : MonoBehaviour
 
     Vector3 _hitPos;
 
+    private ImageColor[] _imageColors;
+
     #endregion
 
     void Move()
@@ -176,28 +178,47 @@ public class Player : MonoBehaviour
         var vecX = 1f;
         var vecY = 1f;
         var vecZ = 1f;
-        while (Vector3.SqrMagnitude(new Vector3(1.25f,1.25f,1.25f) - ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale) > 0.001)
+        while (Vector3.SqrMagnitude(new Vector3(1.25f,1.25f,1.25f) - ScaleReturn(_playerInput.user.index)) > 0.001)
         {
             vecX += 0.01f;
             vecY += 0.01f;
             vecZ += 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
-            ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            UiEffect(_playerInput.user.index, vec3);
             yield return new WaitForFixedUpdate();
         }
         yield return new WaitForSeconds(0.2f);
-        while (Vector3.SqrMagnitude(ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale - new Vector3(1f, 1f, 1f)) > 0.001)
+        while (Vector3.SqrMagnitude(ScaleReturn(_playerInput.user.index) - new Vector3(1f, 1f, 1f)) > 0.001)
         {
             vecX -= 0.01f;
             vecZ -= 0.01f;
             vecY -= 0.01f;
             Vector3 vec3 = new Vector3(vecX, vecY, vecZ);
-            ImageColor.Instance._images[_playerInput.user.index].rectTransform.localScale = vec3;
+            UiEffect(_playerInput.user.index,vec3);
             yield return new WaitForFixedUpdate();
         }
         yield return new WaitForSeconds(0.2f);
         _button = false;
     }
+
+    void UiEffect(int num, Vector3 vec3)
+    {
+        foreach(ImageColor imageColor in _imageColors)
+        {
+            imageColor._images[num].rectTransform.localScale = vec3;
+        }
+    }
+
+    Vector3 ScaleReturn(int num)
+    {
+        Vector3 vec3 = new Vector3();
+        foreach (ImageColor imageColor in _imageColors)
+        {
+            vec3 = imageColor._images[num].rectTransform.localScale;
+        }
+        return vec3;
+    }
+
 
     void SkipMovie()
     {
@@ -289,6 +310,7 @@ public class Player : MonoBehaviour
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
         _playerAssign = GetComponentInParent<PlayerAssign>();
+        _imageColors = FindObjectsOfType<ImageColor>();
         Debug.Log(_playerAssign);
     }
 
