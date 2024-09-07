@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
 
     Vector3 _hitPos;
 
-    private ImageColor[] _imageColors;
+    private ImageReady[] _imageColors;
 
     #endregion
 
@@ -203,7 +203,7 @@ public class Player : MonoBehaviour
 
     void UiEffect(int num, Vector3 vec3)
     {
-        foreach(ImageColor imageColor in _imageColors)
+        foreach(ImageReady imageColor in _imageColors)
         {
             imageColor._images[num].rectTransform.localScale = vec3;
         }
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
     Vector3 ScaleReturn(int num)
     {
         Vector3 vec3 = new Vector3();
-        foreach (ImageColor imageColor in _imageColors)
+        foreach (ImageReady imageColor in _imageColors)
         {
             vec3 = imageColor._images[num].rectTransform.localScale;
         }
@@ -310,7 +310,7 @@ public class Player : MonoBehaviour
         _playerCollider = GetComponent<CapsuleCollider>();
         _swordCollider.enabled = false;
         _playerAssign = GetComponentInParent<PlayerAssign>();
-        _imageColors = FindObjectsOfType<ImageColor>();
+        _imageColors = FindObjectsOfType<ImageReady>();
         Debug.Log(_playerAssign);
     }
 

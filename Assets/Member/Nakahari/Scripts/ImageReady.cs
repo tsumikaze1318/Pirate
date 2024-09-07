@@ -6,14 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageColor : MonoBehaviour
+public class ImageReady : MonoBehaviour
 {
-    private static ImageColor instance;
-    public static ImageColor Instance
+    private static ImageReady instance;
+    public static ImageReady Instance
     {
         get
         {
-            if (instance == null) instance = FindObjectOfType<ImageColor>();
+            if (instance == null) instance = FindObjectOfType<ImageReady>();
             return instance;
         }
     }
@@ -36,6 +36,5 @@ public class ImageColor : MonoBehaviour
                 _count++;
             }
         }
-        Debug.Log(_count);
     }
 }

@@ -13,9 +13,9 @@ public class ReadyCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ImageColor.Instance._count == GameManager.Instance.Attendance && !ImageColor.Instance.Ready)
+        if (ImageReady.Instance._count == GameManager.Instance.Attendance && !ImageReady.Instance.Ready)
         {
-            ImageColor.Instance.Ready = true;
+            ImageReady.Instance.Ready = true;
             GameManager.Instance.StandbyPlayersReady();
         }
     }
