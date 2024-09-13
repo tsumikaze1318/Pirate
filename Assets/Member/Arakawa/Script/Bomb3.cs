@@ -40,6 +40,10 @@ public class Bomb3 : MonoBehaviour
             hasDetonated = true;
             Detonate(_isGrounded, 0);
             Destroy(gameObject);
+
+            HitCount hitCount = collision.gameObject.GetComponent<HitCount>();
+            hitCount._count--;
+
         }
     }
 
@@ -73,9 +77,9 @@ public class Bomb3 : MonoBehaviour
     void ApplyExplosionForce(Collider targetCollider, bool isGrounded)
     {
         Rigidbody targetRigidbody = targetCollider.GetComponent<Rigidbody>();
-        HitCount hitCount = targetCollider.GetComponent<HitCount>();
+        //HitCount hitCount = targetCollider.GetComponent<HitCount>();
 
-        if(hitCount != null) { hitCount._count = 0; }
+        //if(hitCount != null) { hitCount._count = 0; }
 
         if (targetRigidbody != null)
         {
