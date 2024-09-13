@@ -9,7 +9,7 @@ public class TestDictionary : MonoBehaviour
 
     public static Dictionary<int, int> KeyValuePairs => keyValuePairs;
 
-    private int[] ints = { 8, 5, 15, 16 };
+    private int[] ints = { 17, 5, 15, 16 };
 
     // Start is called before the first frame update
     void Awake()

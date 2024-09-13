@@ -48,14 +48,14 @@ public class SceneFadeManager : MonoBehaviour
         SceneManager.sceneLoaded += SceneChanged;
     }
 
-    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType)
+    public void FadeStart(SceneNameClass.SceneName sceneName, BGMType bgmType, Action afterFadeOutAction = null, Action afterFadeInAction = null)
     {
         _bgmType = bgmType;
 
         for (int i = 0; i < canvasList.Count; i++)
         {
             isFade = true;
-            canvasList[i].FadeOut(sceneName);
+            canvasList[i].FadeOut(sceneName, afterFadeOutAction, afterFadeInAction);
         }
 
         isFade = true;

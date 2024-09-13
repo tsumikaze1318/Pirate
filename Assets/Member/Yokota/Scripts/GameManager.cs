@@ -158,9 +158,18 @@ public class GameManager : MonoBehaviour
     public void PlayersReady()
     {
         // シーンが切り替わった時に呼び出す関数を登録
-        SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
+        //SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
         // 画面を切り替える
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null
+            , BGMType.Null
+            , () =>
+            {
+                MovieSet();
+            }
+            , () =>
+            {
+                MovieStart();
+            });
         // BGMは変えない
         SoundManager.Instance.PlayBgm(BGMType.Null);
     }
@@ -171,9 +180,19 @@ public class GameManager : MonoBehaviour
     public void FinishMovie()
     {
         // シーンが切り替わった時に呼び出す関数を登録
-        SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,GameStartCount, null, null);
+        //SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,GameStartCount, null, null);
         // 画面を切り替える
-        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null
+            , BGMType.Null
+            , () =>
+            {
+                ChangeCamera();
+                HideSkipIcon();
+            }
+            , () =>
+            {
+                GameStartCount();
+            });
         // BGM変更
         SoundManager.Instance.PlayBgm(BGMType.BGM2);
         // 映像を止める
@@ -317,6 +336,14 @@ public class GameManager : MonoBehaviour
         foreach (var icon in _fillIconOjbects)
         {
             icon.SetActive(true);
+        }
+    }
+
+    private void HideSkipIcon()
+    {
+        foreach(var obj in _fillIconOjbects)
+        {
+            obj.SetActive(false);
         }
     }
 }

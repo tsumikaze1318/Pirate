@@ -91,7 +91,7 @@ public class ExecuteGimmick : MonoBehaviour
     {
         _gimmicks[1].transform.position
             = _gimmicks[1].transform.position
-            + new Vector3((3 - (_posX[_phase] * 2)) +1f, 0, 0);
+            + new Vector3((3 - (_posX[_phase] * 2)) - 1.35f, 0, 0);
 
         _executeShark.ThrowingBall();
 

@@ -18,8 +18,8 @@ public class MovieController : MonoBehaviour
         foreach (var video in _videoPlayer)
         {
             video.Play();
-            video.loopPointReached += FinishPlayingVideo;
             video.Pause();
+            video.loopPointReached += FinishPlayingVideo;
         }
     }
 
