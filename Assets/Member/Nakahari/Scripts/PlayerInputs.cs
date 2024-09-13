@@ -14,8 +14,8 @@ public class PlayerInputs : MonoBehaviour
     public bool _rightGrab;
     public bool _cursorNone;
     public bool _cursorLock;
-    public bool _movieSkip;
     public bool _uiButton;
+    public bool _longPress;
 
     private void OnMove(InputValue value)
     {
@@ -76,6 +76,6 @@ public class PlayerInputs : MonoBehaviour
 
     private void OnLongPress(InputValue value)
     {
-        _movieSkip = value.isPressed;
+        _longPress = value.isPressed;
     }
 }

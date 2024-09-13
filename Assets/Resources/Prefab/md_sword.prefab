@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6450382807723555023}
   - component: {fileID: 782448265116590424}
+  - component: {fileID: 8899497399638659436}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6450382807723555023
 Transform:
   m_ObjectHideFlags: 0
@@ -53,6 +54,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04780795, y: 0.89396363, z: 0.19813147}
   m_Center: {x: -0.011725958, y: -0.05301809, z: -0.16092296}
+--- !u!54 &8899497399638659436
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103391289481482022}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4113881105252233706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111,8 +139,83 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6450382807723555023}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7106658173926274701}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2345915219935923669}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7594617935992289469}
   m_SourcePrefab: {fileID: 100100000, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
+--- !u!1 &3879315343059782843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}
+  m_PrefabInstance: {fileID: 4113881105252233706}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7106658173926274701
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879315343059782843}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08865403, y: 0.8374604, z: 0.39178705}
+  m_Center: {x: 0.0022755838, y: 0.55180913, z: -0.10730074}
+--- !u!54 &2345915219935923669
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879315343059782843}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7594617935992289469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3879315343059782843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34c1c055df036143812b63ac07496b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particlePrefab: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
 --- !u!4 &4511982771509220865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ddfbf2d070ff0904fa5c4f217ecd1176, type: 3}

@@ -114,7 +114,7 @@ public partial class @Pirate: IInputActionCollection2, IDisposable
                     ""id"": ""2ab786b4-a68a-41ee-8e56-a43ffde491bc"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=3)"",
                     ""initialStateCheck"": true
                 },
                 {

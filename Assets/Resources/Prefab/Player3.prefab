@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6698229994151447639}
-  - component: {fileID: 2871503485355322089}
-  - component: {fileID: 7752181375213223779}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -36,59 +34,6 @@ Transform:
   - {fileID: 7286579215770179675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2871503485355322089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6589526696265778038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: dc308810c07114946a0f8c1738d29444, type: 3}
-  m_NotificationBehavior: 1
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Gamepad
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &7752181375213223779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6589526696265778038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4432755689c2d45929cd109dd7bdc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _move: {x: 0, y: 0, z: 0}
-  _look: {x: 0, y: 0, z: 0}
-  _fire: 0
-  _jump: 0
-  _lift: 0
-  _leftGrab: 0
-  _rightGrab: 0
-  _cursorNone: 0
-  _cursorLock: 0
-  _movieSkip: 0
-  _uiButton: 0
 --- !u!1 &7227661763910068417
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986228c2eb86e5e4898bebb985ffff6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInput: {fileID: 1646433932395426416}
   _playerObj: {fileID: 7773840503200179557}
   _maxAngleX: 60
   _minAngleX: -10
@@ -225,6 +171,15 @@ MonoBehaviour:
   _cameraMoveSpeed: 4
   _axisPos: {x: 0, y: 0, z: 0}
   _axisRot: {x: 16, y: 0, z: 0}
+  _lookAction:
+    m_Name: Look
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 09030df4-efb4-4286-890c-314853c90ae8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &8485751881736039202
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +280,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5282207957146647062}
     m_Modifications:
+    - target: {fileID: 782448265116590424, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3879315343059782843, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
       propertyPath: m_Name
       value: md_sword
@@ -444,6 +403,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 2631901833880665877, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 1646433932395426416}
     - target: {fileID: 2900935632268627849, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_TargetDisplay
       value: 2
@@ -638,6 +601,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3309869218940416256}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1646433932395426416}
   m_SourcePrefab: {fileID: 100100000, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
 --- !u!4 &5282207957146647062 stripped
 Transform:
@@ -729,6 +695,16 @@ MonoBehaviour:
   _splashPrefab: {fileID: 8205706795460263316, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
   _ripplesPrefab: {fileID: 5291275307717659108, guid: 5a8d99fb95262ea458a7b580f2a1611c, type: 3}
   _particlePrefab: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  _hold: {fileID: 7277291125686760872, guid: dc308810c07114946a0f8c1738d29444, type: 3}
+  _holdAction:
+    m_Name: Hold
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6dad906c-3d09-4c6f-9205-9cd99a837ca7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &1173277127607508037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _count: 3
+  _stunPrefab: {fileID: 7703549069652920417, guid: 994b016d60d5fa74487054ef4583d1fb, type: 3}
 --- !u!95 &3309869218940416256
 Animator:
   serializedVersion: 5
@@ -763,3 +740,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1646433932395426416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773840503200179557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: dc308810c07114946a0f8c1738d29444, type: 3}
+  m_NotificationBehavior: 1
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
