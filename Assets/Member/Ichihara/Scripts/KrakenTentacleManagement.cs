@@ -103,6 +103,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                 {
                     var tentacle = table.TentacleSpawnPoint.GetChild(0);
                     tentacle.gameObject.SetActive(true);
+                    // 触手のアニメーション再生にばらつきを持たせる
                     float randomPlayTime = Random.Range(0f, 1f);
                     animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, 0, randomPlayTime);
                 }
