@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// プレイヤーの移動処理
     /// </summary>
-    void Move()
+    void OnMove(InputValue value)
     {
         Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
         Vector3 moveForward = camForward * _inputs._move.z + _camera.transform.right * _inputs._move.x;
@@ -222,14 +222,9 @@ public class Player : MonoBehaviour
     }
 
 
-    void SkipMovie()
+    void LongPress()
     {
-        // 作りかけ
-        if (_inputs._movieSkip)
-        {
-            GameManager.Instance.FinishMovie();
-            Debug.Log("aaa");
-        }
+
     }
 
     void ColliderEnabled()
@@ -252,7 +247,7 @@ public class Player : MonoBehaviour
     /// それぞれのtagに触れた際の判定
     /// </summary>
     /// <param name="other"></param>
-    public void OnCollisionEnter(UnityEngine.Collision other)
+    public void OnCollisionEnter(Collision other)
     {
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
@@ -268,7 +263,7 @@ public class Player : MonoBehaviour
             treasure.GetTreasure(_playerInput.user.index);
         }
 
-        if (_swordCollider ==  other.gameObject.CompareTag("Player"))
+        /*if (_swordCollider ==  other.gameObject.CompareTag("Player"))
         {
             foreach (ContactPoint point in other.contacts)
             {
@@ -278,7 +273,7 @@ public class Player : MonoBehaviour
             SubCount(other);
             _swordCollider.enabled = false;
             Destroy(attackPs.gameObject, attackPs.main.duration);
-        }
+        }*/
     }
 
     /// <summary>
@@ -316,12 +311,11 @@ public class Player : MonoBehaviour
         if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
-        _swordCollider = _swordObj.GetComponentInChildren<BoxCollider>();
+        _swordCollider = _swordObj.GetComponent<BoxCollider>();
         _playerCollider = GetComponent<CapsuleCollider>();
-        _swordCollider.enabled = false;
+        //_swordCollider.enabled = false;
         _playerAssign = GetComponentInParent<PlayerAssign>();
         _imageColors = FindObjectsOfType<ImageReady>();
-        Debug.Log(_playerAssign);
     }
 
     // Update is called once per frame
@@ -333,6 +327,7 @@ public class Player : MonoBehaviour
         CursorLook();
         CursorNone();
         UiButton();
+        LongPress();
         
         if (!GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
@@ -351,7 +346,7 @@ public class Player : MonoBehaviour
         if (_state == CommonParam.UnitState.Normal)
         {
             if (_respawn) return;
-            Move();
+            //Move();
         }
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
+    private static PlayerInputs instance;
+    public static PlayerInputs Instance { get { return instance; } }
+
     public Vector3 _move;
     public Vector3 _look;
     public bool _fire;
@@ -14,8 +17,8 @@ public class PlayerInputs : MonoBehaviour
     public bool _rightGrab;
     public bool _cursorNone;
     public bool _cursorLock;
-    public bool _movieSkip;
     public bool _uiButton;
+    public bool _longPress;
 
     private void OnMove(InputValue value)
     {
@@ -76,6 +79,6 @@ public class PlayerInputs : MonoBehaviour
 
     private void OnLongPress(InputValue value)
     {
-        _movieSkip = value.isPressed;
+        _longPress = value.isPressed;
     }
 }

@@ -87,8 +87,8 @@ MonoBehaviour:
   _rightGrab: 0
   _cursorNone: 0
   _cursorLock: 0
-  _movieSkip: 0
   _uiButton: 0
+  _longPress: 0
 --- !u!1 &7227661763910068417
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5282207957146647062}
     m_Modifications:
+    - target: {fileID: 782448265116590424, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3879315343059782843, guid: d4e28bd161cb0c24a972ab6901de605c, type: 3}
       propertyPath: m_Name
       value: md_sword
@@ -742,6 +746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _count: 3
+  _stunPrefab: {fileID: 7703549069652920417, guid: 994b016d60d5fa74487054ef4583d1fb, type: 3}
 --- !u!95 &3309869218940416256
 Animator:
   serializedVersion: 5
