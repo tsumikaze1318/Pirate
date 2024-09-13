@@ -16,12 +16,6 @@ public class GameManager : MonoBehaviour
             {
                 instance
                     = FindObjectOfType<GameManager>();
-                //if (instance == null)
-                //{
-                //    var singletonObject = new GameObject();
-                //    instance = singletonObject.AddComponent<GameManager>();
-                //    singletonObject.name = nameof(GameManager) + "(singleton)";
-                //}
             }
 
             return instance;
@@ -31,72 +25,60 @@ public class GameManager : MonoBehaviour
     // メインゲームが始まったことを伝えるフラグ
     private bool gameStart = false;
     public bool GameStart => gameStart;
-
     // メインゲームが終了したことを伝えるフラグ
     private bool gameEnd = false;
     public bool GameEnd => gameEnd;
-
+    // カメラ切り替えフラグ
     private bool cameraChanged = false;
     public bool CameraChanged => cameraChanged;
-
+    // 残り50秒フラグ
     private bool fiftySecondsLeft = false;
     public bool FiftySecondsLeft => fiftySecondsLeft;
-
     // 各プレイヤーの宝箱獲得数
     [SerializeField] private int[] scores = { 0, 0, 0, 0 };
     // 近藤追記
     public int[] Scores => scores;
-
-    private static Dictionary<int, int> scoreToPlayerNum 
+    // プレイヤー番号からスコアを引くディクショナリ
+    private static Dictionary<int, int> playerNumToScore 
         = new Dictionary<int, int>();
-    public static Dictionary<int, int> ScoreToPlayerNum => scoreToPlayerNum;
-
+    public static Dictionary<int, int> PlayerNumToScore => playerNumToScore;
     [SerializeField, Header("プレイヤーのプレハブ")]
     private List<GameObject> playerPrefab = new List<GameObject>();
-
     // ゲーム上に表示されているプレイヤーを格納するList
     private List<GameObject> players = new List<GameObject>();
 
     public List<GameObject> Players => players;
-
     [SerializeField, Header("参加可能人数")]
     private int attendance;
     public int Attendance => attendance;
-
     [SerializeField]
     private TreasureInstance treasureInstance;
-
     // カウントダウンを表示するスクリプトを格納するList
     private List<GameStartCountDown> gameStartCountDowns 
         = new List<GameStartCountDown>();
-
+    // プレイヤーアサイン時に有効になっているカメラ
     [SerializeField]
     private List<Camera> attendCameras = new List<Camera>();
-
+    // プレイヤーアサイン時に有効になっているキャンバス
     [SerializeField]
     private List<Canvas> attendCanvass = new List<Canvas>();
-
+    // オープニング映像を流すゲームオブジェクト
     [SerializeField]
     private GameObject _videoPlayersObj;
     [SerializeField]
     private MovieController _movieController;
 
-    // 宝箱獲得数のUI表示クラス
-    //[SerializeField, EnumIndex(typeof(CommonParam.UnitType))]
-    //private List<GameSystemManager> gameSystems = new List<GameSystemManager>();
-
     #endregion
 
     private void Start()
     {
+        // プレイ人数に応じてリストにプレハブを追加
         for (int i = 0; i < attendance; i++)
         {
             playerPrefab.Add((GameObject)Resources.Load($"Prefab/Character_D{i + 1}"));
         }
-        
-
+        // Nullチェック
         _movieController ??= _videoPlayersObj.GetComponent<MovieController>();
-
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
     }
 
@@ -104,8 +86,10 @@ public class GameManager : MonoBehaviour
     {
         if (gameStart) return;
         if (SceneFadeManager.IsFade) return;
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
 
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
+#endif
     }
 
     #region 外部参照関数
@@ -119,8 +103,6 @@ public class GameManager : MonoBehaviour
         // スコアを加算
         if (precious) scores[plNum] += 3;
         else scores[plNum]++;
-        // UIを更新
-        //gameSystems[plNum].Score = scores[plNum];
     }
 
     /// <summary>
@@ -135,8 +117,6 @@ public class GameManager : MonoBehaviour
         {
             scores[plNum] = 0;
         }
-        // UIを更新1
-        //gameSystems[plNum].Score = scores[plNum];
     }
 
     /// <summary>
@@ -144,14 +124,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public async void GameEnded() 
     {
+        // ゲーム終了フラグを上げる
         gameEnd = true;
-
+        // 3秒遅延
         await Task.Delay(3000);
-
-        scoreToPlayerNum.Clear();
-
+        // ディクショナリをクリアする
+        playerNumToScore.Clear();
+        // ランキングソート
         RankingSort();
-
+        // リザルトシーンへ遷移
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Result, BGMType.BGM1);
     }
 
@@ -160,8 +141,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void PlayersReady()
     {
+        // シーンが切り替わった時に呼び出す関数を登録
         SceneFadeManager.Instance.RegisterAction_Assign(null ,null, MovieStart, MovieSet);
+        // 画面を切り替える
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        // BGMは変えない
         SoundManager.Instance.PlayBgm(BGMType.Null);
     }
 
@@ -170,9 +154,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FinishMovie()
     {
+        // シーンが切り替わった時に呼び出す関数を登録
         SceneFadeManager.Instance.RegisterAction_Assign(ChangeCamera ,GameStartCount, null, null);
+        // 画面を切り替える
         SceneFadeManager.Instance.FadeStart(SceneNameClass.SceneName.Null, BGMType.Null);
+        // BGM変更
         SoundManager.Instance.PlayBgm(BGMType.BGM2);
+        // 映像を止める
         _movieController.MovieEnd();
     }
 
@@ -185,11 +173,18 @@ public class GameManager : MonoBehaviour
         players.Add(player);
     }
 
+    /// <summary>
+    /// フェード中にプレイヤー準備が終わったときに
+    /// 進行不能にならないようにする再帰関数
+    /// </summary>
     public async void StandbyPlayersReady()
     {
+        // フェード中なら
         if (SceneFadeManager.IsFade)
         {
+            // 遅延を入れて
             await Task.Delay(100);
+            // もう一度この関数を呼び出す
             StandbyPlayersReady();
             return;
         }
@@ -199,74 +194,95 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ゲームスタートフラグを上げる関数
+    /// </summary>
     public void SetGameStart() { gameStart = true; }
 
-    public void InvokeKraken()
-    {
-        Debug.Log("!!!CLIMAX!!!");
-        treasureInstance.SetClimax(true);
-    }
+    /// <summary>
+    /// クラーケン発動関数
+    /// </summary>
+    public void InvokeKraken() { treasureInstance.SetClimax(true); }
 
     #endregion
 
+    /// <summary>
+    /// ランキングソート関数
+    /// </summary>
     private void RankingSort()
     {
-        Debug.Log(players.Count);
-
+        // プレイヤーの数だけ繰り返す
         for (int i = 0; i < players.Count; i++)
         {
-            scoreToPlayerNum.Add(i + 1, scores[i]);
+            // Key : プレイヤー番号、Value : スコア、要素番号 : 順位
+            playerNumToScore.Add(i + 1, scores[i]);
         }
 
-        Debug.Log(scoreToPlayerNum.Count);
-
-        // Key : プレイヤー番号、Value : スコア、要素番号 : 順位
-        scoreToPlayerNum = scoreToPlayerNum
+        // Valueを降順でソート
+        playerNumToScore = playerNumToScore
                         .OrderByDescending(x => x.Value)
                         .ToDictionary(x => x.Key, x => x.Value);
     }
 
+    /// <summary>
+    /// ゲームスタートカウントダウンを始める関数
+    /// </summary>
     private void GameStartCount()
     {
+        // プレイヤーの数だけ繰り返す
         for (int i = 0; i < players.Count; i++)
         {
-            gameStartCountDowns.Add
-                (players[i].GetComponentInChildren<GameStartCountDown>());
-        }
-
-        for (int i = 0; i < gameStartCountDowns.Count; i++)
-        {
-            gameStartCountDowns[i].StartCountDown(true);
+            // プレイヤーの子オブジェクトにあるコンポーネントを取得
+            var gameStartCountDown = players[i].GetComponentInChildren<GameStartCountDown>();
+            // リストに追加する
+            gameStartCountDowns.Add(gameStartCountDown);
+            // カウントダウンをスタートする
+            gameStartCountDown.StartCountDown(true);
         }
     }
 
+    /// <summary>
+    /// ゲーム終了カウントを始める関数
+    /// </summary>
     public void GameEndCount()
     {
+        // カウントダウンクラスのリストの数だけカウントダウンを始める
         for (int i = 0; i < gameStartCountDowns.Count; i++)
         {
             gameStartCountDowns[i].StartCountDown(false);
         }
     }
 
+    /// <summary>
+    /// カメラ切り替え関数
+    /// </summary>
     private void ChangeCamera()
     {
+        // カメラリストの数だけそのカメラを無効化する
         foreach (var camera in attendCameras)
         {
             camera.enabled = false;
         }
-
+        // カメラ切り替えフラグを上げる
         cameraChanged = true;
     }
 
+    /// <summary>
+    /// オープニング映像を流す関数
+    /// </summary>
     private void MovieStart()
     {
         _movieController.StartMovie();
     }
 
+    /// <summary>
+    /// ムービーを一瞬再生してゲーム画面に表示する関数
+    /// </summary>
     private void MovieSet()
     {
+        // ムービーを表示する
         _movieController.SetMovie();
-
+        // キャンバスを無効化する
         foreach (var canvas in attendCanvass)
         {
             canvas.enabled = false;

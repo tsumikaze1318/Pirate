@@ -10,13 +10,17 @@ public class TreasureInstance : MonoBehaviour
     private GameObject[] Treasure;
     // 宝箱生成範囲のリスト
     [SerializeField, EnumIndex(typeof(RangeSection))]
-    private List<TreasureInstanceRanges> rangeStruct = new List<TreasureInstanceRanges>();
+    private List<TreasureInstanceRanges> rangeStruct 
+        = new List<TreasureInstanceRanges>();
     // 宝箱クラスのリスト
-    private List<TreasureModel> treasureModels = new List<TreasureModel>();
+    private List<TreasureModel> treasureModels 
+        = new List<TreasureModel>();
     // 宝箱の大きさの半分
-    private Vector3 halfExtens = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 halfExtens 
+        = new Vector3(0.5f, 0.5f, 0.5f);
     // 高ポイント宝箱生成位置
-    private readonly Vector3 preciousBoxPos = new Vector3(0, -5f, 27f);
+    private readonly Vector3 preciousBoxPos 
+        = new Vector3(0, -5f, 27f);
     // 宝箱を生成する数の上限
     private const uint maxInstance = 2;
 
