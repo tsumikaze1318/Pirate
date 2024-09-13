@@ -50,7 +50,7 @@ public class ExecuteGimmick : MonoBehaviour
 
         _confetti.Pause();
 
-        await Task.Delay(5000);
+        await Task.Delay(2000);
 
         switch (_posX.Length)
         {
@@ -77,10 +77,11 @@ public class ExecuteGimmick : MonoBehaviour
             .DOMoveX(cannonTarget, 1)
             .OnComplete(async () =>
             {
+                Debug.Log("aaa");
                 _phase++;
                 _executeCannon.Fire();
 
-                await Task.Delay(3000);
+                await Task.Delay(1000);
 
                 AnimationShark();
             });
@@ -90,13 +91,13 @@ public class ExecuteGimmick : MonoBehaviour
     {
         _gimmicks[1].transform.position
             = _gimmicks[1].transform.position
-            + new Vector3(3 - (_posX[_phase] * 2) -1.35f, 0, 0);
+            + new Vector3((3 - (_posX[_phase] * 2)) +1f, 0, 0);
 
         _executeShark.ThrowingBall();
 
         _phase++;
 
-        await Task.Delay(3000);
+        await Task.Delay(1000);
 
         AnimationKraken();
     }
@@ -106,9 +107,9 @@ public class ExecuteGimmick : MonoBehaviour
         float appearYPos = -16f;
 
         _gimmicks[2].transform
-                .DOMoveY(appearYPos, 3f);
+                .DOMoveY(appearYPos, 2f);
 
-        await Task.Delay(3000);
+        await Task.Delay(2000);
 
         float targetXPos = 3 - (_posX[_phase] * 2);
         float fakeTargetXPos = 3 - (_posX[_phase + 1] * 2);
@@ -118,8 +119,6 @@ public class ExecuteGimmick : MonoBehaviour
 
         if (Random.Range(0, 2) == 0) 
         {
-            FocusTarget(moveTime, targetXPos);
-            await Task.Delay(moveMillionTime);
             FocusFakeTarget(moveTime, fakeTargetXPos);
             await Task.Delay(moveMillionTime);
             FocusTarget(moveTime, targetXPos);
@@ -127,20 +126,17 @@ public class ExecuteGimmick : MonoBehaviour
         }
         else
         {
-            FocusFakeTarget(moveTime, fakeTargetXPos);
-            await Task.Delay(moveMillionTime);
             FocusTarget(moveTime, targetXPos);
             await Task.Delay(moveMillionTime);
             FocusFakeTarget(moveTime, fakeTargetXPos);
             await Task.Delay(moveMillionTime);
         }
 
+        _executeKraken.Attack();
+
         _gimmicks[2].transform
             .DOMoveX(0, 3)
             .SetEase(Ease.InOutQuad);
-        await Task.Delay(3000);
-
-        _executeKraken.Attack();
         await Task.Delay(3000);
 
         _gimmicks[2].transform
@@ -151,7 +147,7 @@ public class ExecuteGimmick : MonoBehaviour
         Debug.Log(_phase);
         Debug.Log(_posX[_phase]);
 
-        await Task.Delay(6000);
+        await Task.Delay(2000);
 
         AnimationCamera();
     }

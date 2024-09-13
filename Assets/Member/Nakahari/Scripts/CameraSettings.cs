@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,7 +37,7 @@ public class CameraSettings : MonoBehaviour
     private Camera _camera;
 
     [SerializeField]
-    [Header("���x")]
+    [Header("感度")]
     private float _cameraMoveSpeed;
 
     [SerializeField]
@@ -63,6 +63,10 @@ public class CameraSettings : MonoBehaviour
         transform.eulerAngles = _axisRot;
     }
 
+
+    /// <summary>
+    /// プレイヤーを中心にカメラの操作
+    /// </summary>
     private void CameraControl()
     {
         _camera.transform.localRotation = _cameraRot;

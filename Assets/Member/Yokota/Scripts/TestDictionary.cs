@@ -9,24 +9,18 @@ public class TestDictionary : MonoBehaviour
 
     public static Dictionary<int, int> KeyValuePairs => keyValuePairs;
 
-    private int[] ints = { 17, 5, 15, 16 };
+    private int[] ints = { 8, 5, 15, 16 };
 
     // Start is called before the first frame update
     void Awake()
     {
         keyValuePairs.Clear();
 
-        for (int i = 0; i < 4; i++) 
+        for (int i = 1; i < 5; i++) 
         {
-            keyValuePairs.Add(ints[i], i);
+            keyValuePairs.Add(i, ints[i - 1]);
         }
 
-        keyValuePairs = keyValuePairs.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
-
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.Log(keyValuePairs.ElementAt(i).Key);
-            Debug.Log(KeyValuePairs.ElementAt(i).Value);
-        }
+        keyValuePairs = keyValuePairs.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
     }
 }
