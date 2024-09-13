@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using System;
 
 public class FadeCanvas : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class FadeCanvas : MonoBehaviour
     private string _afterScene;
 
     private SceneFadeManager _sceneFadeManager;
+
+    private Action _afterFadeInAction;
+    private Action _afterFadeOutAction;
 
     private void Start()
     {
@@ -50,10 +54,13 @@ public class FadeCanvas : MonoBehaviour
     /// 遷移先のシーン名を指定
     /// </summary>
     /// <param name="nextScene">遷移先のシーン名</param>
-    public void FadeOut(SceneNameClass.SceneName nextScene)
+    public void FadeOut(SceneNameClass.SceneName nextScene, Action afterFadeOutAction = null, Action afterFadeInAction = null)
     {
         // フェードアウトのフラグを上げる
         _isFadeOut = true;
+
+        _afterFadeInAction = afterFadeInAction;
+        _afterFadeOutAction = afterFadeOutAction;
 
         if (nextScene == SceneNameClass.SceneName.Null)
         {
@@ -89,16 +96,10 @@ public class FadeCanvas : MonoBehaviour
                 _isFadeIn = false;
                 _sceneFadeManager.SetIsFade(false);
 
-                if (_sceneFadeManager._movieStart != null)
+                if (_afterFadeInAction != null)
                 {
-                    _sceneFadeManager._movieStart();
-                    _sceneFadeManager._movieStart = null;
-                }
-
-                if (_sceneFadeManager._countStart != null)
-                {
-                    _sceneFadeManager._countStart();
-                    _sceneFadeManager._countStart = null;
+                    _afterFadeInAction();
+                    _afterFadeInAction = null;
                 }
             }
         }
@@ -118,16 +119,10 @@ public class FadeCanvas : MonoBehaviour
                 // フェードアウトのフラグを上げる
                 _isFadeOut = false;
 
-                if (_sceneFadeManager._movieSet != null)
+                if (_afterFadeOutAction != null)
                 {
-                    _sceneFadeManager._movieSet();
-                    _sceneFadeManager._movieSet = null;
-                }
-
-                if (_sceneFadeManager._cameraChange != null)
-                {
-                    _sceneFadeManager._cameraChange();
-                    _sceneFadeManager._cameraChange = null;
+                    _afterFadeOutAction();
+                    _afterFadeOutAction = null;
                 }
 
                 await Task.Delay(100);
