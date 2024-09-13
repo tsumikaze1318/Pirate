@@ -443,7 +443,6 @@ MonoBehaviour:
   _splashPrefab: {fileID: 8205706795460263316, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
   _ripplesPrefab: {fileID: 5291275307717659108, guid: 5a8d99fb95262ea458a7b580f2a1611c, type: 3}
   _particlePrefab: {fileID: 5880797563141009103, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
-  _hold: {fileID: 7277291125686760872, guid: dc308810c07114946a0f8c1738d29444, type: 3}
   _holdAction:
     m_Name: Hold
     m_Type: 0

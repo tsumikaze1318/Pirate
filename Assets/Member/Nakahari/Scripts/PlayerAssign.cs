@@ -52,7 +52,6 @@ public class PlayerAssign : MonoBehaviour
             var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
             _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
             _numToPlayerObj.Add(key, player);
-            Debug.Log(_numToPlayerObj.Count);
         }
     }
 

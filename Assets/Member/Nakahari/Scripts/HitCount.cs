@@ -14,7 +14,7 @@ public class HitCount : MonoBehaviour
 
     float _time = 0;
 
-    float _stunTime = 1;
+    float _stunTime =4.5f;
 
     [SerializeField]
     ParticleSystem _stunPrefab;

@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     private MovieController _movieController;
     [SerializeField]
     private GameObject[] _fillIconOjbects;
-    private List<FillIcon> _fillIcons;
+    private List<FillIcon> _fillIcons = new List<FillIcon>();
 
     private float _timeLimit = 99f;
     public float TimeLimit => _timeLimit;
@@ -86,6 +86,11 @@ public class GameManager : MonoBehaviour
         // Nullチェック
         _movieController ??= _videoPlayersObj.GetComponent<MovieController>();
         treasureInstance ??= FindObjectOfType<TreasureInstance>();
+
+        foreach (var fillIcon in _fillIconOjbects)
+        {
+            _fillIcons.Add(fillIcon.GetComponentInChildren<FillIcon>(true));
+        }
     }
 
     private void Update()
@@ -217,6 +222,8 @@ public class GameManager : MonoBehaviour
 
     public void SetIconFill(int num, float percentage)
     {
+        if (!_fillIconOjbects[0].activeSelf) return;
+
         foreach (var fillIcon in _fillIcons)
         {
             fillIcon.SetIconFillPercentage(num, percentage);
@@ -309,7 +316,6 @@ public class GameManager : MonoBehaviour
 
         foreach (var icon in _fillIconOjbects)
         {
-            _fillIcons.Add(icon.GetComponent<FillIcon>());
             icon.SetActive(true);
         }
     }

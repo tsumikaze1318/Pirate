@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
 
-    PlayerInputs _inputs;
-
     PlayerInput _playerInput;
 
     [SerializeField]
@@ -67,8 +65,6 @@ public class Player : MonoBehaviour
 
     private ImageReady[] _imageColors;
 
-    [SerializeField]
-    private InputActionReference _hold;
     public InputAction _holdAction;
 
     private Vector3 _moveForward;
@@ -80,7 +76,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        _holdAction = _hold.action;
+        if (_playerInput == null) _playerInput = GetComponent<PlayerInput>();
+        _holdAction = _playerInput.actions["LongPress"];
         _holdAction.Enable();
     }
 
@@ -259,12 +256,6 @@ public class Player : MonoBehaviour
         return vec3;
     }
 
-
-    void OnLongPress()
-    {
-
-    }
-
     void ColliderEnabled()
     {
         _swordCollider.enabled = true;
@@ -345,8 +336,6 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.AddPlayer(transform.parent.gameObject);
         if (_rb == null) _rb = GetComponent<Rigidbody>();
-        if(_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
-        if(_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if(_animator == null) _animator = GetComponentInParent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
         _swordCollider = _swordObj.GetComponent<BoxCollider>();
@@ -364,6 +353,8 @@ public class Player : MonoBehaviour
 
         if (GameManager.Instance.GameStart) return;
         _uiGage = _holdAction.GetTimeoutCompletionPercentage();
+
+        GameManager.Instance.SetIconFill(_playerInput.user.index, _uiGage);
     }
 
     private void FixedUpdate()
