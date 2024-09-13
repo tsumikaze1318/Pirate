@@ -61,12 +61,18 @@ public class GameManager : MonoBehaviour
     private List<Camera> attendCameras = new List<Camera>();
     // プレイヤーアサイン時に有効になっているキャンバス
     [SerializeField]
-    private List<Canvas> attendCanvass = new List<Canvas>();
+    private List<GameObject> attendCanvass = new List<GameObject>();
     // オープニング映像を流すゲームオブジェクト
     [SerializeField]
     private GameObject _videoPlayersObj;
     [SerializeField]
     private MovieController _movieController;
+    [SerializeField]
+    private GameObject[] _fillIconOjbects;
+    private List<FillIcon> _fillIcons;
+
+    private float _timeLimit = 99f;
+    public float TimeLimit => _timeLimit;
 
     #endregion
 
@@ -84,12 +90,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (gameStart) return;
+        if (!gameStart) return;
         if (SceneFadeManager.IsFade) return;
 
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
 #endif
+
+        if (gameStart && !gameEnd)
+        {
+            _timeLimit -= Time.deltaTime;
+        }
     }
 
     #region 外部参照関数
@@ -204,6 +215,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void InvokeKraken() { treasureInstance.SetClimax(true); }
 
+    public void SetIconFill(int num, float percentage)
+    {
+        foreach (var fillIcon in _fillIcons)
+        {
+            fillIcon.SetIconFillPercentage(num, percentage);
+        }
+    }
+
     #endregion
 
     /// <summary>
@@ -285,7 +304,13 @@ public class GameManager : MonoBehaviour
         // キャンバスを無効化する
         foreach (var canvas in attendCanvass)
         {
-            canvas.enabled = false;
+            canvas.SetActive(false);
+        }
+
+        foreach (var icon in _fillIconOjbects)
+        {
+            _fillIcons.Add(icon.GetComponent<FillIcon>());
+            icon.SetActive(true);
         }
     }
 }
