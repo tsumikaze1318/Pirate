@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -26,8 +27,9 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
     /// クラーケンの触手が振り降ろされた後に周辺プレイヤーが吹っ飛ばされる
     /// </summary>
     /// <param name="playerTransform">攻撃対象のプレイヤーの座標</param>
+    /// <param name="cts"></param>
     /// <returns></returns>
-    public async Task AttackTentacle(Transform playerTransform)
+    public async Task AttackTentacle(Transform playerTransform, CancellationTokenSource cts)
     {
         // 攻撃の範囲にプレイヤーがいない場合はアニメーションの再生、攻撃の処理をしない
         if (playerTransform == null) return;
@@ -58,26 +60,8 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
         }
         // クラーケン攻撃時のSE再生
         SoundManager.Instance.PlaySe(SEType.SE7);
-        await Task.Delay(4000);
+        await Task.Delay(4000, cts.Token);
         // 待機アニメーションに切り替え
         krakenAnimation.SetTrigger("Attack");
-        // TODO: β版後適用
-        //gameObject.SetActive(false);
     }
-
-    /// <summary>
-    /// 触手を振り下ろす座標にマーカーUIを表示
-    /// </summary>
-    /// <returns></returns>
-    //private GameObject GenerateMarker(Transform transform)
-    //{
-    //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //RaycastHit hit;
-    //GameObject markerObject = null;
-    //if (Physics.Raycast(ray, out hit, distance))
-    //{
-    //    markerObject = Instantiate(Marker, hit.point, Quaternion.identity);
-    //}
-
-    //}
 }
