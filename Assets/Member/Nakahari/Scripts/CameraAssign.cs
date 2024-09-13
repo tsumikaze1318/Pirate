@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CameraAssign : MonoBehaviour
 {
-
+    [SerializeField]
     private PlayerInput _playerInput;
 
     Camera _camera;
@@ -13,7 +13,6 @@ public class CameraAssign : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
         if (_camera == null) _camera = GetComponent<Camera>();
 
         foreach(var displayIndex in DeviceManager.Instance.Gamepads)

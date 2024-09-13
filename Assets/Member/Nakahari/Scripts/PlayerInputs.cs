@@ -5,9 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
-    private static PlayerInputs instance;
-    public static PlayerInputs Instance { get { return instance; } }
-
     public Vector3 _move;
     public Vector3 _look;
     public bool _fire;

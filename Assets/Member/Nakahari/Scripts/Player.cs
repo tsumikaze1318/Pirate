@@ -67,63 +67,89 @@ public class Player : MonoBehaviour
 
     private ImageReady[] _imageColors;
 
+    [SerializeField]
+    private InputActionReference _hold;
+    public InputAction _holdAction;
+
+    private Vector3 _moveForward;
+    private float _uiGage;
+
+
     #endregion
 
+
+    private void Awake()
+    {
+        _holdAction = _hold.action;
+        _holdAction.Enable();
+    }
 
     /// <summary>
     /// プレイヤーの移動処理
     /// </summary>
     void OnMove(InputValue value)
     {
-        Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 moveForward = camForward * _inputs._move.z + _camera.transform.right * _inputs._move.x;
-        transform.position += moveForward * _moveSpeed;
-        _rb.angularVelocity = moveForward;
-        if (moveForward != Vector3.zero)
+        var axis = value.Get<Vector2>();
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            _animator.SetBool("Move", true);
-            transform.rotation = Quaternion.LookRotation(moveForward);
-        }
-        else if(moveForward ==  Vector3.zero)
-        {
-            _animator.SetBool("Move", false);
+            if (_respawn) return;
+            Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
+             _moveForward = camForward * axis.y + _camera.transform.right * axis.x;
+            
         }
     }
     
     /// <summary>
     /// プレイヤーの行動処理
     /// </summary>
-    void Jump()
+    void OnJump(InputValue value)
     {
-        if (!_isJump && _inputs._jump)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
-            _animator.SetTrigger("Jump");
-            _animator.ResetTrigger("Ground");
-            _isJump = true;
+            if (!_isJump && value.isPressed)
+            {
+                _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
+                _animator.SetTrigger("Jump");
+                _animator.ResetTrigger("Ground");
+                _isJump = true;
+            }
         }
     }
 
-    void Fire()
+    void OnFire(InputValue value)
     {
-        if(_inputs._fire != lastFire)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            _animator.SetBool("Attack", _inputs._fire);
+            if (value.isPressed != lastFire)
+            {
+                _animator.SetBool("Attack", value.isPressed);
 
-            lastFire = _inputs._fire;
+                lastFire = value.isPressed;
+            }
         }
     }
 
-    void LeftGrab()
+    void OnLeftGrab(InputValue value)
     {
-        if (_inputs._leftGrab)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            // 6/28　追記しました　横田
-            _playerGrab.Grab();
-        }
-        else
-        {
-            _playerGrab.Release();
+            if (value.isPressed)
+            {
+                // 6/28　追記しました　横田
+                _playerGrab.Grab();
+            }
+            else
+            {
+                _playerGrab.Release();
+            }
         }
         
     }
@@ -131,32 +157,44 @@ public class Player : MonoBehaviour
     /// <summary>
     /// カーソル処理
     /// </summary>
-    void CursorNone()
+    void OnCursorNone(InputValue value)
     {
-        if (_inputs._cursorNone)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            Cursor.lockState = CursorLockMode.None;
-            _inputs._cursorNone = false;
+            if (value.isPressed)
+            {
+                Cursor.lockState = CursorLockMode.None;
 
+            }
         }
     }
 
-    void CursorLook()
+    void OnCursorLook(InputValue value)
     {
-        if (_inputs._cursorLock)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            _inputs._cursorLock = false;
+            if (value.isPressed)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
-    void UiButton()
+    void OnUiButton(InputValue value)
     {
-        
-        if (_inputs._uiButton)
+        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
+        if (_state == CommonParam.UnitState.Normal)
         {
-            if (_button) return;
-            StartCoroutine(Ui());
+            if (value.isPressed)
+            {
+                if (_button) return;
+                StartCoroutine(Ui());
+            }
         }
     }
 
@@ -222,7 +260,7 @@ public class Player : MonoBehaviour
     }
 
 
-    void LongPress()
+    void OnLongPress()
     {
 
     }
@@ -323,30 +361,23 @@ public class Player : MonoBehaviour
     {
         if (GameManager.Instance.CameraChanged && !uiObject.activeInHierarchy)
             uiObject.SetActive(true);
-        
-        CursorLook();
-        CursorNone();
-        UiButton();
-        LongPress();
-        
-        if (!GameManager.Instance.GameStart) return;
-        if (GameManager.Instance.GameEnd) return;
-        if (_state == CommonParam.UnitState.Normal)
-        {
-            Jump();
-            Fire();
-            LeftGrab();
-        }
+
+        if (GameManager.Instance.GameStart) return;
+        _uiGage = _holdAction.GetTimeoutCompletionPercentage();
     }
 
     private void FixedUpdate()
     {
-        if (!GameManager.Instance.GameStart) return;
-        if (GameManager.Instance.GameEnd) return;
-        if (_state == CommonParam.UnitState.Normal)
+        transform.position += _moveForward * _moveSpeed;
+        _rb.angularVelocity = _moveForward;
+        if (_moveForward != Vector3.zero)
         {
-            if (_respawn) return;
-            //Move();
+            _animator.SetBool("Move", true);
+            transform.rotation = Quaternion.LookRotation(_moveForward);
+        }
+        else if (_moveForward == Vector3.zero)
+        {
+            _animator.SetBool("Move", false);
         }
     }
 }

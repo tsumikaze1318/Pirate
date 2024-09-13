@@ -6,26 +6,11 @@ using UnityEngine.InputSystem;
 
 public class CameraSettings : MonoBehaviour
 {
+    [SerializeField]
     private PlayerInput _playerInput;
-    private PlayerInputs _inputs;
-
-    //[SerializeField]
-    //private Transform _targetTransfrom;
 
     [SerializeField]
     GameObject _playerObj;
-
-    Vector3 _currentPos;
-    Vector3 _pastPos;
-
-    Vector3 _diff;
-
-    private Vector2 _look = Vector2.zero;
-
-    private Transform _preTransform;
-
-    private float _currentAngle;
-
 
     [SerializeField]
     private float _maxAngleX;
@@ -49,13 +34,18 @@ public class CameraSettings : MonoBehaviour
 
     Quaternion _cameraRot;
 
+    public InputAction _lookAction;
+
+    private void Awake()
+    {
+        _lookAction = _playerInput.actions["Look"];
+        _lookAction.Enable();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        if (_playerInput == null) _playerInput = GetComponentInParent<PlayerInput>();
-        if (_inputs == null) _inputs = GetComponentInParent<PlayerInputs>();
         if (_player == null) _player = _playerObj.GetComponent<Player>();
-        _pastPos = _player.transform.position;
         _camera.targetDisplay = _playerInput.user.index;
         _camera.transform.localPosition = new Vector3(0, 2, -5);
         _camera.transform.localRotation = transform.rotation;
@@ -67,15 +57,15 @@ public class CameraSettings : MonoBehaviour
     /// <summary>
     /// プレイヤーを中心にカメラの操作
     /// </summary>
-    private void CameraControl()
+    private void OnLook()
     {
+        var axis = _lookAction.ReadValue<Vector2>();
         _camera.transform.localRotation = _cameraRot;
 
         transform.position = _player.transform.position + _axisPos;
-        
-        if (!GameManager.Instance.GameStart) return;
 
-        transform.eulerAngles += new Vector3(-_inputs._look.y * _cameraMoveSpeed, _inputs._look.x * _cameraMoveSpeed, 0);
+        if (!GameManager.Instance.GameStart) return;
+        transform.eulerAngles += new Vector3(axis.y * _cameraMoveSpeed, axis.x * _cameraMoveSpeed, 0);
         
         float angleX = transform.eulerAngles.x;
 
@@ -97,7 +87,7 @@ public class CameraSettings : MonoBehaviour
         }
         else
         {
-            CameraControl();
+            OnLook();
         }
     }
 }
