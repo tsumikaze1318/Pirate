@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -56,17 +56,6 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
             if (name.Contains("Right") == true)
                 // 触手を海賊船の方向に向ける
                 obj.transform.eulerAngles = Vector3.up * 90f;
-
-            /*
-            if (i % 2 == 0)
-                obj.transform.eulerAngles = Vector3.up * -90f;
-            else if (i % 2 == 1)
-                obj.transform.eulerAngles = Vector3.up * 90f;
-            */
-
-            //obj.transform.LookAt(_tentacleAndShipPartsTables[i].BreakShipParts.transform);
-            //// y軸方向のみを操作する
-            //obj.transform.eulerAngles = new Vector3(0f, obj.transform.eulerAngles.y, 0f);
             _dummyKrakenTentacleAttacks.Add(obj.GetComponent<DummyKrakenTentacleAttack>());
             obj.SetActive(false);
         }
@@ -75,10 +64,16 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     // Start is called before the first frame update
     async void Start()
     {
-        await UpdateTask();
+        CancellationTokenSource cts = new CancellationTokenSource();
+        await UpdateKrakenTask(cts);
     }
 
-    private async Task UpdateTask()
+    /// <summary>
+    /// クラーケン全般の処理を監督、実行する
+    /// </summary>
+    /// <param name="cts"></param>
+    /// <returns></returns>
+    private async Task UpdateKrakenTask(CancellationTokenSource cts)
     {
         bool doOnce = false;
         // クラーケンの出現、攻撃間隔　// 船が修復されるまでのインターバル
@@ -88,12 +83,12 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         // クラーケンの触手の出現箇所をランダムに決め、その値を格納する
         int[] randomNumbers = new int[_krakenSpawnCount];
         TimeCount timeCount = null;
+        var animator = GetComponent<Animator>();
         do
         {
             await Task.Yield();
             // ゲームが始まらない限り、後の処理が走らないようにする
             if (GameManager.Instance.GameStart == false) continue;
-            // TODO: 要参照先を変更
             if (timeCount == null)
             {
                 var prefab = GameManager.Instance.Players[0];
@@ -107,6 +102,9 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                 {
                     var tentacle = table.TentacleSpawnPoint.GetChild(0);
                     tentacle.gameObject.SetActive(true);
+                    // 触手のアニメーション再生にばらつきを持たせる
+                    float randomPlayTime = Random.Range(0f, 1f);
+                    animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, 0, randomPlayTime);
                 }
                 // クラーケンの触手が海から出てくる演出
                 await Task.WhenAll(AwakeKrakenTentacle(_dummyKrakenTentacleAttacks[0])
@@ -120,7 +118,6 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
             }
             else if (timeCount.Timer > _tentacleSpawnCount)
                 continue;
-
 
             krakenSpawnCountDown += Time.deltaTime;
             repairShipCountDown += Time.deltaTime;
@@ -143,10 +140,10 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                 krakenSpawnCountDown = 0f;
                 repairShipCountDown = 0f;
                 // 全ての触手が攻撃を終えるまで待機
-                await Task.WhenAll(PreparationForAttackTentacle(tentacles[0], tables[0])
-                                 , PreparationForAttackTentacle(tentacles[_krakenSpawnCount - 1], tables[_krakenSpawnCount - 1]));
+                await Task.WhenAll(PreparationForAttackTentacle(tentacles[0], tables[0], cts)
+                                 , PreparationForAttackTentacle(tentacles[_krakenSpawnCount - 1], tables[_krakenSpawnCount - 1], cts));
             }
-            /*
+
             // 船が修復される
             if (repairShipCountDown > _repairShipDuration)
             {
@@ -156,7 +153,6 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                         table.BreakShipParts.SetActive(true);
                 }
             }
-            */
         }
         while (GameManager.Instance.GameEnd == false);
     }
@@ -174,6 +170,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         do
         {
             await Task.Yield();
+            // クラーケンの触手が海中から出現
             krakenTransform.position += Vector3.up * awakeTime / _krakenAwakeTime * Time.deltaTime;
         } while (krakenTransform.position.y <= spawnPoint.position.y);
     }
@@ -183,36 +180,21 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     /// </summary>
     /// <param name="dummyKrakenTentacleAttack">攻撃する触手にアタッチされているスクリプト</param>
     /// <param name="table">クラーケンに破壊される船のパーツ</param>
+    /// <param name="cts"></param>
     /// <returns></returns>
     private async Task PreparationForAttackTentacle(DummyKrakenTentacleAttack dummyKrakenTentacleAttack
-                                                   , TentacleAndShipPartsTable table)
+                                                   , TentacleAndShipPartsTable table
+                                                   , CancellationTokenSource cts)
     {
         GameObject tentacle = dummyKrakenTentacleAttack.gameObject;
-        //tentacle.SetActive(true);
         Transform playerTransform = tentacle.GetComponent<DummyTargetPlayer>().GetPlayerPositionTransform();
         // 選出されたクラーケンの触手と一番近いプレイヤーの位置を計算する
         float distance = Vector3.Distance(table.TentacleSpawnPoint.position, playerTransform.position);
-        Debug.Log(distance);
         // クラーケンが監督している箇所にプレイヤーがいない場合は攻撃しない;
         if (distance > _krakenAttackMaxRagge || distance < _krakenAttackMinRange) return;
         // 触手の攻撃処理を呼び出す
-        await dummyKrakenTentacleAttack.AttackTentacle(playerTransform);
+        await dummyKrakenTentacleAttack.AttackTentacle(playerTransform, cts);
         // 船が破壊されたテクスチャを表示
-        //table.BreakShipParts.SetActive(false);
+        table.BreakShipParts.SetActive(false);
     }
-
-    /*
-    /// <summary>
-    /// 触手を振り下ろす座標にマーカーUIを表示
-    /// </summary>
-    /// <returns></returns>
-    public GameObject GenerateMarker(Transform transform)
-    {
-        // 攻撃マーカーのUIが地面に埋まってしまう為、マーカーオブジェクトの大きさの半分の値分、正y軸方向に上げる
-        GameObject markerObject = Instantiate(_marker
-                                            , transform.position + (Vector3.up * _marker.transform.localScale.y / 2)
-                                            , Quaternion.identity);
-        return markerObject;
-    }
-    */
 }
