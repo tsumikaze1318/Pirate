@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +49,9 @@ public class DeviceManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ゲームパッドのと番号を紐づけ
+    /// </summary>
     void UpdateConnectedGamepads()
     {
         Array.Resize(ref _gamepad, 0);
@@ -57,11 +60,12 @@ public class DeviceManager : MonoBehaviour
         {
             Gamepads.Add(i + 1, _gamepad[i]);
             Debug.Log(Gamepads[i+1]);
-            // value���N���X�ɕύX
+            // valueをクラスに変更
             //Debug.Log($"Gamepad {i + 1}: {_gamepad[i].deviceId}");
         }
         ChengeColor();
     }
+
 
     void ChengeColor()
     {
