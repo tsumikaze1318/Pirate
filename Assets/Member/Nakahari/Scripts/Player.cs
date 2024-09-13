@@ -336,7 +336,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.AddPlayer(transform.parent.gameObject);
         if (_rb == null) _rb = GetComponent<Rigidbody>();
-        if(_animator == null) _animator = GetComponentInParent<Animator>();
+        if(_animator == null) _animator = GetComponent<Animator>();
         _playerGrab ??= GetComponentInChildren<PlayerGrab>();
         _swordCollider = _swordObj.GetComponent<BoxCollider>();
         _playerCollider = GetComponent<CapsuleCollider>();
