@@ -27,7 +27,7 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void Start()
     {
-        _callGimmickCount = GameManager.ScoreToPlayerNum.Count;
+        _callGimmickCount = GameManager.PlayerNumToScore.Count;
 
         _cameras = new Camera[_callGimmickCount];
         _posX = new int[_callGimmickCount];
@@ -35,7 +35,7 @@ public class ExecuteGimmick : MonoBehaviour
         for (int i = 0; i < _callGimmickCount; i++)
         {
             _posX[i] = GameManager
-                .ScoreToPlayerNum
+                .PlayerNumToScore
                 .ElementAt(_callGimmickCount - 1 - i).Key - 1;
 
             Debug.Log(_posX[i]);
