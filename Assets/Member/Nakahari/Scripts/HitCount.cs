@@ -14,7 +14,7 @@ public class HitCount : MonoBehaviour
 
     float _time = 0;
 
-    float _stunTime =4.5f;
+    float _stunTime = 5f;
 
     [SerializeField]
     ParticleSystem _stunPrefab;
@@ -56,7 +56,7 @@ public class HitCount : MonoBehaviour
         if (_count == 0 && !_effect)
         {
             _player._state = CommonParam.UnitState.Stun;
-            //_animator.SetTrigger("Stun");
+            _animator.SetTrigger("Stun");
             _effect = true;
             ParticleSystem stun = Instantiate(_stunPrefab, this.transform.position + new Vector3(0, 1.75f, 0), Quaternion.identity);
             StartCoroutine(EffectDestroy(stun));
