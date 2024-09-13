@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    #region éŒ¾
+    #region å®£è¨€
 
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject uiObject;
 
-    // 6/28@’Ç‹L‚µ‚Ü‚µ‚½@‰¡“c
+    // 6/28ã€€è¿½è¨˜ã—ã¾ã—ãŸã€€æ¨ªç”°
     [SerializeField]
     private PlayerGrab _playerGrab;
 
@@ -69,6 +69,10 @@ public class Player : MonoBehaviour
 
     #endregion
 
+
+    /// <summary>
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
+    /// </summary>
     void Move()
     {
         Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
@@ -85,7 +89,10 @@ public class Player : MonoBehaviour
             _animator.SetBool("Move", false);
         }
     }
-
+    
+    /// <summary>
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•å‡¦ç†
+    /// </summary>
     void Jump()
     {
         if (!_isJump && _inputs._jump)
@@ -101,19 +108,9 @@ public class Player : MonoBehaviour
     {
         if(_inputs._fire != lastFire)
         {
-            // Animation‚ÌÄ¶
             _animator.SetBool("Attack", _inputs._fire);
 
             lastFire = _inputs._fire;
-        }
-    }
-
-    void Lift()
-    {
-        if (_inputs._lift)
-        {
-            // ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
-            Debug.Log("‚¿ã‚°‚é");
         }
     }
 
@@ -121,9 +118,7 @@ public class Player : MonoBehaviour
     {
         if (_inputs._leftGrab)
         {
-            // “®‚©‚È‚¢ƒIƒuƒWƒFƒNƒg‚ğ’Í‚ñ‚¾ˆ—‚ÍIK‚Å‰Â”\
-            // ‘¼‚ÌƒIƒuƒWƒFƒNƒg‚ÍqƒIƒuƒWƒFƒNƒg‚É‚·‚é
-            // 6/28@’Ç‹L‚µ‚Ü‚µ‚½@‰¡“c
+            // 6/28ã€€è¿½è¨˜ã—ã¾ã—ãŸã€€æ¨ªç”°
             _playerGrab.Grab();
         }
         else
@@ -133,16 +128,9 @@ public class Player : MonoBehaviour
         
     }
 
-    void RightGrab()
-    {
-        if (_inputs._rightGrab)
-        {
-            // “®‚©‚È‚¢ƒIƒuƒWƒFƒNƒg‚ğ’Í‚ñ‚¾ˆ—‚ÍIK‚Å‰Â”\
-            // ‘¼‚ÌƒIƒuƒWƒFƒNƒg‚ÍqƒIƒuƒWƒFƒNƒg‚É‚·‚é
-            
-        }
-    }
-    
+    /// <summary>
+    /// ã‚«ãƒ¼ã‚½ãƒ«å‡¦ç†
+    /// </summary>
     void CursorNone()
     {
         if (_inputs._cursorNone)
@@ -172,6 +160,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨uiã‚’æ‹¡ç¸® ãã‚Œãã‚Œã®ç”»é¢ã«é©ç”¨
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Ui()
     {
         _button = true;
@@ -201,6 +193,11 @@ public class Player : MonoBehaviour
         _button = false;
     }
 
+    /// <summary>
+    /// ã‚¹ã‚±ãƒ¼ãƒ«ã®é©ç”¨
+    /// </summary>
+    /// <param name="num"></param>
+    /// <param name="vec3"></param>
     void UiEffect(int num, Vector3 vec3)
     {
         foreach(ImageReady imageColor in _imageColors)
@@ -209,6 +206,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ç¾åœ¨ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è¿”ã™
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
     Vector3 ScaleReturn(int num)
     {
         Vector3 vec3 = new Vector3();
@@ -222,7 +224,7 @@ public class Player : MonoBehaviour
 
     void SkipMovie()
     {
-        // ì‚è‚©‚¯
+        // ä½œã‚Šã‹ã‘
         if (_inputs._movieSkip)
         {
             GameManager.Instance.FinishMovie();
@@ -246,6 +248,10 @@ public class Player : MonoBehaviour
         hitCount._count--;
     }
 
+    /// <summary>
+    /// ãã‚Œãã‚Œã®tagã«è§¦ã‚ŒãŸéš›ã®åˆ¤å®š
+    /// </summary>
+    /// <param name="other"></param>
     public void OnCollisionEnter(UnityEngine.Collision other)
     {
         if (!GameManager.Instance.GameStart) return;
@@ -275,6 +281,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ãƒªã‚¹ãƒãƒ¼ãƒ³æ™‚ã®ç”»é¢å‡¦ç†
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("UnderGround"))
@@ -330,9 +340,7 @@ public class Player : MonoBehaviour
         {
             Jump();
             Fire();
-            Lift();
             LeftGrab();
-            RightGrab();
         }
     }
 

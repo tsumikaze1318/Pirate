@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,6 +41,10 @@ public class PlayerAssign : MonoBehaviour
 
 
 
+
+    /// <summary>
+    /// 最初のプレイヤー出現処理
+    /// </summary>
     void Assign()
     {
         foreach (int key in DeviceManager.Instance.Gamepads.Keys)
@@ -82,6 +86,11 @@ public class PlayerAssign : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// リスポーン処理
+    /// </summary>
+    /// <param name="num"></param>
+    /// <param name="color"></param>
     void Respawn(int num, Color color)
     {
         _players[num].transform.position = _spawnPos[num];
@@ -96,6 +105,11 @@ public class PlayerAssign : MonoBehaviour
         Destroy(ps.gameObject,ps.main.duration);
     }
 
+    /// <summary>
+    /// エフェクト出現処理
+    /// </summary>
+    /// <param name="num"></param>
+    /// <param name="color"></param>
     void RespawnEffect(int num,Color color)
     {
         _players[num]._animator.SetTrigger("Respawn");
