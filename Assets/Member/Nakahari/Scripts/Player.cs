@@ -313,6 +313,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("UnderGround"))
         {
+            _animator.SetTrigger("Drown");
             _respawn = true;
             _playerCollider.isTrigger = true;
             _fallPos = other.ClosestPointOnBounds(this.transform.position);

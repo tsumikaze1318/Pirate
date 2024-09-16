@@ -9,11 +9,14 @@ public class Attack : MonoBehaviour
     private ParticleSystem _particlePrefab;
 
     private BoxCollider _boxCollider;
+
+    private Animator _animator;
     // Start is called before the first frame update
     void Start()
     {
         _boxCollider = GetComponent<BoxCollider>();
         _boxCollider.enabled = false;
+        _animator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.layer == 3)
         {
+            _animator.SetTrigger("Accept");
             foreach (ContactPoint point in collision.contacts)
             {
                 _hitPos = point.point;
