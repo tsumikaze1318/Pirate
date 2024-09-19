@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerModelVanish : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+    private Animator _animator;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -25,5 +27,10 @@ public class PlayerModelVanish : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector3(0, 5, 20), ForceMode.Impulse);
         }
+    }
+
+    public void DoWinAnimation()
+    {
+        _animator.SetBool("Win", true);
     }
 }
