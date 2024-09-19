@@ -51,7 +51,6 @@ public class ExecuteGimmick : MonoBehaviour
         for (int i = 0; i < _playerToScore.Count; i++)
         {
             _posX[i] = 3 - ((_playerToScore.ElementAt(i).Key - 1) * 2);
-            Debug.Log(_posX[i]);
         }
 
         _executeCannon = GetComponentInChildren<ExecuteCannon>();
@@ -78,7 +77,11 @@ public class ExecuteGimmick : MonoBehaviour
 
     private void AnimationCannon()
     {
-        if (TiedScore()) return;
+        if (TiedScore()) 
+        {
+            AnimationCamera();
+            return;
+        }
 
         int cannonTarget = _posX[_phase];
 
@@ -97,11 +100,15 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void AnimationShark()
     {
-        if (TiedScore()) return;
+        if (TiedScore())
+        {
+            await Task.Delay(5000);
+            AnimationCamera();
+            return; 
+        }
 
         _gimmicks[1].transform.position
-            = _gimmicks[1].transform.position
-            + new Vector3(_posX[_phase] - 1.35f, 0, 0);
+            += new Vector3(_posX[_phase], 0, 0);
 
         _executeShark.ThrowingBall();
 
@@ -114,7 +121,12 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void AnimationKraken()
     {
-        if (TiedScore()) return;
+        if (TiedScore())
+        {
+            await Task.Delay(5000);
+            AnimationCamera();
+            return;
+        }
 
         float appearYPos = -16f;
 
@@ -178,9 +190,22 @@ public class ExecuteGimmick : MonoBehaviour
 
     private async void AnimationCamera()
     {
+        float minX = float.MaxValue;
+        float maxX = float.MinValue;
+
+        for (int i = _phase; i < _playerToScore.Count; i++)
+        {
+            if (_posX[i] < minX) minX = _posX[i];
+            if (_posX[i] > maxX) maxX = _posX[i];
+        }
+
+        float x = (maxX + minX) / 2;
+        float y = (maxX - minX) / 40 - 2;
+        float z = (maxX - minX) / 4 - 12;
+
         foreach (var cam in _cameras)
         {
-            cam.transform.DOMove(new Vector3(_posX[_phase], -2, -12), 1);
+            cam.transform.DOMove(new Vector3(x, y, z), 1);
         }
 
         await Task.Delay(1000);
@@ -200,7 +225,7 @@ public class ExecuteGimmick : MonoBehaviour
         for (int i = 0; i < _playerToScore.Count - (_phase + 1); i++)
         {
             if (_playerToScore.ElementAt(i + _phase).Value
-                != _playerToScore.ElementAt(i + _phase + 1).Value)
+                != _playerToScore.ElementAt(i + (_phase + 1)).Value)
             {
                 tiedScore = false;
                 break;
@@ -211,8 +236,15 @@ public class ExecuteGimmick : MonoBehaviour
         {
             // ƒNƒ‰[ƒPƒ“‚ª‹óU‚è‚·‚é
             _executeKraken.Attack();
-            _gimmicks[2].transform.position += new Vector3(_posX[_phase - 1], 0f, 0f);
-            _gimmicks[2].transform.DOMoveY(-16.5f, 2f);
+            try
+            {
+                _gimmicks[2].transform.position += new Vector3(_posX[_phase - 1], 0f, 0f);
+                _gimmicks[2].transform.DOMoveY(-16.5f, 2f);
+            }
+            catch 
+            {
+
+            }
 
             return tiedScore;
         }
