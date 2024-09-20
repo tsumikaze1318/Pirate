@@ -25,9 +25,15 @@ public class TreasureModel : MonoBehaviour
         if (Place == TreasurePlace.Sprit) GameManager.Instance.AddScore(plNum, true);
         else GameManager.Instance.AddScore(plNum, false);
 
-        
-        // 宝箱生成関数を呼び出す
-        treasureInstance.GenerateTreasure(Place);
+        try
+        {
+            // 宝箱生成関数を呼び出す
+            treasureInstance.GenerateTreasure(Place);
+        }
+        catch
+        {
+
+        }
     }
 
     public void ThrowTreasure(Vector3 throwPos)
@@ -35,7 +41,18 @@ public class TreasureModel : MonoBehaviour
         Vector3 throwForce = -(new Vector3(throwPos.x, 0f, throwPos.z)).normalized + Vector3.up;
         Place = TreasurePlace.Null;
 
-        _rigidbody.AddForce(throwForce, ForceMode.Impulse);
+        _rigidbody ??= GetComponent<Rigidbody>();
+        _rigidbody.constraints = RigidbodyConstraints.None;
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        _rigidbody.AddForce(throwForce * 2f, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            _rigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+        }
     }
 }
 

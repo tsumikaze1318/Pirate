@@ -287,9 +287,9 @@ public class Player : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Treasure"))
         {
-            Destroy(other.gameObject);
             TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
             treasure.GetTreasure(_playerInput.user.index);
+            Destroy(other.gameObject);
         }
     }
 

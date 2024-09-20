@@ -23,6 +23,8 @@ public class HitCount : MonoBehaviour
 
     private Animator _animator;
 
+    Vector3 thisPos = Vector3.zero;
+
     private void Start()
     {
         if( _player == null ) _player = GetComponent<Player>();
@@ -48,6 +50,7 @@ public class HitCount : MonoBehaviour
                 _time = 0;
             }
         }
+        thisPos = this.transform.position;
         HitCountor();
     }
 
@@ -56,6 +59,11 @@ public class HitCount : MonoBehaviour
         if (_count == 0 && !_effect)
         {
             _player._state = CommonParam.UnitState.Stun;
+            Vector3 instantiatePos = thisPos + new Vector3(0, 3f, 0);
+            var treasure = (GameObject)Resources.Load($"Prefab/diamond");
+            var diamond = Instantiate(treasure, instantiatePos, Quaternion.identity);
+            TreasureModel treasureModel = diamond.GetComponent<TreasureModel>();
+            treasureModel.ThrowTreasure(instantiatePos);
             _animator.SetTrigger("Stun");
             _effect = true;
             ParticleSystem stun = Instantiate(_stunPrefab, this.transform.position + new Vector3(0, 1.75f, 0), Quaternion.identity);
