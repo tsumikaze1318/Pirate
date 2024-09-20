@@ -145,23 +145,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _krakenTentacle: {fileID: 1629218278614647896, guid: 6807561f6bcf7aa409169c7e238d79eb, type: 3}
-  _tentacleAndShipPartsTable:
-  - TentacleSpawnPoint: {fileID: 2057103484026115807}
+  _tentacleAndShipPartsTables:
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 6047762748218776562}
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 3646086934637971101}
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 5542586049123496267}
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 7136780558564016836}
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  - TentacleSpawnPoint: {fileID: 8935823700258255351}
+  - TentacleSpawnPoint: {fileID: 0}
     BreakShipParts: {fileID: 0}
-  _targetPlayer: {fileID: 0}
-  _marker: {fileID: 8821988214770949544, guid: b58bfaa1068292c4cafe28c0e82262c9, type: 3}
-  _krakenSpawnDuration: 5
+  _krakenSpawnCount: 2
+  _krakenAttackDuration: 5
   _repairShipDuration: 5
+  _krakenAttackMaxRagge: 40
+  _krakenAttackMinRange: 30
+  _tentacleSpawnCount: 50
+  _krakenAwakeTime: 5
+  _krakenStartPoint: 100
 --- !u!114 &2616773104912754710
 MonoBehaviour:
   m_ObjectHideFlags: 0
