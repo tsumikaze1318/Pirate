@@ -573,6 +573,10 @@ PrefabInstance:
       value: Character_D4
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 432323150a19c4b4383b4dc8f33c336c, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
