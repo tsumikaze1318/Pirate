@@ -98,10 +98,6 @@ public class GameManager : MonoBehaviour
         if (!gameStart) return;
         if (SceneFadeManager.IsFade) return;
 
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) && Input.GetKeyDown(KeyCode.JoystickButton2)) FinishMovie();
-#endif
-
         if (gameStart && !gameEnd)
         {
             _timeLimit -= Time.deltaTime;

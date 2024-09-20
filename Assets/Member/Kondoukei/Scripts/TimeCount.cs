@@ -26,15 +26,19 @@ public class TimeCount : MonoBehaviour
     {
         // 5/24 ’Ç‹L‚µ‚Ü‚µ‚½ ‰¡“c
         if (!GameManager.Instance.GameStart) return;
-        if (GameManager.Instance.GameEnd) return;
+        if (GameManager.Instance.GameEnd)
+        {
+            Timer = 0f;
+            return;
+        }
         Timer -= Time.deltaTime;
         timerText.text = (Mathf.Ceil(Timer)).ToString();
         //timerText.text = string.Format("{0:#}", Timer);
 
-        //if (Timer < 50)
-        //{
-        //    GameManager.Instance.InvokeKraken();
-        //}
+        if (Timer < 50 && Timer > 49)
+        {
+            GameManager.Instance.InvokeKraken();
+        }
 
         if (Timer < 3 && Timer > 2)
         {
