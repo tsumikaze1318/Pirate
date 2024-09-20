@@ -39,7 +39,7 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
         _krakenAnimation.SetTrigger("Attack");
         // 要待機時間調整
         await Task.Delay(4000);
-        // center を中心にヒットしたコライダーを格納する
+        // playerPositionを中心にヒットしたコライダーを格納する
         Collider[] hitColliders = Physics.OverlapSphere(playerPosition, _hitColliderRadius);
         if (hitColliders.Length > 0)
         {
