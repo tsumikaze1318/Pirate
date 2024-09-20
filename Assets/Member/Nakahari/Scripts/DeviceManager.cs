@@ -54,6 +54,7 @@ public class DeviceManager : MonoBehaviour
     /// </summary>
     void UpdateConnectedGamepads()
     {
+        Array.Clear(_gamepad, _gamepad.Length, _gamepad.Length);
         Array.Resize(ref _gamepad, 0);
         _gamepad = Gamepad.all.ToArray();
         for(int i = 0; i < _gamepad.Length; i++)
