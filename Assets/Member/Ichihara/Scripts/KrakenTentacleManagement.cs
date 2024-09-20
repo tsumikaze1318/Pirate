@@ -27,8 +27,8 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
 
     [SerializeField, Header("同時に出現する触手の数")]
     private int _krakenSpawnCount = 2;
-    [SerializeField, Header("触手が出現するインターバル")]
-    private float _krakenSpawnDuration = 30f;
+    [SerializeField, Header("触手が攻撃するまでのインターバル")]
+    private float _krakenAttackDuration = 30f;
     [SerializeField, Header("船が修復するまでのインターバル")]
     private float _repairShipDuration = 5f;
     [SerializeField, Range(0f, 50f), Header("クラーケンの攻撃範囲の上限、下限")]
@@ -83,7 +83,6 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         // クラーケンの触手の出現箇所をランダムに決め、その値を格納する
         int[] randomNumbers = new int[_krakenSpawnCount];
         TimeCount timeCount = null;
-        var animator = GetComponent<Animator>();
         do
         {
             await Task.Yield();
@@ -101,9 +100,11 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
                 foreach (var table in _tentacleAndShipPartsTables)
                 {
                     var tentacle = table.TentacleSpawnPoint.GetChild(0);
+                    Animator animator = tentacle.GetComponent<Animator>();
                     tentacle.gameObject.SetActive(true);
                     // 触手のアニメーション再生にばらつきを持たせる
                     float randomPlayTime = Random.Range(0f, 1f);
+                    Debug.Log(animator.GetCurrentAnimatorStateInfo(0));
                     animator.Play(animator.GetCurrentAnimatorStateInfo(0).shortNameHash, 0, randomPlayTime);
                 }
                 // クラーケンの触手が海から出てくる演出
@@ -121,7 +122,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
 
             krakenSpawnCountDown += Time.deltaTime;
             repairShipCountDown += Time.deltaTime;
-            if (krakenSpawnCountDown >= _krakenSpawnDuration)
+            if (krakenSpawnCountDown >= _krakenAttackDuration)
             {
                 // クラーケンの触手を出す座標を2ヵ所選定
                 // 攻撃する触手が被らないようにする
@@ -149,8 +150,8 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
             {
                 foreach (TentacleAndShipPartsTable table in _tentacleAndShipPartsTables)
                 {
-                    if (table.BreakShipParts.activeSelf == false)
-                        table.BreakShipParts.SetActive(true);
+                    if (table.BreakShipParts?.activeSelf == false)
+                        table.BreakShipParts?.SetActive(true);
                 }
             }
         }
