@@ -34,7 +34,9 @@ public class ExecuteGimmick : MonoBehaviour
 
         _players = FindObjectsOfType<PlayerModelVanish>();
 
-        _playerToScore = TestDictionary.KeyValuePairs;
+        _playerToScore = GameManager.PlayerNumToScore;
+        // テスト用
+        // _playerToScore = TestDictionary.KeyValuePairs;
 
         _cameras = new Camera[_playerToScore.Count];
         _posX = new int[_playerToScore.Count];
@@ -201,7 +203,7 @@ public class ExecuteGimmick : MonoBehaviour
 
         float x = (maxX + minX) / 2;
         float y = (maxX - minX) / 40 - 2;
-        float z = (maxX - minX) / 4 - 12;
+        float z = (maxX - minX) / 4 - 14;
 
         foreach (var cam in _cameras)
         {
