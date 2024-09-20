@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HitCount : MonoBehaviour
 {
@@ -25,9 +26,12 @@ public class HitCount : MonoBehaviour
 
     Vector3 thisPos = Vector3.zero;
 
+    PlayerInput _input;
+
     private void Start()
     {
         if( _player == null ) _player = GetComponent<Player>();
+        _input = GetComponentInParent<PlayerInput>();
         _animator = GetComponent<Animator>();
     }
 
@@ -66,6 +70,7 @@ public class HitCount : MonoBehaviour
             treasureModel.ThrowTreasure(instantiatePos);
             _animator.SetTrigger("Stun");
             _effect = true;
+            GameManager.Instance.SubScore(_input.user.index);
             ParticleSystem stun = Instantiate(_stunPrefab, this.transform.position + new Vector3(0, 1.75f, 0), Quaternion.identity);
             StartCoroutine(EffectDestroy(stun));
         }

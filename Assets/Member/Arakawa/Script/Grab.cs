@@ -56,7 +56,9 @@ public class Grab : MonoBehaviour
             if (collision.gameObject.tag == "Player")
             {
                 Player player = collision.gameObject.GetComponent<Player>();
+                Animator animator = collision.gameObject.GetComponent<Animator>();
                 player._state = CommonParam.UnitState.Immovable;
+                animator.SetTrigger("Drown");
                 Debug.Log("Ç¬Ç©ÇÒÇ≈ÇÈÅH");
                 grabObj = collision.gameObject;
                 //grabObj.GetComponent<Rigidbody>().isKinematic = true;
