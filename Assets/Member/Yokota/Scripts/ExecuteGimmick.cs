@@ -36,7 +36,7 @@ public class ExecuteGimmick : MonoBehaviour
 
         _playerToScore = GameManager.PlayerNumToScore;
         // テスト用
-        // _playerToScore = TestDictionary.KeyValuePairs;
+        //_playerToScore = TestDictionary.KeyValuePairs;
 
         _cameras = new Camera[_playerToScore.Count];
         _posX = new int[_playerToScore.Count];
@@ -47,6 +47,8 @@ public class ExecuteGimmick : MonoBehaviour
             // 全てのクラーケンを呼び出す
             _allBlowAway = GetComponentInChildren<AllBlowAway>();
             _allBlowAway.Attack();
+            await Task.Delay(5000);
+            _fadeInput.SetAcceptInput(true);
             return;
         }
 
