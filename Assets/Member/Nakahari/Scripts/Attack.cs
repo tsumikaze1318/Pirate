@@ -10,13 +10,13 @@ public class Attack : MonoBehaviour
 
     private BoxCollider _boxCollider;
 
+    [SerializeField]
     private Animator _animator;
     // Start is called before the first frame update
     void Start()
     {
         _boxCollider = GetComponent<BoxCollider>();
         _boxCollider.enabled = false;
-        _animator = GetComponentInParent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.layer == 3)
         {
-            _animator.SetTrigger("Accept");
+            _animator = collision.gameObject.GetComponent<Animator>();
             foreach (ContactPoint point in collision.contacts)
             {
                 _hitPos = point.point;
@@ -45,5 +45,9 @@ public class Attack : MonoBehaviour
     {
         HitCount hitCount = collision.gameObject.GetComponent<HitCount>();
         hitCount._count--;
+        if(hitCount._count >= 1)
+        {
+            _animator.SetTrigger("Accept");
+        }
     }
 }

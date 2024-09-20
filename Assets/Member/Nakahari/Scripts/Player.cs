@@ -291,18 +291,6 @@ public class Player : MonoBehaviour
             TreasureModel treasure = other.gameObject.GetComponent<TreasureModel>();
             treasure.GetTreasure(_playerInput.user.index);
         }
-
-        /*if (_swordCollider ==  other.gameObject.CompareTag("Player"))
-        {
-            foreach (ContactPoint point in other.contacts)
-            {
-                _hitPos = point.point;
-            }
-            ParticleSystem attackPs = Instantiate(_particlePrefab, _hitPos, Quaternion.identity);
-            SubCount(other);
-            _swordCollider.enabled = false;
-            Destroy(attackPs.gameObject, attackPs.main.duration);
-        }*/
     }
 
     /// <summary>
