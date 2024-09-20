@@ -6,11 +6,13 @@ public class TreasureModel : MonoBehaviour
     public TreasurePlace Place;
 
     private TreasureInstance treasureInstance;
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
         // 親オブジェクトから宝箱生成クラスを取得
         treasureInstance = GetComponentInParent<TreasureInstance>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -26,6 +28,14 @@ public class TreasureModel : MonoBehaviour
         
         // 宝箱生成関数を呼び出す
         treasureInstance.GenerateTreasure(Place);
+    }
+
+    public void ThrowTreasure(Vector3 throwPos)
+    {
+        Vector3 throwForce = -(new Vector3(throwPos.x, 0f, throwPos.z)).normalized + Vector3.up;
+        Place = TreasurePlace.Null;
+
+        _rigidbody.AddForce(throwForce, ForceMode.Impulse);
     }
 }
 
