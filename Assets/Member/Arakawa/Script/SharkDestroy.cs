@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 
 public class SharkDestroy : MonoBehaviour
 {
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }
