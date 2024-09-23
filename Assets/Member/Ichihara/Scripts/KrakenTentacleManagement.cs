@@ -5,13 +5,16 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// クラーケンの触手が出てくる座標と船が壊れる
+/// TentactSpawnPoint:クラーケンの触手が出てくる座標
+/// BreakShipParts   ;壊れる船のオブジェクト
+/// EffectPoint      :船が破壊される際に再生するエフェクト
 /// </summary>
 [System.Serializable]
 public struct TentacleAndShipPartsTable
 {
     public Transform TentacleSpawnPoint;
     public GameObject BreakShipParts;
+    public Transform EffectPoint;
 }
 
 public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleManagement>
@@ -19,6 +22,10 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     // 触手のゲームオブジェクト
     [SerializeField]
     private GameObject _krakenTentacle = null;
+
+    [SerializeField, Header("船が破壊された際のエフェクト")]
+    private ParticleSystem _smoke = null;
+
     // 触手が出現する座標によって、船が壊れる箇所が異なる為、座標と破損個所を関連付けた構造体を作成し、リスト化
     [SerializeField]
     private List<TentacleAndShipPartsTable> _tentacleAndShipPartsTables = new List<TentacleAndShipPartsTable>();
@@ -196,6 +203,22 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
         // 触手の攻撃処理を呼び出す
         await dummyKrakenTentacleAttack.AttackTentacle(playerTransform, cts);
         // 船が破壊されたテクスチャを表示
-        table.BreakShipParts.SetActive(false);
+        if(table.BreakShipParts?.activeSelf == true)
+        {
+            PlayParticle(_smoke, table.EffectPoint);
+            table.BreakShipParts?.SetActive(false);
+        }
+    }
+
+
+    /// <summary>
+    /// エフェクトを再生する
+    /// </summary>
+    /// <param name="particle">再生するエフェクト</param>
+    /// <param name="PlayPoint">エフェクトを再生する座標</param>
+    private void PlayParticle(ParticleSystem particle, Transform PlayPoint)
+    {
+        ParticleSystem effect = Instantiate(particle, PlayPoint);
+        effect.Play();
     }
 }

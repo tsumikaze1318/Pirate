@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DummyKrakenTentacleAttack : MonoBehaviour
 {
-    [SerializeField, Header("船が破壊された際のエフェクト")]
-    private ParticleSystem _smoke = null;
-
     [SerializeField, Header("爆風の半径")]
     private float _explosionRadius = 10f;
     [SerializeField, Header("爆風の強さ")]
@@ -62,22 +59,8 @@ public class DummyKrakenTentacleAttack : MonoBehaviour
         }
         // クラーケン攻撃時のSE再生
         SoundManager.Instance.PlaySe(SEType.SE7);
-        // 爆破地点にエフェクトを再生
-        PlayParticle(_smoke, playerTransform);
         await Task.Delay(4000, cts.Token);
         // 待機アニメーションに切り替え
         _krakenAnimation.SetTrigger("Attack");
-    }
-
-    /// <summary>
-    /// エフェクトを再生する
-    /// </summary>
-    /// <param name="particle">再生するエフェクト</param>
-    /// <param name="PlayPoint">エフェクトを再生する座標</param>
-    private void PlayParticle(ParticleSystem particle, Transform PlayPoint)
-    {
-        ParticleSystem effect = Instantiate(particle, PlayPoint);
-        effect.Play();
-        Destroy(effect.gameObject);
     }
 }
