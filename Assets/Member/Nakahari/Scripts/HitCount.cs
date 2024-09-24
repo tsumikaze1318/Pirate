@@ -28,11 +28,14 @@ public class HitCount : MonoBehaviour
 
     PlayerInput _input;
 
+    private Rigidbody _rb;
+
     private void Start()
     {
         if( _player == null ) _player = GetComponent<Player>();
         _input = GetComponentInParent<PlayerInput>();
         _animator = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -63,11 +66,16 @@ public class HitCount : MonoBehaviour
         if (_count == 0 && !_effect)
         {
             _player._state = CommonParam.UnitState.Stun;
-            Vector3 instantiatePos = thisPos + new Vector3(0, 3f, 0);
-            var treasure = (GameObject)Resources.Load($"Prefab/diamond");
-            var diamond = Instantiate(treasure, instantiatePos, Quaternion.identity);
-            TreasureModel treasureModel = diamond.GetComponent<TreasureModel>();
-            treasureModel.ThrowTreasure(instantiatePos);
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            if (GameManager.Instance.Scores[_input.user.index] > 0)
+            {
+                Vector3 instantiatePos = thisPos + new Vector3(0, 3f, 0);
+                var treasure = (GameObject)Resources.Load($"Prefab/diamond");
+                var diamond = Instantiate(treasure, instantiatePos, Quaternion.identity);
+                TreasureModel treasureModel = diamond.GetComponent<TreasureModel>();
+                treasureModel.ThrowTreasure(instantiatePos);
+            }
             _animator.SetTrigger("Stun");
             _effect = true;
             GameManager.Instance.SubScore(_input.user.index);

@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
 
     void OnUiButton(InputValue value)
     {
-        if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameStart) return;
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {

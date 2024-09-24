@@ -168,7 +168,7 @@ MonoBehaviour:
   _maxAngleX: 60
   _minAngleX: -10
   _camera: {fileID: 5399278142194359788}
-  _cameraMoveSpeed: 4
+  _cameraMoveSpeed: 2
   _axisPos: {x: 0, y: 0, z: 0}
   _axisRot: {x: 16, y: 0, z: 0}
   _lookAction:

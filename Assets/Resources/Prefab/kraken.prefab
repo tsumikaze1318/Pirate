@@ -300,10 +300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd487b460aebe244bf9b658618f1c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _smoke: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
   _explosionRadius: 10
   _explosionForce: 10
-  _explosionUpwards: 0
+  _explosionUpwards: 5
 --- !u!114 &809207700768428539
 MonoBehaviour:
   m_ObjectHideFlags: 0

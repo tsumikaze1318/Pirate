@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour
 
         // Valueを降順でソート
         playerNumToScore = playerNumToScore
-                        .OrderByDescending(x => x.Value)
+                        .OrderBy(x => x.Value)
                         .ToDictionary(x => x.Key, x => x.Value);
     }
 
