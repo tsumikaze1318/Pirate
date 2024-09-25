@@ -308,8 +308,8 @@ public class Player : MonoBehaviour
             ParticleSystem splashPs = Instantiate(_splashPrefab, _fallPos, Quaternion.identity);
             Destroy(splashPs.gameObject, splashPs.main.duration);
             GameManager.Instance.SubScore(_playerInput.user.index);
-            _rb.velocity = Vector3.zero;
             _playerAssign.SetRespawnPlayer(gameObject.transform.parent.gameObject);
+            _rb.velocity = Vector3.zero;
         }
     }
     private void OnTriggerExit(Collider other)
