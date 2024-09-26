@@ -29,6 +29,7 @@ public class TimeCount : MonoBehaviour
         if (GameManager.Instance.GameEnd)
         {
             Timer = 0f;
+            timerText.text = (Mathf.Ceil(Timer)).ToString();
             return;
         }
         Timer -= Time.deltaTime;

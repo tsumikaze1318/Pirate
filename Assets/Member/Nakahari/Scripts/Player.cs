@@ -371,5 +371,12 @@ public class Player : MonoBehaviour
         {
             _moveForward = Vector3.zero;
         }
+
+        if(GameManager.Instance.GameEnd)
+        {
+            _moveForward = Vector3.zero;
+            _rb.velocity = Vector3.zero;
+            _animator.SetBool("Move", false);
+        }
     }
 }
