@@ -91,7 +91,6 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
-            if (_respawn) return;
             Vector3 camForward = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1)).normalized;
              _moveForward = camForward * axis.y + _camera.transform.right * axis.x;
             
@@ -348,16 +347,29 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += _moveForward * _moveSpeed;
-        _rb.angularVelocity = _moveForward;
-        if (_moveForward != Vector3.zero)
+        if(_state == CommonParam.UnitState.Normal)
         {
-            _animator.SetBool("Move", true);
-            transform.rotation = Quaternion.LookRotation(_moveForward);
+            if (_respawn) return;
+            transform.position += _moveForward * _moveSpeed;
+            _rb.angularVelocity = _moveForward;
+            if (_moveForward != Vector3.zero)
+            {
+                _animator.SetBool("Move", true);
+                transform.rotation = Quaternion.LookRotation(_moveForward);
+            }
+            else if (_moveForward == Vector3.zero)
+            {
+                _animator.SetBool("Move", false);
+            }
         }
-        else if (_moveForward == Vector3.zero)
+        else if(_state == CommonParam.UnitState.Stun)
         {
-            _animator.SetBool("Move", false);
+            _moveForward = Vector3.zero;
+            _rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            _moveForward = Vector3.zero;
         }
     }
 }

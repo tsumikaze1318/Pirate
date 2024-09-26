@@ -79,7 +79,7 @@ public class HitCount : MonoBehaviour
             _animator.SetTrigger("Stun");
             _effect = true;
             GameManager.Instance.SubScore(_input.user.index);
-            ParticleSystem stun = Instantiate(_stunPrefab, this.transform.position + new Vector3(0, 1.75f, 0), Quaternion.identity);
+            ParticleSystem stun = Instantiate(_stunPrefab, this.transform.position + new Vector3(0, 1.75f, 0), Quaternion.identity, transform);
             StartCoroutine(EffectDestroy(stun));
         }
     }
