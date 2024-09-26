@@ -49,11 +49,11 @@ MonoBehaviour:
   bgmDataList:
   - Type: 0
     Clip: {fileID: 8300000, guid: 263ae5e158a76d54494706e3f05632c6, type: 3}
-    Volume: 0.5
+    Volume: 1
     Loop: 1
   - Type: 1
     Clip: {fileID: 8300000, guid: 20230b1446458a44191384d3228f1524, type: 3}
-    Volume: 0.5
+    Volume: 1
     Loop: 1
   seDataList:
   - Type: 0
@@ -66,11 +66,11 @@ MonoBehaviour:
     Loop: 0
   - Type: 2
     Clip: {fileID: 8300000, guid: 7495e8c4065722a4cb03aa4dc79ed0a8, type: 3}
-    Volume: 0.6
+    Volume: 0.4
     Loop: 0
   - Type: 3
     Clip: {fileID: 8300000, guid: c03bcd62fb0ad0349bda67dff6288519, type: 3}
-    Volume: 0.6
+    Volume: 0.4
     Loop: 0
   - Type: 4
     Clip: {fileID: 8300000, guid: 5afe55bc316ddbd4f84c4c0168519fcd, type: 3}
