@@ -37,6 +37,7 @@ public class SharkManeger : MonoBehaviour
     private void Update()
     {
         if (!GameManager.Instance.GameStart) return;
+        if (GameManager.Instance.GameEnd) return;
         _timeElapsed += Time.deltaTime;
         if(_timeElapsed > 3)
         {

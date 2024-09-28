@@ -72,6 +72,7 @@ public class KrakenTentacleManagement : SingletonMonoBehaviour<KrakenTentacleMan
     async void Start()
     {
         CancellationTokenSource cts = new CancellationTokenSource();
+        if (GameManager.Instance.GameEnd) return;
         await UpdateKrakenTask(cts);
     }
 

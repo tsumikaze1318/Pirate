@@ -70,6 +70,8 @@ public class Player : MonoBehaviour
     private Vector3 _moveForward;
     private float _uiGage;
 
+    private bool _stop;
+
 
     #endregion
 
@@ -106,6 +108,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
+            if (_respawn) return;
             if (!_isJump && value.isPressed)
             {
                 _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
@@ -122,6 +125,7 @@ public class Player : MonoBehaviour
         if (GameManager.Instance.GameEnd) return;
         if (_state == CommonParam.UnitState.Normal)
         {
+            if (_respawn) return;
             if (value.isPressed != lastFire)
             {
                 _animator.SetBool("Attack", value.isPressed);
@@ -361,11 +365,15 @@ public class Player : MonoBehaviour
             {
                 _animator.SetBool("Move", false);
             }
+            _stop = false;
         }
         else if(_state == CommonParam.UnitState.Stun)
         {
             _moveForward = Vector3.zero;
+            if (_stop) return;
             _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+            _stop = true;
         }
         else
         {
