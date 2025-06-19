@@ -46,7 +46,7 @@ public class CameraSettings : MonoBehaviour
     void Start()
     {
         if (_player == null) _player = _playerObj.GetComponent<Player>();
-        _camera.targetDisplay = _playerInput.user.index;
+        //_camera.targetDisplay = _playerInput.user.index;
         _camera.transform.localPosition = new Vector3(0, 2, -5);
         _camera.transform.localRotation = transform.rotation;
         _cameraRot = _camera.transform.localRotation;

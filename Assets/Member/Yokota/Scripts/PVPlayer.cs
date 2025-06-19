@@ -10,11 +10,16 @@ public class PVPlayer : MonoBehaviour
 
     private VideoPlayer[] _videoPlayers;
     private Canvas[] _canvases;
+    [SerializeField]
+    private Camera[] _titleCameras;
+    [SerializeField]
+    private Camera _pvCamera;
 
     private void Start()
     {
         _videoPlayers = GetComponents<VideoPlayer>();
         _canvases = GetComponentsInChildren<Canvas>();
+
     }
 
     private void Update()
@@ -37,6 +42,13 @@ public class PVPlayer : MonoBehaviour
             canvas.enabled = false;
         }
 
+        _pvCamera.enabled = true;
+
+        foreach (var camera in _titleCameras)
+        {
+            camera.enabled = false;
+        }
+
         SoundManager.Instance.StopBgm();
 
         foreach (var player in _videoPlayers)
@@ -54,6 +66,13 @@ public class PVPlayer : MonoBehaviour
             player.Stop();
             _isPlay = false;
         }
+
+        foreach(var camera in _titleCameras)
+        {
+            camera.enabled = true;
+        }
+
+        _pvCamera.enabled = false;
 
         SoundManager.Instance.PlayBgm(BGMType.BGM1);
 
