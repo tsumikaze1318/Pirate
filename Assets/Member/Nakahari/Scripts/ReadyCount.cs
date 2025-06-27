@@ -13,6 +13,7 @@ public class ReadyCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 条件を満たした際にカウントダウンの関数を呼ぶ
         if (ImageReady.Instance._count == GameManager.Instance.Attendance && !ImageReady.Instance.Ready)
         {
             ImageReady.Instance.Ready = true;

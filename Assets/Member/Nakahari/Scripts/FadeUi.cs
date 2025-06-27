@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +24,7 @@ public class FadeUi : MonoBehaviour
         {
             foreach(Image image in _images)
             {
+                // rectTransform ‚Ì position ‚ª _border ‚ð’´‚¦‚é‚Ü‚Å image ‚ðã‚Éã‚°‚é
                 if (image.rectTransform.localPosition.y > _border) return;
                     var speed = _uiSpeed * Time.deltaTime;
                 image.rectTransform.position += new Vector3(0, speed, 0);

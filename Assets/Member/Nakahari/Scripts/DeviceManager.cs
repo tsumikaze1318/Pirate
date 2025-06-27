@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.DualShock;
@@ -32,6 +30,8 @@ public class DeviceManager : MonoBehaviour
 
     private int CurrentConnectionCount = 0;
 
+    private Color[] _lightColors = { Color.cyan, Color.red, Color.green, Color.yellow };
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,11 +54,16 @@ public class DeviceManager : MonoBehaviour
     /// </summary>
     void UpdateConnectedGamepads()
     {
+        // 一度初期化させる
         Array.Clear(_gamepad, _gamepad.Length, _gamepad.Length);
+        // _gamepad の数だけサイズを調整する
         Array.Resize(ref _gamepad, 0);
+        // 配列に変更
         _gamepad = Gamepad.all.ToArray();
+        // 要素の数だけ走る
         for(int i = 0; i < _gamepad.Length; i++)
         {
+            // 配列に要素を追加
             Gamepads.Add(i + 1, _gamepad[i]);
             Debug.Log(Gamepads[i+1]);
             // valueをクラスに変更
@@ -78,26 +83,13 @@ public class DeviceManager : MonoBehaviour
                 CurrentConnectionCount++;
             }
         }
-        switch (CurrentConnectionCount)
+
+        // 接続されている数と色数、コントローラー数の最小値だけループ
+        int count = Mathf.Min(CurrentConnectionCount, DualShock4GamepadHID.all.Count, _lightColors.Length);
+
+        for(int i = 0; i < count; i++)
         {
-            case 1:
-                ((DualShockGamepad)DualShock4GamepadHID.all[0]).SetLightBarColor(Color.cyan);
-                break;
-            case 2:
-                ((DualShockGamepad)DualShock4GamepadHID.all[0]).SetLightBarColor(Color.cyan);
-                ((DualShockGamepad)DualShock4GamepadHID.all[1]).SetLightBarColor(Color.red);
-                break;
-            case 3:
-                ((DualShockGamepad)DualShock4GamepadHID.all[0]).SetLightBarColor(Color.cyan);
-                ((DualShockGamepad)DualShock4GamepadHID.all[1]).SetLightBarColor(Color.red);
-                ((DualShockGamepad)DualShock4GamepadHID.all[2]).SetLightBarColor(Color.green);
-                break;
-            case 4:
-                ((DualShockGamepad)DualShock4GamepadHID.all[0]).SetLightBarColor(Color.cyan);
-                ((DualShockGamepad)DualShock4GamepadHID.all[1]).SetLightBarColor(Color.red);
-                ((DualShockGamepad)DualShock4GamepadHID.all[2]).SetLightBarColor(Color.green);
-                ((DualShockGamepad)DualShock4GamepadHID.all[3]).SetLightBarColor(Color.yellow);
-                break;
+            ((DualShockGamepad)DualShock4GamepadHID.all[i]).SetLightBarColor(_lightColors[i]);
         }
         
     }

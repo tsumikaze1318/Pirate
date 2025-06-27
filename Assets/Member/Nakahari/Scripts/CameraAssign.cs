@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,8 +13,10 @@ public class CameraAssign : MonoBehaviour
     {
         if (_camera == null) _camera = GetComponent<Camera>();
 
-        foreach(var displayIndex in DeviceManager.Instance.Gamepads)
+        // 接続されている Gamepad の数だけループする
+        for(int i = 0; i < DeviceManager.Instance.Gamepads.Count; i++)
         {
+            // カメラのディスプレイを接続されたコントローラーと同じ数字に変更
             _camera.targetDisplay = _playerInput.user.index;
         }
     }

@@ -13,6 +13,7 @@ public class ShipView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ship ‚ğ’‹‚µ‚ÄƒJƒƒ‰‚ğ‰ñ‚·
         transform.RotateAround(_ship.position, Vector3.up, _cameraSpeed);
     }
 }

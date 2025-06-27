@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraSettings : MonoBehaviour
@@ -26,25 +23,20 @@ public class CameraSettings : MonoBehaviour
     private float _cameraMoveSpeed;
 
     [SerializeField]
-    Vector3 _axisPos;
+    private Vector3 _axisPos;
     [SerializeField]
-    Vector3 _axisRot;
+    private Vector3 _axisRot;
 
     private Player _player;
 
-    Quaternion _cameraRot;
+    private Quaternion _cameraRot;
 
-    public InputAction _lookAction;
-
-    private void Awake()
-    {
-        _lookAction = _playerInput.actions["Look"];
-        _lookAction.Enable();
-    }
+    private Vector2 _axis;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Component の取得。それぞれの初期化
         if (_player == null) _player = _playerObj.GetComponent<Player>();
         _camera.targetDisplay = _playerInput.user.index;
         _camera.transform.localPosition = new Vector3(0, 2, -5);
@@ -57,23 +49,20 @@ public class CameraSettings : MonoBehaviour
     /// <summary>
     /// プレイヤーを中心にカメラの操作
     /// </summary>
-    private void OnLook()
+    public void OnLook(InputAction.CallbackContext ctx)
     {
-        var axis = _lookAction.ReadValue<Vector2>();
+        // 入力を受け取る
+        _axis = ctx.ReadValue<Vector2>();
+        // カメラの rotation を設定
         _camera.transform.localRotation = _cameraRot;
 
+        // 自身の position を PlayerPosition と axisPosition を足した数値に変更
         transform.position = _player.transform.position + _axisPos;
-
-        if (!GameManager.Instance.GameStart) return;
-        transform.eulerAngles += new Vector3(-axis.y * _cameraMoveSpeed, axis.x * _cameraMoveSpeed, 0);
-        
-        float angleX = transform.eulerAngles.x;
-
-        if(angleX >= 180) { angleX = angleX - 360; }
-
-        transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
+    /// <summary>
+    /// 落下した際にプレイヤーに向けてカメラを動かす
+    /// </summary>
     void StopCameraControl()
     {
         _camera.transform.LookAt(_playerObj.transform);
@@ -87,7 +76,18 @@ public class CameraSettings : MonoBehaviour
         }
         else
         {
-            OnLook();
+            if (!GameManager.Instance.GameStart) return;
+            // 自身を入力された値にカメラの移動速度を掛けた速度で動かす
+            transform.eulerAngles += new Vector3(-_axis.y * _cameraMoveSpeed, _axis.x * _cameraMoveSpeed, 0);
+
+            // 現在の X 軸を代入する
+            float angleX = transform.eulerAngles.x;
+
+            // 180 度を超えた場合 現在の X 軸に -360 度し反転しないようにする。
+            if (angleX >= 180) { angleX = angleX - 360; }
+
+            // Clamp を使い X 軸を制御しつつカメラを動かす
+            transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
         }
     }
 }

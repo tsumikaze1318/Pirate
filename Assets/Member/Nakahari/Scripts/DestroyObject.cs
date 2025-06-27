@@ -1,21 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // オブジェクトが特定のタグに触れた際に削除
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("UnderGround"))
