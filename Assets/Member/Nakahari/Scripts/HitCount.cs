@@ -55,13 +55,13 @@ public class HitCount : MonoBehaviour
             }
         }
         thisPos = this.transform.position;
-        HitCountor();
+        HitProcess();
     }
 
     /// <summary>
     /// スタンした際にエフェクトと持っているダイアモンドを落とす処理
     /// </summary>
-    public void HitCountor()
+    public void HitProcess()
     {
         if (_count == 0 && !_effect)
         {

@@ -83,10 +83,10 @@ public class CameraSettings : MonoBehaviour
             // 現在の X 軸を代入する
             float angleX = transform.eulerAngles.x;
 
-            // 180 度を超えた場合 現在の X 軸に -360 度し反転しないようにする。
+            // 180 度を超える角度を -180 ～ 180 の範囲に変更する
             if (angleX >= 180) { angleX = angleX - 360; }
 
-            // Clamp を使い X 軸を制御しつつカメラを動かす
+            // Clamp を使い X 軸を制御
             transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
         }
     }
