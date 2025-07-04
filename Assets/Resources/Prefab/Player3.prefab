@@ -233,8 +233,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.5
+    height: 0.5
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -246,7 +246,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 3
+  m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -395,6 +395,10 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2631901833880665877, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631901833880665877, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: _playerInput
       value: 
       objectReference: {fileID: 1646433932395426416}
@@ -430,6 +434,18 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: bb61abeffe7a9b74197aac92ad8fcb01, type: 3}
+    - target: {fileID: 6818949370316369270, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_TargetDisplay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818949370316369270, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818949370316369270, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8183146502184138186, guid: 6f8c13ec8f1ee1641bac5fbc3e7c0d27, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
