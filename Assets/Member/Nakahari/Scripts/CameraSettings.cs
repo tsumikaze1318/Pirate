@@ -38,11 +38,29 @@ public class CameraSettings : MonoBehaviour
     {
         // Component の取得。それぞれの初期化
         if (_player == null) _player = _playerObj.GetComponent<Player>();
-        _camera.targetDisplay = _playerInput.user.index;
+        // _camera.targetDisplay = _playerInput.user.index;
         _camera.transform.localPosition = new Vector3(0, 2, -5);
         _camera.transform.localRotation = transform.rotation;
         _cameraRot = _camera.transform.localRotation;
         transform.eulerAngles = _axisRot;
+
+
+        // カメラの rotation を設定
+        _camera.transform.localRotation = _cameraRot;
+
+        // 自身の position を PlayerPosition と axisPosition を足した数値に変更
+        transform.position = _player.transform.position;
+        // 自身を入力された値にカメラの移動速度を掛けた速度で動かす
+        transform.eulerAngles += new Vector3(-_axis.y * _cameraMoveSpeed, _axis.x * _cameraMoveSpeed, 0);
+
+        // 現在の X 軸を代入する
+        float angleX = transform.eulerAngles.x;
+
+        // 180 度を超える角度を -180 ～ 180 の範囲に変更する
+        if (angleX >= 180) { angleX = angleX - 360; }
+
+        // Clamp を使い X 軸を制御
+        transform.eulerAngles = new Vector3(Mathf.Clamp(angleX, _minAngleX, _maxAngleX), transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
 
@@ -53,11 +71,6 @@ public class CameraSettings : MonoBehaviour
     {
         // 入力を受け取る
         _axis = ctx.ReadValue<Vector2>();
-        // カメラの rotation を設定
-        _camera.transform.localRotation = _cameraRot;
-
-        // 自身の position を PlayerPosition と axisPosition を足した数値に変更
-        transform.position = _player.transform.position + _axisPos;
     }
 
     /// <summary>
@@ -76,7 +89,13 @@ public class CameraSettings : MonoBehaviour
         }
         else
         {
+            // カメラの rotation を設定
+            _camera.transform.localRotation = _cameraRot;
+
+            // 自身の position を PlayerPosition と axisPosition を足した数値に変更
+            transform.position = _player.transform.position;
             if (!GameManager.Instance.GameStart) return;
+            
             // 自身を入力された値にカメラの移動速度を掛けた速度で動かす
             transform.eulerAngles += new Vector3(-_axis.y * _cameraMoveSpeed, _axis.x * _cameraMoveSpeed, 0);
 

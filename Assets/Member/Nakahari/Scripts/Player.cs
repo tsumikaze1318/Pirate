@@ -131,7 +131,8 @@ public class Player : MonoBehaviour
             // 入力があった際
             if (ctx.performed)
             {
-                if (_respawn) return;
+                if (_respawn || _isJump) return;
+                _isJump = true;
                 // 上方向に力を追加
                 _rb.AddForce(new Vector3(0, _upForce, 0), ForceMode.Impulse);
                 // ジャンプアニメーションを流す
@@ -182,19 +183,6 @@ public class Player : MonoBehaviour
             }
         }
         
-    }
-
-    public void OnLongPress(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed)
-        {
-            _hold = true;
-        }
-        else if (ctx.canceled)
-        {
-            _hold = false;
-            _uiGage = 0;
-        }
     }
 
     #region カーソルの処理
@@ -424,10 +412,7 @@ public class Player : MonoBehaviour
             uiObject.SetActive(true);
 
         if (GameManager.Instance.GameStart) return;
-        if (_hold)
-        {
-            _uiGage = _holdAction.GetTimeoutCompletionPercentage();
-        }
+        _uiGage = _holdAction.GetTimeoutCompletionPercentage();
 
         GameManager.Instance.SetIconFill(_playerInput.user.index, _uiGage);
     }
