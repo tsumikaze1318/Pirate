@@ -4,26 +4,36 @@ using UnityEngine.InputSystem;
 
 public class HitCount : MonoBehaviour
 {
+    // スタンするまでのカウント
     [SerializeField]
     public int _count = 3;
 
-    Player _player;
+    // 自身のPlayerスクリプトを取得
+    private Player _player;
 
+    // 現在のスタン時間
     float _time = 0;
 
+    // スタン時間
     float _stunTime = 5f;
 
+    // スタンエフェクト
     [SerializeField]
-    ParticleSystem _stunPrefab;
-
+    private ParticleSystem _stunPrefab;
+    
+    // エフェクトがあるかどうか
     private bool _effect = false;
 
+    // 自身のアニメーター
     private Animator _animator;
 
-    Vector3 thisPos = Vector3.zero;
+    // 現在のプレイヤーの場所
+    private Vector3 thisPos = Vector3.zero;
 
-    PlayerInput _input;
+    // 自身のプレイヤー番号
+    private PlayerInput _input;
 
+    // 自身のrigidbody
     private Rigidbody _rb;
 
     private void Start()
@@ -102,7 +112,7 @@ public class HitCount : MonoBehaviour
     /// </summary>
     /// <param name="ps"></param>
     /// <returns></returns>
-    IEnumerator EffectDestroy(ParticleSystem ps)
+    private IEnumerator EffectDestroy(ParticleSystem ps)
     {
         yield return new WaitForSeconds(_stunTime);
         Destroy(ps.gameObject);

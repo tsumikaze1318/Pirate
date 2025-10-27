@@ -47,10 +47,14 @@ public class FillIcon : MonoBehaviour
 
     private void CheckSkip()
     {
-        foreach (var icon in _icons)
+        for(int i = 0;i < GameManager.Instance.Attendance; i++)
+        {
+            if (_icons[i].fillAmount < 1f) return;
+        }
+        /*foreach (var icon in _icons)
         {
             if (icon.fillAmount < 1f) return; 
-        }
+        }*/
 
         GameManager.Instance.FinishMovie();
     }

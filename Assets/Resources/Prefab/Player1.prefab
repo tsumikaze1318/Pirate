@@ -255,13 +255,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986228c2eb86e5e4898bebb985ffff6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInput: {fileID: 2999283457753441468}
   _playerObj: {fileID: 6669886354836584693}
   _maxAngleX: 60
   _minAngleX: -10
   _camera: {fileID: 2945663354650730962}
   _cameraMoveSpeed: 2
-  _axisPos: {x: 0, y: 0, z: 0}
   _axisRot: {x: 16, y: 0, z: 0}
 --- !u!1001 &5148582139833352677
 PrefabInstance:

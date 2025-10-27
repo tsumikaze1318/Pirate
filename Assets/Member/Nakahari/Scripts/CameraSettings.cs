@@ -3,34 +3,38 @@ using UnityEngine.InputSystem;
 
 public class CameraSettings : MonoBehaviour
 {
+    // 自身のプレイヤーオブジェクト
     [SerializeField]
-    private PlayerInput _playerInput;
+    private GameObject _playerObj;
 
-    [SerializeField]
-    GameObject _playerObj;
-
+    // X軸の最大角度
     [SerializeField]
     private float _maxAngleX;
 
+    // Y軸の最大角度
     [SerializeField]
     private float _minAngleX;
 
+    // 自身のカメラ
     [SerializeField]
     private Camera _camera;
 
+    // カメラ感度
     [SerializeField]
     [Header("感度")]
     private float _cameraMoveSpeed;
 
-    [SerializeField]
-    private Vector3 _axisPos;
+    // カメラの初期回転位置
     [SerializeField]
     private Vector3 _axisRot;
 
+    // 自身のPlayerスクリプト
     private Player _player;
 
+    // カメラの回転
     private Quaternion _cameraRot;
 
+    // コントローラーの入力の値
     private Vector2 _axis;
 
     // Start is called before the first frame update

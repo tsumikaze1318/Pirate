@@ -10,27 +10,29 @@ using UnityEngine.InputSystem.Users;
 
 public class PlayerAssign : MonoBehaviour
 {
+    // 生成するプレイヤーを格納するList
     [SerializeField]
-    List<GameObject> _playerList = new List<GameObject>();
+    private  List<GameObject> _playerList = new List<GameObject>();
 
+    // スポーン場所を格納するList
     [SerializeField]
-    List<Vector3> _spawnPos = new List<Vector3>();
+    private List<Vector3> _spawnPos = new List<Vector3>();
 
+    // 生成したプレイヤーを格納する配列
     private Player[] _players;
 
-    public static int _playerIndex;
-
+    // プレイヤーの番号
     private int _playerNum;
+
+    // リスポーン時間
     [SerializeField]
     private float _respwanTimer;
-    private float _timer;
 
+    // リスポーンする際のエフェクト
     [SerializeField]
-    ParticleSystem _respawnPrefab;
+    private ParticleSystem _respawnPrefab;
 
-    private GameObject _playerObj;
-    // private List<PlayerInput> _playerInputs = new List<PlayerInput>();
-
+    // プレイヤーの番号とプレイヤーのDictionary
     private Dictionary<int, GameObject> _numToPlayerObj = new Dictionary<int, GameObject>();
 
 
@@ -47,16 +49,21 @@ public class PlayerAssign : MonoBehaviour
     /// <summary>
     /// 最初のプレイヤー出現処理
     /// </summary>
-    void Assign()
+    private void Assign()
     {
+        // 参加人数分繰り返す
         for(int i = 0;i < GameManager.Instance.Attendance; i++)
         {
-            _playerObj = Instantiate(_playerList[i], _spawnPos[i], Quaternion.identity, transform);
-            Camera[] cameras = _playerObj.GetComponentsInChildren<Camera>(true);
-            _numToPlayerObj.Add(i + 1, _playerObj);
-            Debug.Log($"カメラの数{cameras.Length}");
+            // 指定した場所にプレイヤーを生成
+            var playerObj = Instantiate(_playerList[i], _spawnPos[i], Quaternion.identity, transform);
+            // 生成したプレイヤーの全てのカメラを取得
+            Camera[] cameras = playerObj.GetComponentsInChildren<Camera>(true);
+            // プレイヤーとコントローラーの番号を紐づけ
+            _numToPlayerObj.Add(i + 1, playerObj);
+            // 取得したカメラ分繰り返す
             for(int j = 0; j < cameras.Length; j++)
             {
+                // 取得したカメラのRectを指定
                 cameras[j].rect = PlayerViewportRect(GameManager.Instance.Attendance - 1, i);
             }
             
@@ -73,7 +80,13 @@ public class PlayerAssign : MonoBehaviour
             _numToPlayerObj.Add(key, _playerObj);
         }*/
     }
-    
+
+    /// <summary>
+    /// 参加人数によって画面分割を変える
+    /// </summary>
+    /// <param name="playerCount">参加したプレイヤーの数<see cref="GameManager.Instance.Attendance"/></param>
+    /// <param name="index">何番目のプレイヤーかの変数</param>
+    /// <returns>指定したRectで返ってくる</returns>
     private Rect PlayerViewportRect(int playerCount, int index)
     {
         switch (playerCount)
@@ -96,9 +109,9 @@ public class PlayerAssign : MonoBehaviour
     /// <summary>
     /// リスポーン処理
     /// </summary>
-    /// <param name="num">プレイヤー番号</param>
-    /// <param name="color">パーティクルの色</param>
-    void Respawn(int num, Color color)
+    /// <param name="num">プレイヤー番号<see cref="_numToPlayerObj"/>のkeyを代入</param>
+    /// <param name="color">パーティクルの色、カラーを直接指定</param>
+    private void Respawn(int num, Color color)
     {
         // プレイヤーの番号と同じスポーンポイントに移動
         _players[num].transform.position = _spawnPos[num];
@@ -112,7 +125,7 @@ public class PlayerAssign : MonoBehaviour
     /// <summary>
     /// 再生が終わるまで待つ
     /// </summary>
-    /// <param name="ps"></param>
+    /// <param name="ps">パーティクルシステムを代入</param>
     /// <returns></returns>
     IEnumerator EffectDestroy(ParticleSystem ps)
     {
@@ -123,8 +136,8 @@ public class PlayerAssign : MonoBehaviour
     /// <summary>
     /// エフェクト出現処理
     /// </summary>
-    /// <param name="num">パーティクルを表示するプレイヤーの番号</param>
-    /// <param name="color">パーティクルの色</param>
+    /// <param name="num">パーティクルを表示するプレイヤーの番号<see cref="_numToPlayerObj"/>のkeyを代入</param>
+    /// <param name="color">パーティクルの色、カラーを直接指定</param>
     void RespawnEffect(int num,Color color)
     {
         // リスポーンアニメーションを流す
@@ -145,7 +158,7 @@ public class PlayerAssign : MonoBehaviour
     /// <summary>
     /// リスポーンさせる処理
     /// </summary>
-    /// <param name="plObj">リスポーンさせるプレイヤーを指定</param>
+    /// <param name="plObj">リスポーンさせるプレイヤーオブジェクトを指定</param>
     public async void SetRespawnPlayer(GameObject plObj)
     {
         // _respwanTimer 秒待つ

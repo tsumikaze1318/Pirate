@@ -9,74 +9,66 @@ public class Player : MonoBehaviour
 {
     #region 宣言
 
+    // プレイヤーの現在の状態
     [SerializeField]
     public CommonParam.UnitState _state = CommonParam.UnitState.Normal;
-
-    PlayerInput _playerInput;
-
+    // 自身のInput
+    private PlayerInput _playerInput;
+    // 移動速度
     [SerializeField]
     private float _moveSpeed;
-
+    // ジャンプしているか
     bool _isJump = false;
-
-    Rigidbody _rb;
-
+    // 自身のRigidbody
+    private Rigidbody _rb;
+    // ジャンプ力
     [SerializeField]
     float _upForce;
-
+    // 自身のカメラ
     [SerializeField]
-    Camera _camera;
-
+    private Camera _camera;
+    // 自身のアニメーター
     public Animator _animator;
-
+    // 自身の武器
     [SerializeField]
     private GameObject _swordObj;
-
+    // リスポーン中か
     public bool _respawn = false;
-
+    // 武器のコライダー
     private BoxCollider _swordCollider;
-
+    // 自身のコライダー
     public CapsuleCollider _playerCollider;
-
+    // 自身のui
     [SerializeField]
     private GameObject uiObject;
-
     // 6/28　追記しました　横田
     [SerializeField]
     private PlayerGrab _playerGrab;
-
-    bool lastFire = false;
-
+    // 落ちた場所
     private Vector3 _fallPos;
-
+    // 落下時のエフェクト
     [SerializeField]
-    ParticleSystem _splashPrefab;
-
+    private ParticleSystem _splashPrefab;
+    // 落下時のエフェクト
     [SerializeField]
-    ParticleSystem _ripplesPrefab;
-
+    private ParticleSystem _ripplesPrefab;
+    // 攻撃した際のエフェクト
     [SerializeField]
-    ParticleSystem _particlePrefab;
-
+    private ParticleSystem _particlePrefab;
+    // 押せる状態かどうか
     private bool _button;
-
+    // PlayerAssignスクリプト
     private PlayerAssign _playerAssign;
-
-    Vector3 _hitPos;
-
+    // 表示Imegeの取得
     private ImageReady[] _imageColors;
-
+    // 長押ししてるかどうか
     public InputAction _holdAction;
-
+    // 進む方向
     private Vector3 _moveForward;
+    // ゲージ量
     private float _uiGage;
-
+    // 動けるかどうか
     private bool _stop;
-
-    private Pirate _input;
-
-    private bool _hold;
-
 
     #endregion
 

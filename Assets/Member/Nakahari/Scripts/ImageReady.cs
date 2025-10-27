@@ -14,12 +14,12 @@ public class ImageReady : MonoBehaviour
             return instance;
         }
     }
-
+    // readyImage‚ÌList
     [SerializeField]
     public List<Image> _images = new List<Image>();
-
+    // ‰Ÿ‚µ‚½l”
     public int _count = 0;
-
+    // €”õ‚ª‚Å‚«‚Ä‚¢‚é‚©
     public bool Ready = false;
 
     void Update()
