@@ -28,9 +28,11 @@ public class PlayerAssign : MonoBehaviour
     [SerializeField]
     ParticleSystem _respawnPrefab;
 
-    private List<PlayerInput> _playerInputs = new List<PlayerInput>();
+    private GameObject _playerObj;
+    // private List<PlayerInput> _playerInputs = new List<PlayerInput>();
 
     private Dictionary<int, GameObject> _numToPlayerObj = new Dictionary<int, GameObject>();
+
 
 
     void Start()
@@ -47,18 +49,50 @@ public class PlayerAssign : MonoBehaviour
     /// </summary>
     void Assign()
     {
+        for(int i = 0;i < GameManager.Instance.Attendance; i++)
+        {
+            _playerObj = Instantiate(_playerList[i], _spawnPos[i], Quaternion.identity, transform);
+            Camera[] cameras = _playerObj.GetComponentsInChildren<Camera>(true);
+            _numToPlayerObj.Add(i + 1, _playerObj);
+            Debug.Log($"カメラの数{cameras.Length}");
+            for(int j = 0; j < cameras.Length; j++)
+            {
+                cameras[j].rect = PlayerViewportRect(GameManager.Instance.Attendance - 1, i);
+            }
+            
+        }
+
         // プレイヤーの数分繰り返す
-        foreach (int key in DeviceManager.Instance.Gamepads.Keys)
+        /*foreach (int key in DeviceManager.Instance.Gamepads.Keys)
         {
             // 指定した場所にプレイヤーを生成
-            var player = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
+            _playerObj = Instantiate(_playerList[key - 1], _spawnPos[key - 1], Quaternion.identity, transform);
             // 取得した Input を要素に追加
-            _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
+            // _playerInputs.Add(player.GetComponentInChildren<PlayerInput>());
             // プレイヤーとコントローラーの番号を紐づけ
-            _numToPlayerObj.Add(key, player);
-        }
+            _numToPlayerObj.Add(key, _playerObj);
+        }*/
     }
     
+    private Rect PlayerViewportRect(int playerCount, int index)
+    {
+        switch (playerCount)
+        {
+            case 0: return new Rect(0, 0, 1, 1);
+            case 1:
+                return (index == 0) ? new Rect(0, 0.5f, 1, 0.5f) : new Rect(0, 0, 1, 0.5f);
+            case 2:
+                if (index == 0) return new Rect(0, 0.5f, 1, 0.5f);
+                if (index == 1) return new Rect(0, 0, 0.5f, 0.5f);
+                return new Rect(0.5f, 0, 0.5f, 0.5f);
+            case 3:
+                return new Rect((index % 2) * 0.5f, 0.5f - (index / 2) * 0.5f, 0.5f, 0.5f);
+            default:
+                return new Rect(0, 0, 1, 1);
+
+        }
+    }
+
     /// <summary>
     /// リスポーン処理
     /// </summary>

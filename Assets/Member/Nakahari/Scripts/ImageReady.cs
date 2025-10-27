@@ -33,7 +33,7 @@ public class ImageReady : MonoBehaviour
     /// </summary>
     private async void ReadyPlayer()
     {
-        foreach (var input in DeviceManager.Instance.Gamepads)
+        foreach (var input in DeviceManager.Instance.GamepadsDic)
         {
             // ボタンが押された際に image が表記されてない場合
             if (!_images[input.Key - 1].enabled && input.Value.aButton.isPressed)

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.DualShock;
 
 public class DeviceManager : MonoBehaviour
 {
+    // インスタンス化
     private static DeviceManager instance;
     private void Awake()
     {
@@ -22,21 +23,27 @@ public class DeviceManager : MonoBehaviour
 
     public static DeviceManager Instance => instance;
 
+    // 接続されてるゲームパッドの数
     private Gamepad[] _gamepad = new Gamepad[0];
+    public Gamepad[] Gamepads => _gamepad;
 
-    public Dictionary<int, Gamepad> Gamepads;
+    // ゲームパッドに番号を付けて管理
+    public Dictionary<int, Gamepad> GamepadsDic;
 
+    // 接続されているJoystickの名前
     public string[] JoystickNames = new string[0];
 
+    // 接続されているコントローラーの数
     private int CurrentConnectionCount = 0;
 
+    // コントローラーに表示するカラーの指定
     private Color[] _lightColors = { Color.cyan, Color.red, Color.green, Color.yellow };
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Gamepads = new Dictionary<int,Gamepad>();
+        GamepadsDic = new Dictionary<int,Gamepad>();
         UpdateConnectedGamepads();
     }
 
@@ -64,20 +71,25 @@ public class DeviceManager : MonoBehaviour
         for(int i = 0; i < _gamepad.Length; i++)
         {
             // 配列に要素を追加
-            Gamepads.Add(i + 1, _gamepad[i]);
-            Debug.Log(Gamepads[i+1]);
+            GamepadsDic.Add(i + 1, _gamepad[i]);
+            Debug.Log(GamepadsDic[i+1]);
             // valueをクラスに変更
             //Debug.Log($"Gamepad {i + 1}: {_gamepad[i].deviceId}");
         }
         ChengeColor();
     }
 
-
+    /// <summary>
+    /// ゲームパッドのライトカラーを変更
+    /// </summary>
     void ChengeColor()
     {
+        // 接続されているJoystickの名前を取得
         JoystickNames = Input.GetJoystickNames();
+        // 配列文繰り返す
         for(int i = 0; i < JoystickNames.Length; i++)
         {
+            // Joystickの名前があればカウントを追加する
             if (JoystickNames[i] != "")
             {
                 CurrentConnectionCount++;

@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        attendance = DeviceManager.Instance.Gamepads.Length;
         // プレイ人数に応じてリストにプレハブを追加
         for (int i = 0; i < attendance; i++)
         {
@@ -243,6 +244,11 @@ public class GameManager : MonoBehaviour
         {
             fillIcon.SetIconFillPercentage(num, percentage);
         }
+    }
+
+    public void NumPlayerCount(int num)
+    {
+        attendance = num;
     }
 
     #endregion
